@@ -40,7 +40,7 @@ class AProfileMenu extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Icon(icon, size: 18),
+            Expanded(child: Icon(icon, size: 18)),
           ],
         ),
       ),

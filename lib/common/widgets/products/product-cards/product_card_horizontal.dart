@@ -17,29 +17,32 @@ class AProductHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return Container(
       width: 310,
       padding: const EdgeInsets.all(1),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(ASizes.productImageRadius),
-        color: dark ? AColors.darkerGrey : AColors.softGrey,
+        color: darkMode ? AColors.darkerGrey : AColors.softGrey,
       ),
       child: Row(
         children: [
-          ///thumbnail
+          /// Thumbnail
           ARoundedContainer(
             height: 120,
             padding: const EdgeInsets.all(ASizes.sm),
-            backgroundColor: dark ? AColors.dark : AColors.light,
+            backgroundColor: darkMode ? AColors.dark : AColors.light,
             child: Stack(
               children: [
-                ///Thumbnail Image
+                /// Thumbnail Image
                 const SizedBox(
                   height: 120,
                   width: 120,
                   child: ARoundedImage(
-                      imageUrl: AImages.productImage1, applyImageRadius: true),
+                    imageUrl: AImages.productImage1,
+                    applyImageRadius: true,
+                  ),
                 ),
 
                 /// Sale Tag
@@ -75,32 +78,34 @@ class AProductHorizontal extends StatelessWidget {
             ),
           ),
 
-          ///Details
+          /// Details
           SizedBox(
             width: 172,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: ASizes.sm, top:ASizes.sm),
               child: Column(
                 children: [
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AProductTitleText(
-                          title: 'Green Nike Half Sleeves Shirt',
-                          smallSize: true),
+                        title: 'Green Nike Half Sleeves Shirt',
+                        smallSize: true,
+                      ),
                       SizedBox(height: ASizes.spaceBtwItems / 2),
                       ABrandTitleWithVerifiedIcon(title: 'Nike'),
                     ],
                   ),
+              
                   const Spacer(),
+              
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ///Pricing
+                      /// Price
                       const Flexible(child: AProductPriceText(price: '256.0')),
-
-                      /// Add to Cart
-
+              
+                      /// Add to Cart Button
                       Container(
                         decoration: const BoxDecoration(
                           color: AColors.dark,
@@ -119,11 +124,11 @@ class AProductHorizontal extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

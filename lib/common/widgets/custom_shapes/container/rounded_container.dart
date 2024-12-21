@@ -17,15 +17,12 @@ class ARoundedContainer extends StatelessWidget {
     this.borderColor = AColors.borderPrimary,
   });
 
-  final double? width;
-  final double? height;
+  final double? width, height;
   final double radius;
   final Widget? child;
   final bool showBorder;
-  final Color borderColor;
-  final Color backgroundColor;
-  final EdgeInsetsGeometry? padding;
-  final EdgeInsetsGeometry? margin;
+  final Color borderColor, backgroundColor;
+  final EdgeInsetsGeometry? padding, margin;
 
   @override
   Widget build(BuildContext context) {

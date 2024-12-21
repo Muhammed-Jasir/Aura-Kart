@@ -13,10 +13,8 @@ class ACircularContainer extends StatelessWidget {
     this.backgroundColor = AColors.white,
   });
 
-  final double? width;
-  final double? height;
-  final double radius;
-  final double padding;
+  final double? width, height;
+  final double radius, padding;
   final EdgeInsets? margin;
   final Widget? child;
   final Color backgroundColor;

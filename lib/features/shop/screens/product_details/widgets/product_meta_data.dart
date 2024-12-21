@@ -11,13 +11,12 @@ import 'package:aurakart/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class AProductMetaData extends StatelessWidget {
-  const AProductMetaData({
-    super.key,
-  });
+  const AProductMetaData({super.key});
 
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,9 +28,7 @@ class AProductMetaData extends StatelessWidget {
               radius: ASizes.sm,
               backgroundColor: AColors.secondary.withOpacity(0.8),
               padding: const EdgeInsets.symmetric(
-                horizontal: ASizes.sm,
-                vertical: ASizes.xs,
-              ),
+                  horizontal: ASizes.sm, vertical: ASizes.xs),
               child: Text(
                 '25%',
                 style: Theme.of(context)
@@ -43,7 +40,7 @@ class AProductMetaData extends StatelessWidget {
 
             const SizedBox(width: ASizes.spaceBtwItems),
 
-            /// Price
+            /// Old Price
             Text(
               '₹250',
               style: Theme.of(context)
@@ -54,18 +51,15 @@ class AProductMetaData extends StatelessWidget {
 
             const SizedBox(width: ASizes.spaceBtwItems),
 
-            const AProductPriceText(
-              price: '175',
-              isLarge: true,
-            ),
+            // New Price
+            const AProductPriceText(price: '175', isLarge: true),
           ],
         ),
 
         const SizedBox(height: ASizes.spaceBtwItems / 1.5),
 
-        /// Title
+        /// Product Title
         const AProductTitleText(title: 'Green Nike Sports Shirt'),
-
         const SizedBox(height: ASizes.spaceBtwItems / 1.5),
 
         /// Stock Status
@@ -82,13 +76,16 @@ class AProductMetaData extends StatelessWidget {
         /// Brand
         Row(
           children: [
+            // Brand Icon
             ACircularImage(
               image: AImages.shoeIcon,
-              width: 28,
-              height: 28,
+              width: 32,
+              height: 32,
               overLayColor: darkMode ? AColors.white : AColors.black,
             ),
+
             const SizedBox(width: ASizes.spaceBtwItems / 4),
+
             const ABrandTitleWithVerifiedIcon(
               title: 'Nike',
               brandTextSize: TextSizes.medium,

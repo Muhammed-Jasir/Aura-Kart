@@ -9,6 +9,7 @@ class ACartItems extends StatelessWidget {
     super.key,
     this.showAddRemoveButtons = true,
   });
+
   final bool showAddRemoveButtons;
 
   @override
@@ -16,17 +17,17 @@ class ACartItems extends StatelessWidget {
     return ListView.separated(
       itemCount: 2,
       shrinkWrap: true,
-      separatorBuilder: (_, __) => const SizedBox(
-        height: ASizes.spaceBtwSections,
-      ),
+      separatorBuilder: (_, __) =>
+          const SizedBox(height: ASizes.spaceBtwSections),
       itemBuilder: (_, index) => Column(
         children: [
           /// Cart Item
           const ACartitem(),
+
           if (showAddRemoveButtons)
             const SizedBox(height: ASizes.spaceBtwItems),
 
-          /// Add Remove Button Row with total Price
+          /// Add & Remove Button Row with Total Price
           if (showAddRemoveButtons)
             const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,12 +37,12 @@ class ACartItems extends StatelessWidget {
                     /// Extra Space
                     SizedBox(width: 70),
 
-                    /// Add remove buttons
+                    /// Add & Remove buttons
                     AProductQuantityWithAddRemoveButton(),
                   ],
                 ),
 
-                /// Product total price
+                /// Product Total Price
                 AProductPriceText(price: '256'),
               ],
             ),

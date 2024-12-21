@@ -8,41 +8,50 @@ import 'package:flutter/material.dart';
 
 class SubCatogoriesScreen extends StatelessWidget {
   const SubCatogoriesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AAppBar(title: Text('sports shirts'), showBackArrow: true),
+      // Appbar
+      appBar: const AAppBar(
+        title: Text('Sports'),
+        showBackArrow: true,
+      ),
+      // Body
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(ASizes.defaultSpace),
           child: Column(
             children: [
-              /// banner
+              /// Banner
               const ARoundedImage(
-                  width: double.infinity,
-                  height: null,
-                  imageUrl: AImages.promoBanner3,
-                  applyImageRadius: true),
+                width: double.infinity,
+                height: null,
+                imageUrl: AImages.promoBanner3,
+                applyImageRadius: true,
+              ),
+
               const SizedBox(height: ASizes.spaceBtwSections),
 
-              /// Sub-categories
+              /// Sub-Categories
               Column(
                 children: [
-                  ///Heading
-                  ASectionHeading(title: 'Sports shirts', onPressed: () {}),
+                  /// Heading
+                  ASectionHeading(title: 'Sports Shirts', onPressed: () {}),
                   const SizedBox(height: ASizes.spaceBtwItems / 2),
                   SizedBox(
                     height: 120,
                     child: ListView.separated(
-                        itemCount: 4,
-                        scrollDirection: Axis.horizontal,
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(width: ASizes.spaceBtwItems),
-                        itemBuilder: (context, index) =>
-                            const AProductHorizontal()),
+                      itemCount: 4,
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: ASizes.spaceBtwItems),
+                      itemBuilder: (context, index) =>
+                          const AProductHorizontal(),
+                    ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

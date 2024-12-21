@@ -18,6 +18,7 @@ class AChoiceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isColor = AHelperFunctions.getColor(text) != null;
+    
     return Theme(
       data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
       child: ChoiceChip(

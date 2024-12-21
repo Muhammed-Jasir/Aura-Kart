@@ -20,21 +20,19 @@ class ACircularImage extends StatelessWidget {
   final BoxFit? fit;
   final String image;
   final bool isNetworkImage;
-  final Color? overLayColor;
-  final Color? backgroundColor;
+  final Color? overLayColor, backgroundColor;
   final double width, height, padding;
 
   @override
   Widget build(BuildContext context) {
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return Container(
-      width: 56,
-      height: 56,
-      padding: const EdgeInsets.all(ASizes.sm),
+      width: width,
+      height: height,
+      padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        color: backgroundColor ??
-            (AHelperFunctions.isDarkMode(context)
-                ? AColors.black
-                : AColors.white),
+        color: backgroundColor ?? (darkMode ? AColors.black : AColors.light),
         borderRadius: BorderRadius.circular(100),
       ),
       child: Center(

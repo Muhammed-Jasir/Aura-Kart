@@ -10,16 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AProductImageSlider extends StatelessWidget {
-  const AProductImageSlider({
-    super.key,
-  });
+  const AProductImageSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return ACurvedEdgesWidget(
       child: Container(
-        color: dark ? AColors.darkerGrey : AColors.light,
+        color: darkMode ? AColors.darkerGrey : AColors.light,
         child: Stack(
           children: [
             /// Main Large Image
@@ -28,9 +27,7 @@ class AProductImageSlider extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(ASizes.productImageRadius * 2),
                 child: Center(
-                  child: Image(
-                    image: AssetImage(AImages.productImage1),
-                  ),
+                  child: Image(image: AssetImage(AImages.productImage1)),
                 ),
               ),
             ),
@@ -51,7 +48,7 @@ class AProductImageSlider extends StatelessWidget {
                       const SizedBox(width: ASizes.spaceBtwItems),
                   itemBuilder: (_, index) => ARoundedImage(
                     width: 80,
-                    backgroundColor: dark ? AColors.dark : AColors.white,
+                    backgroundColor: darkMode ? AColors.dark : AColors.white,
                     border: Border.all(color: AColors.primary),
                     padding: const EdgeInsets.all(ASizes.sm),
                     imageUrl: AImages.productImage22,
@@ -64,10 +61,7 @@ class AProductImageSlider extends StatelessWidget {
             const AAppBar(
               showBackArrow: true,
               actions: [
-                ACircularIcon(
-                  icon: Iconsax.heart5,
-                  color: Colors.red,
-                ),
+                ACircularIcon(icon: Iconsax.heart5, color: Colors.red),
               ],
             ),
           ],

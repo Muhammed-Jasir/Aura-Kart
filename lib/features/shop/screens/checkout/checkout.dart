@@ -19,58 +19,57 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return Scaffold(
+      // Appbar
       appBar: AAppBar(
         showBackArrow: true,
-        title: Text('Order Review',
-            style: Theme.of(context).textTheme.headlineSmall),
+        title: Text(
+          'Order Review',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
       ),
+
+      // Body
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(ASizes.defaultSpace),
           child: Column(
             children: [
-              /// Item in Cart
+              /// Items in Cart
               const ACartItems(showAddRemoveButtons: false),
               const SizedBox(height: ASizes.spaceBtwSections),
 
-              /// -- Coupon TextField
+              /// Coupon TextField
               const ACouponCode(),
               const SizedBox(height: ASizes.spaceBtwItems),
 
-              /// --Billing Section
-
+              /// Billing Section
               ARoundedContainer(
                 showBorder: true,
                 padding: const EdgeInsets.all(ASizes.md),
-                backgroundColor: dark ? AColors.black : AColors.white,
+                backgroundColor: darkMode ? AColors.black : AColors.white,
                 child: const Column(
                   children: [
                     /// Pricing
                     ABillingAmountSection(),
-                    SizedBox(
-                      height: ASizes.spaceBtwItems,
-                    ),
+                    SizedBox(height: ASizes.spaceBtwItems),
 
                     /// Divider
                     Divider(),
-                    SizedBox(
-                      height: ASizes.spaceBtwItems,
-                    ),
+                    SizedBox(height: ASizes.spaceBtwItems),
 
                     /// Payment Methods
                     ABillingPaymentSection(),
-                    SizedBox(
-                      height: ASizes.spaceBtwItems,
-                    ),
+                    SizedBox(height: ASizes.spaceBtwItems),
 
                     /// Address
-                    ABillingAddressSection()
+                    ABillingAddressSection(),
+                    SizedBox(height: ASizes.spaceBtwItems),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -88,7 +87,7 @@ class CheckoutScreen extends StatelessWidget {
                     onPressed: () => Get.offAll(() => const NavigationMenu()),
                   ),
                 ),
-            child: const Text('Checkout \$256.0')),
+            child: const Text('Checkout ₹256.0')),
       ),
     );
   }

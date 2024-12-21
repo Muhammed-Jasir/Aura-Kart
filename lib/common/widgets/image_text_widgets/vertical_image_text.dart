@@ -21,7 +21,8 @@ class AVerticalImageText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -34,14 +35,14 @@ class AVerticalImageText extends StatelessWidget {
               height: 56,
               padding: const EdgeInsets.all(ASizes.sm),
               decoration: BoxDecoration(
-                color: backgroundColor ?? (dark ? Colors.black : AColors.white),
+                color: backgroundColor ?? (darkMode ? Colors.black : AColors.white),
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Center(
                 child: Image(
-                  image: const AssetImage(AImages.sportIcon),
+                  image: AssetImage(image),
                   fit: BoxFit.cover,
-                  color: dark ? AColors.light : AColors.dark,
+                  color: darkMode ? AColors.light : AColors.dark,
                 ),
               ),
             ),
@@ -52,7 +53,7 @@ class AVerticalImageText extends StatelessWidget {
             SizedBox(
               width: 55,
               child: Text(
-                'shoes category',
+                title,
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
@@ -60,7 +61,7 @@ class AVerticalImageText extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-            )
+            ),
           ],
         ),
       ),

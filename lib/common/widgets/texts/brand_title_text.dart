@@ -25,7 +25,7 @@ class ABrandTitleText extends StatelessWidget {
       maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
 
-      // Check brandsize is required and set that style.
+      // Check brandsize and set that style.
       style: brandTextSize == TextSizes.small
           ? Theme.of(context).textTheme.labelMedium!.apply(color: color)
           : brandTextSize == TextSizes.medium

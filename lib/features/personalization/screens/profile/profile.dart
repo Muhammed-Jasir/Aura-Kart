@@ -14,10 +14,13 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Appbar
       appBar: const AAppBar(
         showBackArrow: true,
         title: Text('Profile'),
       ),
+    
+      // Body
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(ASizes.defaultSpace),
@@ -28,8 +31,14 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
+                    // Image
                     const ACircularImage(
-                        image: AImages.user, width: 80, height: 80),
+                      image: AImages.user,
+                      width: 80,
+                      height: 80,
+                    ),
+    
+                    // Button
                     TextButton(
                       onPressed: () {},
                       child: const Text('Change Profile Picture'),
@@ -37,57 +46,59 @@ class ProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
+    
               const SizedBox(height: ASizes.spaceBtwItems / 2),
-
-              /// Details
+    
               const Divider(),
-
+    
               const SizedBox(height: ASizes.spaceBtwItems),
-
-              /// Heading Personal Info
+    
+              /// Details
               const ASectionHeading(
                 title: 'Personal Information',
                 showActionbutton: false,
               ),
-
+    
               const SizedBox(height: ASizes.spaceBtwItems),
-
+    
+              /// Heading Personal Info
               AProfileMenu(
                 title: 'User ID',
                 value: '45689',
                 icon: Iconsax.copy,
                 onPressed: () {},
               ),
-
+    
               AProfileMenu(
                 title: 'E-mail',
                 value: 'support@aurakart.com',
                 onPressed: () {},
               ),
-
+    
               AProfileMenu(
                 title: 'Phone Number',
                 value: '+91-3178059528',
                 onPressed: () {},
               ),
-
+    
               AProfileMenu(
                 title: 'Gender',
                 value: 'Male',
                 onPressed: () {},
               ),
-
+    
               AProfileMenu(
                 title: 'Date of Birth',
                 value: '18 Oct, 2000',
                 onPressed: () {},
               ),
-
-              const Divider(),
-
+    
               const SizedBox(height: ASizes.spaceBtwItems),
-
+    
+              const Divider(),
+    
+              const SizedBox(height: ASizes.spaceBtwItems),
+    
               Center(
                 child: TextButton(
                   onPressed: () {},

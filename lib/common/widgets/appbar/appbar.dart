@@ -24,7 +24,7 @@ class AAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ASizes.md),
       child: AppBar(
@@ -34,7 +34,7 @@ class AAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () => Get.back(),
                 icon: Icon(
                   Iconsax.arrow_left,
-                  color: dark ? AColors.white : AColors.dark,
+                  color: darkMode ? AColors.white : AColors.dark,
                 ),
               )
             : leadingIcon != null

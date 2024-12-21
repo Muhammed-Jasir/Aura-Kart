@@ -38,7 +38,7 @@ class ForgetPassword extends StatelessWidget {
                 style: Theme.of(context).textTheme.labelMedium,
               ),
       
-              const SizedBox(height: ASizes.spaceBtwSections * 2),
+              const SizedBox(height: ASizes.spaceBtwSections * 1.5),
       
               /// Email Text Field
               TextFormField(

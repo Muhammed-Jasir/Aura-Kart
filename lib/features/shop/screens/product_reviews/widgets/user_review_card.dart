@@ -12,31 +12,36 @@ class UserReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return Column(
       children: [
+        // User Review
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
+                // User Avatar
                 const CircleAvatar(
-                  backgroundImage: AssetImage(AImages.userProfileImage),
+                  backgroundImage: AssetImage(AImages.userProfileImage1),
                 ),
+
                 const SizedBox(width: ASizes.spaceBtwItems),
-                Text(
-                  'Niggawhohas3legs',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
+
+                // Name
+                Text('Nigga', style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert),),
+
+            // More Icon
+            IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert)),
           ],
         ),
+
         const SizedBox(height: ASizes.spaceBtwItems),
 
-        ///review
-
+        /// Review Star & Rating
         Row(
           children: [
             const ARatingBarIndictator(rating: 4),
@@ -44,28 +49,33 @@ class UserReviewCard extends StatelessWidget {
             Text('01 Nov, 2023', style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
-        const SizedBox(width: ASizes.spaceBtwItems),
-        const ReadMoreText(
-          'I JUST LOVE THIS APP FROM BOTTOM OF MY HEART ',
-          trimLines: 1,
-          trimMode: TrimMode.Line,
-          trimExpandedText: 'Show Less',
-          trimCollapsedText: 'Show More',
-          moreStyle: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: AColors.primary),
-          lessStyle: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: AColors.primary),
-        ),
+
         const SizedBox(height: ASizes.spaceBtwItems),
 
-        ///company review
+        // Review Text
+        const ReadMoreText(
+          'I JUST LOVE THIS APP FROM BOTTOM OF MY HEART. I JUST LOVE THIS APP FROM BOTTOM OF MY HEART. I JUST LOVE THIS APP FROM BOTTOM OF MY HEART. I JUST LOVE THIS APP FROM BOTTOM OF MY HEART.',
+          trimLines: 2,
+          trimMode: TrimMode.Line,
+          trimExpandedText: ' less',
+          trimCollapsedText: ' more',
+          moreStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: AColors.primary,
+          ),
+          lessStyle: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: AColors.primary,
+          ),
+        ),
 
+        const SizedBox(height: ASizes.spaceBtwItems),
+
+        /// Company Review
         ARoundedContainer(
-          backgroundColor: dark ? AColors.darkerGrey : AColors.grey,
+          backgroundColor: darkMode ? AColors.darkerGrey : AColors.grey,
           child: Padding(
             padding: const EdgeInsets.all(ASizes.md),
             child: Column(
@@ -73,32 +83,42 @@ class UserReviewCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("AURAKART",
-                        style: Theme.of(context).textTheme.titleMedium),
-                    Text("2 nov , 2024",
-                        style: Theme.of(context).textTheme.bodyMedium),
+                    Text(
+                      "Aura-Kart",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      "02 Nov, 2024",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ],
                 ),
-                const SizedBox(width: ASizes.spaceBtwItems),
+
+                const SizedBox(height: ASizes.spaceBtwItems),
+
+                // Review Text
                 const ReadMoreText(
                   'I JUST LOVE THIS APP FROM BOTTOM OF MY HEART ',
-                  trimLines: 1,
+                  trimLines: 2,
                   trimMode: TrimMode.Line,
-                  trimExpandedText: 'Show Less',
-                  trimCollapsedText: 'Show More',
+                  trimExpandedText: ' less',
+                  trimCollapsedText: ' more',
                   moreStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: AColors.primary),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AColors.primary,
+                  ),
                   lessStyle: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: AColors.primary),
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AColors.primary,
+                  ),
                 ),
               ],
             ),
           ),
         ),
+
         const SizedBox(height: ASizes.spaceBtwSections),
       ],
     );

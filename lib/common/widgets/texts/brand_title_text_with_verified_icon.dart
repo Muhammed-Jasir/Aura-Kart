@@ -27,6 +27,7 @@ class ABrandTitleWithVerifiedIcon extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // Brand Text
         Flexible(
           child: ABrandTitleText(
             title: title,
@@ -36,7 +37,10 @@ class ABrandTitleWithVerifiedIcon extends StatelessWidget {
             brandTextSize: brandTextSize,
           ),
         ),
+
         const SizedBox(width: ASizes.xs),
+
+        // Verify Icon
         Icon(
           Iconsax.verify5,
           color: iconColor,

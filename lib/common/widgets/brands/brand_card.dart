@@ -20,11 +20,10 @@ class ABrandCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
       onTap: onTap,
-
       /// Container Design
       child: ARoundedContainer(
         padding: const EdgeInsets.all(ASizes.sm),
@@ -39,13 +38,13 @@ class ABrandCard extends StatelessWidget {
                 isNetworkImage: false,
                 image: AImages.clothIcon,
                 backgroundColor: Colors.transparent,
-                overLayColor: dark ? AColors.white : AColors.black,
+                overLayColor: darkMode ? AColors.white : AColors.black,
               ),
             ),
 
             const SizedBox(width: ASizes.spaceBtwItems / 2),
 
-            // Text
+            /// Text
             // Expanded and Column [minAxisSize] is required to keep the elements in vertical center and
             // also to keep the text inside the box
             Expanded(
@@ -58,7 +57,7 @@ class ABrandCard extends StatelessWidget {
                     brandTextSize: TextSizes.large,
                   ),
                   Text(
-                    '25 products',
+                    '256 products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),

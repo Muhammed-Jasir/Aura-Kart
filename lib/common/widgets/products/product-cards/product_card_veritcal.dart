@@ -19,16 +19,18 @@ class AProductCardVertical extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return GestureDetector(
       onTap: () => Get.to(() => const ProductDetailScreen()),
+      /// Product Card Container
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           boxShadow: [AShadowStyle.verticalProductShadow],
           borderRadius: BorderRadius.circular(ASizes.productImageRadius),
-          color: dark ? AColors.darkerGrey : Colors.white,
+          color: darkMode ? AColors.darkerGrey : AColors.white,
         ),
         child: Column(
           children: [
@@ -36,7 +38,7 @@ class AProductCardVertical extends StatelessWidget {
             ARoundedContainer(
               height: 180,
               padding: const EdgeInsets.all(ASizes.sm),
-              backgroundColor: dark ? AColors.dark : AColors.light,
+              backgroundColor: darkMode ? AColors.dark : AColors.light,
               child: Stack(
                 children: [
                   /// Thumbnail Image
@@ -82,24 +84,31 @@ class AProductCardVertical extends StatelessWidget {
 
             ///  Details
             const Padding(
-              padding: EdgeInsets.only(left: ASizes.sm),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AProductTitleText(
-                    title: 'Green Nike Shoe',
-                    smallSize: true,
-                  ),
-                  SizedBox(height: ASizes.spaceBtwItems / 2),
-                  ABrandTitleWithVerifiedIcon(title: "Nike"),
-                ],
+              padding: EdgeInsets.symmetric(horizontal: ASizes.sm),
+              child: SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Product Name
+                    AProductTitleText(
+                      title: 'Green Nike Air Shoes',
+                      smallSize: true,
+                    ),
+                
+                    SizedBox(height: ASizes.spaceBtwItems / 2),
+                
+                    // Brand & Verify Icon
+                    ABrandTitleWithVerifiedIcon(title: "Nike"),
+                  ],
+                ),
               ),
             ),
 
-            /// Todo: Add Spacer() here to keep the height of each Box same in case 1 or 2 lines of Headings
+            /// To keep the height of each Box same in case 1 or 2 lines of Headings
             const Spacer(),
 
-            // Price Row
+            // Price & Add to Cart Row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

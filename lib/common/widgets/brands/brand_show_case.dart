@@ -26,7 +26,8 @@ class ABrandShowcase extends StatelessWidget {
         children: [
           // Brands with Product Count
           const ABrandCard(showBorder: false),
-
+          const SizedBox(height: ASizes.spaceBtwItems),
+          
           // Brand Top 3 Product Images
           Row(
             children: images
@@ -45,7 +46,7 @@ Widget brandTopProductImageWidget(String image, context) {
       height: 100,
       backgroundColor: AHelperFunctions.isDarkMode(context)
           ? AColors.darkerGrey
-          : AColors.light,
+          : AColors.grey,
       margin: const EdgeInsets.only(right: ASizes.sm),
       padding: const EdgeInsets.all(ASizes.md),
       child: Image(

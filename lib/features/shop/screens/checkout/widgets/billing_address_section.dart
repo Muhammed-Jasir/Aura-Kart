@@ -11,15 +11,21 @@ class ABillingAddressSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ASectionHeading(
-            title: 'Shipping Address', buttontitle: 'Change', onPressed: () {}),
-        Text('Coding with A', style: Theme.of(context).textTheme.bodyLarge),
+          title: 'Shipping Address',
+          buttontitle: 'Change',
+          onPressed: () {},
+        ),
+        const SizedBox(height: ASizes.spaceBtwItems / 2),
+        Text('Aurakart', style: Theme.of(context).textTheme.bodyLarge),
         const SizedBox(height: ASizes.spaceBtwItems / 2),
         Row(
           children: [
             const Icon(Icons.phone, color: Colors.grey, size: 16),
             const SizedBox(width: ASizes.spaceBtwItems),
-            Text('+92-317-8859525',
-                style: Theme.of(context).textTheme.bodyMedium),
+            Text(
+              '+91 94728-38442',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ],
         ),
         const SizedBox(height: ASizes.spaceBtwItems / 2),
@@ -28,9 +34,12 @@ class ABillingAddressSection extends StatelessWidget {
             const Icon(Icons.location_history, color: Colors.grey, size: 16),
             const SizedBox(width: ASizes.spaceBtwItems),
             Expanded(
-                child: Text('South Liana, Maine 87695, USA',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    softWrap: true)),
+              child: Text(
+                'South Liana, Maine 87695, USA',
+                style: Theme.of(context).textTheme.bodyMedium,
+                softWrap: true,
+              ),
+            ),
           ],
         ),
       ],

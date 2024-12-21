@@ -12,10 +12,13 @@ class AllProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      // Appbar
       appBar: AAppBar(
-        title: Text('popular products'),
+        title: Text('Popular Products'),
         showBackArrow: true,
       ),
+      
+      // Body
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(ASizes.defaultSpace),

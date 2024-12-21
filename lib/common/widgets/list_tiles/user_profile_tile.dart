@@ -15,12 +15,15 @@ class AUserProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      // User Image
       leading: const ACircularImage(
         image: AImages.user,
         width: 50,
         height: 50,
         padding: 0,
       ),
+
+      // Name
       title: Text(
         'Aurakart',
         style: Theme.of(context)
@@ -28,14 +31,18 @@ class AUserProfileTile extends StatelessWidget {
             .headlineSmall!
             .apply(color: AColors.white),
       ),
+
+      // Email
       subtitle: Text(
         'support@aurakart.com',
         style:
             Theme.of(context).textTheme.bodyMedium!.apply(color: AColors.white),
       ),
+
+      // Edit Icon
       trailing: IconButton(
         onPressed: onPressed,
-        icon: const Icon(Iconsax.edit, color: AColors.white),
+        icon: const Icon(Iconsax.edit, color: AColors.white)
       ),
     );
   }

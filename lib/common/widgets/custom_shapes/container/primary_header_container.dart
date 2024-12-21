@@ -20,20 +20,24 @@ class APrimaryHeaderContainer extends StatelessWidget {
         child: Stack(
           children: [
             /// Background Custom Shapes
+            // First Circle
             Positioned(
               top: -150,
               right: -250,
               child: ACircularContainer(
-                backgroundColor: AColors.textWhite.withOpacity(0.1),
+                backgroundColor: AColors.white.withOpacity(0.1),
               ),
             ),
+
+            // Second Circle
             Positioned(
               top: 100,
               right: -300,
               child: ACircularContainer(
-                backgroundColor: AColors.textWhite.withOpacity(0.1),
+                backgroundColor: AColors.white.withOpacity(0.1),
               ),
             ),
+
             child,
           ],
         ),

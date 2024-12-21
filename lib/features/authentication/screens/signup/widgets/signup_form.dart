@@ -93,7 +93,6 @@ class ASignupForm extends StatelessWidget {
 
           /// Terms and Conditions Checkbox
           const ATermsConditonCheckbox(),
-
           const SizedBox(height: ASizes.spaceBtwSections),
 
           /// Signup Button

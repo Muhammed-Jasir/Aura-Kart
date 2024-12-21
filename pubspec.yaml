@@ -62,13 +62,13 @@ flutter:
     - assets/logos/
     - assets/icons/brands/
     - assets/icons/categories/
+    - assets/icons/payment_methods/
     - assets/images/banners/
     - assets/images/on_boarding_animations/
     - assets/images/animations/
     - assets/images/products/
     - assets/images/profile/
     - assets/images/reviews/
-
   
 # --------------- LOCAL FONTS ------------------ #
   fonts:

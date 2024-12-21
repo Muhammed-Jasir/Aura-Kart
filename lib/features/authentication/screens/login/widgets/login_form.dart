@@ -4,6 +4,7 @@ import 'package:aurakart/navigation_menu.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
+import 'package:aurakart/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -13,6 +14,8 @@ class ALoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkMode = AHelperFunctions.isDarkMode(context);
+    
     return Form(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: ASizes.spaceBtwSections),
@@ -55,7 +58,8 @@ class ALoginForm extends StatelessWidget {
                 TextButton(
                   onPressed: () => Get.to(() => const ForgetPassword()),
                   style: TextButton.styleFrom(
-                    foregroundColor: AColors.textSecondary,
+                    foregroundColor:
+                        darkMode ? AColors.textSecondary : AColors.textPrimary,
                   ),
                   child: const Text(ATexts.forgetPassword),
                 ),

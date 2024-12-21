@@ -5,6 +5,8 @@ import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import "package:aurakart/features/shop/screens/all_products/all_products.dart";
+import "package:get/get.dart";
 
 class TCategoryTab extends StatelessWidget {
   const TCategoryTab({super.key});
@@ -42,7 +44,7 @@ class TCategoryTab extends StatelessWidget {
               ASectionHeading(
                 title: 'You might like',
                 showActionbutton: true,
-                onPressed: () {},
+                onPressed: () => Get.to(() => const AllProducts()),
               ),
 
               const SizedBox(height: ASizes.spaceBtwItems),

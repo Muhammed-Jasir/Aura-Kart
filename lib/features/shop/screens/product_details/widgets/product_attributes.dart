@@ -13,28 +13,34 @@ class AProductAttributes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return Column(
       children: [
         // Selected Attribute Pricing & Description
         ARoundedContainer(
-          backgroundColor: dark ? AColors.darkGrey : AColors.grey,
+          backgroundColor: darkMode ? AColors.darkGrey : AColors.grey,
           padding: const EdgeInsets.all(ASizes.md),
           child: Column(
             children: [
               // Title, Price and Stock status
               Row(
                 children: [
+                  // Title
                   const ASectionHeading(
                     title: 'Variation',
                     showActionbutton: false,
                   ),
+
                   const SizedBox(width: ASizes.spaceBtwItems),
+
+                  // Price and Stock status
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
+                          // Price Text
                           const AProductTitleText(
                             title: "Price: ",
                             smallSize: true,
@@ -56,13 +62,16 @@ class AProductAttributes extends StatelessWidget {
                         ],
                       ),
 
-                      /// Stock
+                      /// Stock Status
                       Row(
                         children: [
+                          // Stock Text
                           const AProductTitleText(
                             title: 'Stock: ',
                             smallSize: true,
                           ),
+
+                          // Stock Status
                           Text(
                             'In Stock',
                             style: Theme.of(context).textTheme.titleMedium,
@@ -80,54 +89,84 @@ class AProductAttributes extends StatelessWidget {
                     "This is the description of the product and it can go up to max 4 lines.",
                 smallSize: true,
                 maxlines: 4,
-              )
+              ),
             ],
           ),
         ),
 
         const SizedBox(height: ASizes.spaceBtwItems),
 
-        /// Atributes
+        // Color Attributes
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Title
             const ASectionHeading(
               title: "Colors",
               showActionbutton: false,
             ),
+
             const SizedBox(height: ASizes.spaceBtwItems / 2),
+
+            // Attributes
             Wrap(
               spacing: 8,
               children: [
                 AChoiceChip(
-                    text: 'Green', selected: true, onSelected: (value) {}),
+                  text: 'Green',
+                  selected: true,
+                  onSelected: (value) {},
+                ),
                 AChoiceChip(
-                    text: 'Blue', selected: false, onSelected: (value) {}),
+                  text: 'Blue',
+                  selected: false,
+                  onSelected: (value) {},
+                ),
                 AChoiceChip(
-                    text: 'Pink', selected: false, onSelected: (value) {}),
+                  text: 'Pink',
+                  selected: false,
+                  onSelected: (value) {},
+                ),
               ],
-            )
+            ),
           ],
         ),
+
+        const SizedBox(height: ASizes.spaceBtwItems),
+
+        // Size Attributes
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Title
             const ASectionHeading(
               title: "Size",
               showActionbutton: false,
             ),
+
             const SizedBox(height: ASizes.spaceBtwItems / 2),
+
+            // Attributes
             Wrap(
               spacing: 8,
               children: [
                 AChoiceChip(
-                    text: 'EU 34', selected: true, onSelected: (value) {}),
+                  text: 'EU 34',
+                  selected: true,
+                  onSelected: (value) {},
+                ),
                 AChoiceChip(
-                    text: 'EU 36', selected: false, onSelected: (value) {}),
+                  text: 'EU 36',
+                  selected: false,
+                  onSelected: (value) {},
+                ),
                 AChoiceChip(
-                    text: 'WU 38', selected: false, onSelected: (value) {}),
+                  text: 'WU 38',
+                  selected: false,
+                  onSelected: (value) {},
+                ),
               ],
-            )
+            ),
           ],
         ),
       ],

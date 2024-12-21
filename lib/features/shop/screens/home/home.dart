@@ -34,15 +34,15 @@ class HomeScreen extends StatelessWidget {
             const APrimaryHeaderContainer(
               child: Column(
                 children: [
-                  /// Appbar
+                  // Appbar
                   AHomeAppbar(),
                   SizedBox(height: ASizes.spaceBtwSections),
-
-                  /// Search bar
-                  ASearchContainer(text: 'search in store'),
+    
+                  // Searchbar
+                  ASearchContainer(text: 'Search in Store'),
                   SizedBox(height: ASizes.spaceBtwSections),
-
-                  /// Category Section
+    
+                  // Category Section
                   Padding(
                     padding: EdgeInsets.only(left: ASizes.defaultSpace),
                     child: Column(
@@ -53,19 +53,20 @@ class HomeScreen extends StatelessWidget {
                           showActionbutton: false,
                           textColor: AColors.white,
                         ),
-
+    
                         SizedBox(height: ASizes.spaceBtwItems),
-
+    
                         /// Categories
                         AHomeCategories(),
                       ],
                     ),
                   ),
+    
                   SizedBox(height: ASizes.spaceBtwSections),
                 ],
               ),
             ),
-
+    
             /// Body
             Padding(
               padding: const EdgeInsets.all(ASizes.defaultSpace),
@@ -79,17 +80,17 @@ class HomeScreen extends StatelessWidget {
                       AImages.promoBanner3,
                     ],
                   ),
-
+    
                   const SizedBox(height: ASizes.spaceBtwSections),
-
-                  /// Heading
+    
+                  /// Product Heading
                   ASectionHeading(
                     title: 'Popular Products',
                     onPressed: () => Get.to(() => const AllProducts()),
                   ),
-
-                  const SizedBox(height: ASizes.spaceBtwSections),
-
+    
+                  const SizedBox(height: ASizes.spaceBtwItems),
+    
                   /// Popular Products
                   AGridLayout(
                     itemCount: 4,
@@ -97,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

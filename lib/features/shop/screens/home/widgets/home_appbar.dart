@@ -1,13 +1,13 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AHomeAppbar extends StatelessWidget {
-  const AHomeAppbar({
-    super.key,
-  });
+  const AHomeAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +15,7 @@ class AHomeAppbar extends StatelessWidget {
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Title
           Text(
             ATexts.homeAppbarTitle,
             style: Theme.of(context)
@@ -22,6 +23,8 @@ class AHomeAppbar extends StatelessWidget {
                 .labelMedium!
                 .apply(color: AColors.grey),
           ),
+
+          // Sub-Title
           Text(
             ATexts.homeAppbarSubTitle,
             style: Theme.of(context)
@@ -32,8 +35,9 @@ class AHomeAppbar extends StatelessWidget {
         ],
       ),
       actions: [
+        // Cart Icon
         ACartCouterIcon(
-          onPressed: () {},
+          onPressed: () => Get.to(() => const CartScreen()),
           iconColor: AColors.white,
         ),
       ],

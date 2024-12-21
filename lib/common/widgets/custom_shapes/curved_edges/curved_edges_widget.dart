@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class ACurvedEdgesWidget extends StatelessWidget {
   const ACurvedEdgesWidget({
     super.key,
-    required this.child,
+    this.child,
   });
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {

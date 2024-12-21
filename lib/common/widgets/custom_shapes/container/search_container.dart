@@ -26,7 +26,7 @@ class ASearchContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -37,12 +37,16 @@ class ASearchContainer extends StatelessWidget {
           padding: const EdgeInsets.all(ASizes.md),
           decoration: BoxDecoration(
             color: showBackground
-                ? dark
+                ? darkMode
                     ? AColors.dark
                     : AColors.light
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(ASizes.cardRadiusLg),
-            border: showBorder ? Border.all(color: AColors.grey) : null,
+            border: showBorder
+                ? Border.all(
+                    color: darkMode ? AColors.darkerGrey : AColors.grey,
+                  )
+                : null,
           ),
           child: Row(
             children: [

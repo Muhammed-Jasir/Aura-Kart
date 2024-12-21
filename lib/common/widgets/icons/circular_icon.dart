@@ -23,7 +23,7 @@ class ACircularIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
 
     return Container(
       width: width,
@@ -32,7 +32,7 @@ class ACircularIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(100),
         color: backgroundColor != null
             ? backgroundColor!
-            : dark
+            : darkMode
                 ? AColors.black.withOpacity(0.9)
                 : AColors.white.withOpacity(0.9),
       ),

@@ -19,8 +19,8 @@ class ProductReviewsScreens extends StatelessWidget {
     return Scaffold(
       /// Appbar
       appBar: const AAppBar(
-        title: Text('Reviews and Ratings'),
-        showBackArrow: true,
+        title: Text('Reviews & Ratings'),
+        showBackArrow: true
       ),
 
       /// Body
@@ -31,18 +31,17 @@ class ProductReviewsScreens extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Ratings and Reviews are verified and are from people who use the the same type of devices that you use. ",
+                "Ratings and Reviews are verified and are from people who use the the same type of devices that you use.",
               ),
               const SizedBox(height: ASizes.spaceBtwItems),
 
-              /// Overall product ratings
+              /// Overall Product Ratings
               const AOverallProductRating(),
               const ARatingBarIndictator(rating: 3.5),
               Text("12,611", style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: ASizes.spaceBtwSections),
 
-              /// User Reviews list
-              const UserReviewCard(),
+              /// User Reviews List
               const UserReviewCard(),
               const UserReviewCard(),
               const UserReviewCard(),

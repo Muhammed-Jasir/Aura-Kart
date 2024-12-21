@@ -8,12 +8,12 @@ import 'package:aurakart/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class ACartitem extends StatelessWidget {
-  const ACartitem({
-    super.key,
-  });
+  const ACartitem({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final darkMode = AHelperFunctions.isDarkMode(context);
+
     return Row(
       children: [
         /// Image
@@ -22,41 +22,54 @@ class ACartitem extends StatelessWidget {
           width: 60,
           height: 60,
           padding: const EdgeInsets.all(ASizes.sm),
-          backgroundColor: AHelperFunctions.isDarkMode(context)
-              ? AColors.darkerGrey
-              : AColors.light,
+          backgroundColor: darkMode ? AColors.darkerGrey : AColors.light,
         ),
+
         const SizedBox(width: ASizes.spaceBtwItems),
 
         /// Title, Price, & Size
         Expanded(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ABrandTitleWithVerifiedIcon(title: 'Nike'),
-            const Flexible(
-                child: AProductTitleText(
-                    title: 'Black Sports shoes', maxlines: 1)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Brand Title
+              const ABrandTitleWithVerifiedIcon(title: 'Nike'),
 
-            /// Attributes
-            Text.rich(TextSpan(
-              children: [
+              // Product Title
+              const Flexible(
+                child: AProductTitleText(
+                  title: 'Black Sports shoes',
+                  maxlines: 1,
+                ),
+              ),
+
+              /// Attributes
+              Text.rich(
                 TextSpan(
-                    text: 'Color',
-                    style: Theme.of(context).textTheme.bodySmall),
-                TextSpan(
-                    text: 'Green',
-                    style: Theme.of(context).textTheme.bodyLarge),
-                TextSpan(
-                    text: 'Size', style: Theme.of(context).textTheme.bodySmall),
-                TextSpan(
-                    text: 'UK 08',
-                    style: Theme.of(context).textTheme.bodyLarge),
-              ],
-            ))
-          ],
-        )),
+                  children: [
+                    TextSpan(
+                      text: 'Color',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    TextSpan(
+                      text: 'Green',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    TextSpan(
+                      text: 'Size',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                    TextSpan(
+                      text: 'UK 08',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

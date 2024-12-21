@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AHomeCategories extends StatelessWidget {
-  const AHomeCategories({
-    super.key,
-  });
+  const AHomeCategories({super.key});
 
   @override
   Widget build(BuildContext context) {

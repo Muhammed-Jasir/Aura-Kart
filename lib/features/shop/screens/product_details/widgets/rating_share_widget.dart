@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ARatingAndShare extends StatelessWidget {
-  const ARatingAndShare({
-    super.key,
-  });
+  const ARatingAndShare({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +13,11 @@ class ARatingAndShare extends StatelessWidget {
         /// Rating
         Row(
           children: [
-            const Icon(
-              Iconsax.star5,
-              color: Colors.amber,
-              size: 24,
-            ),
+            // Rating Icon
+            const Icon(Iconsax.star5, color: Colors.amber, size: 24),
             const SizedBox(width: ASizes.spaceBtwItems / 2),
+
+            // Rating Text
             Text.rich(
               TextSpan(
                 children: [
@@ -28,9 +25,7 @@ class ARatingAndShare extends StatelessWidget {
                     text: '5.0 ',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  const TextSpan(
-                    text: '(199)',
-                  ),
+                  const TextSpan(text: '(199)'),
                 ],
               ),
             ),
@@ -40,10 +35,7 @@ class ARatingAndShare extends StatelessWidget {
         /// Share Button
         IconButton(
           onPressed: () {},
-          icon: const Icon(
-            Icons.share,
-            size: ASizes.iconMd,
-          ),
+          icon: const Icon(Icons.share, size: ASizes.iconMd),
         )
       ],
     );

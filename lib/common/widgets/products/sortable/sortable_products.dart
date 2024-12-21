@@ -23,8 +23,12 @@ class ASortableProducts extends StatelessWidget {
             'Newest',
             'Popularity'
           ]
-              .map((option) =>
-                  DropdownMenuItem(value: option, child: Text(option)))
+              .map(
+                (option) => DropdownMenuItem(
+                  value: option,
+                  child: Text(option),
+                ),
+              )
               .toList(),
         ),
 
