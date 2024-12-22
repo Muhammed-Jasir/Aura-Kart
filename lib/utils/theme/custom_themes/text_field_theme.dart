@@ -12,9 +12,9 @@ class ATextFieldTheme {
     suffixIconColor: AColors.darkGrey,
     // consAraints: const BoxConstraints.expand(height: TSizes.inputFieldHeight),
     labelStyle: const TextStyle()
-        .copyWith(fontSize: ASizes.fontSizeMd, color: AColors.black),
-    hintStyle: const TextStyle()
-        .copyWith(fontSize: ASizes.fontSizeSm, color: AColors.black),
+        .copyWith(fontSize: ASizes.fontSizeMd, color: AColors.darkGrey),
+    hintStyle: const TextStyle(color: AColors.grey)
+        .copyWith(fontSize: ASizes.fontSizeSm, color: AColors.darkGrey),
     errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
     floatingLabelStyle: const TextStyle().copyWith(
       color: AColors.black.withOpacity(0.8),
@@ -39,6 +39,9 @@ class ATextFieldTheme {
       borderRadius: BorderRadius.circular(ASizes.inputFieldRadius),
       borderSide: const BorderSide(width: 2, color: AColors.warning),
     ),
+
+    isDense: true,
+    contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   );
 
   // Dark Theme For Text Field
@@ -48,9 +51,9 @@ class ATextFieldTheme {
     suffixIconColor: AColors.darkGrey,
     // constraints: const BoxConstraints.expand(height: TSizes.inputFieldHeight),
     labelStyle: const TextStyle()
-        .copyWith(fontSize: ASizes.fontSizeMd, color: AColors.white),
-    hintStyle: const TextStyle()
-        .copyWith(fontSize: ASizes.fontSizeSm, color: AColors.white),
+        .copyWith(fontSize: ASizes.fontSizeMd, color: AColors.darkGrey),
+    hintStyle: const TextStyle(color: AColors.grey)
+        .copyWith(fontSize: ASizes.fontSizeSm, color: AColors.darkGrey),
     errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
     floatingLabelStyle: const TextStyle().copyWith(
       color: AColors.white.withOpacity(0.8),
@@ -75,5 +78,7 @@ class ATextFieldTheme {
       borderRadius: BorderRadius.circular(ASizes.inputFieldRadius),
       borderSide: const BorderSide(width: 2, color: AColors.warning),
     ),
+    isDense: true,
+    contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   );
 }

@@ -24,7 +24,7 @@ class ALoginForm extends StatelessWidget {
             /// Email
             TextFormField(
               decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.direct_right),
+                prefixIcon: Icon(Icons.email_outlined),
                 labelText: ATexts.email,
               ),
             ),

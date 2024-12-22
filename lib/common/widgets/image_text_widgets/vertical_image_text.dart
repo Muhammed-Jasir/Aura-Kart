@@ -35,7 +35,7 @@ class AVerticalImageText extends StatelessWidget {
               height: 56,
               padding: const EdgeInsets.all(ASizes.sm),
               decoration: BoxDecoration(
-                color: backgroundColor ?? (darkMode ? Colors.black : AColors.white),
+                color: backgroundColor ?? (darkMode ? AColors.dark : AColors.light),
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Center(

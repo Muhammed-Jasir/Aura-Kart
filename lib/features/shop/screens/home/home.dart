@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
     
                   // Category Section
                   Padding(
-                    padding: EdgeInsets.only(left: ASizes.defaultSpace),
+                    padding: EdgeInsets.only(left: ASizes.defaultSpace, right: ASizes.defaultSpace),
                     child: Column(
                       children: [
                         /// Heading

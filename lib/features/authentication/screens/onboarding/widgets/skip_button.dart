@@ -18,7 +18,7 @@ class OnBoardingSkip extends StatelessWidget {
       child: TextButton(
         onPressed: () => OnBoardingController.instance.skipPage(),
         style: TextButton.styleFrom(
-          foregroundColor: darkMode ? AColors.light : AColors.primary,
+          foregroundColor: darkMode ? AColors.light : AColors.dark,
           backgroundColor: darkMode
               ? AColors.primary.withOpacity(0.2)
               : AColors.primary.withOpacity(0.2),

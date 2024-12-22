@@ -18,7 +18,7 @@ class AProductImageSlider extends StatelessWidget {
 
     return ACurvedEdgesWidget(
       child: Container(
-        color: darkMode ? AColors.darkerGrey : AColors.light,
+        color: darkMode ? AColors.darkerGrey : AColors.white,
         child: Stack(
           children: [
             /// Main Large Image
@@ -34,7 +34,7 @@ class AProductImageSlider extends StatelessWidget {
 
             /// Image Slider
             Positioned(
-              right: 0,
+              right: ASizes.defaultSpace,
               bottom: 30,
               left: ASizes.defaultSpace,
               child: SizedBox(

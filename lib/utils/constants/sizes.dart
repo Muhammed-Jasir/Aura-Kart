@@ -50,7 +50,7 @@ class ASizes {
   static const double productItemHeight = 160.0;
 
   // Input Field
-  static const double inputFieldRadius = 12.0;
+  static const double inputFieldRadius = 8.0;
   static const double spaceBtwInputFields = 16.0;
 
   // Card Sizes
