@@ -1,4 +1,5 @@
 import 'package:aurakart/features/authentication/screens/onboarding/onboarding.dart';
+import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/theme/theme.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,12 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AAppTheme.lightTheme,
       darkTheme: AAppTheme.darkTheme,
-      home: const OnBoardingScreen(),
+      home: const Scaffold(
+        backgroundColor: AColors.primary,
+        body: Center(
+          child: CircularProgressIndicator(color: AColors.white),
+        ),
+      ),
     );
   }
 }
