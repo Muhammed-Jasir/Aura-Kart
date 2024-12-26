@@ -1,3 +1,4 @@
+import 'package:aurakart/bindings/general_bindings.dart';
 import 'package:aurakart/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/theme/theme.dart';
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AAppTheme.lightTheme,
       darkTheme: AAppTheme.darkTheme,
+      initialBinding: GeneralBindings(),
+      /// show loader or cicular progress indicator meanwhile auth is deciding to show screen
       home: const Scaffold(
         backgroundColor: AColors.primary,
         body: Center(
