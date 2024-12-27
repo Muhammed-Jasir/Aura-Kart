@@ -1,6 +1,7 @@
 import 'package:aurakart/data/repositories/authentication/authentication_repository.dart';
 import 'package:aurakart/data/repositories/user/user_repository.dart';
 import 'package:aurakart/features/authentication/screens/signup/verify_email.dart';
+import 'package:aurakart/features/personalization/models/user_model.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/helpers/network_manager.dart';
 import 'package:aurakart/utils/popups/full_screen_loader.dart';
@@ -53,14 +54,14 @@ class SignupController extends GetxController {
 
       //register user in the firebase & save user data in the firebase
 
-      final UserCredential = await AuthenticationRepository.instance
+      final userCredential = await AuthenticationRepository.instance
           .registerWithEmailAndPassword(
               email.text.trim(), password.text.trim());
 
       // save authenticated user data in the firebase firestore
       final newUser = UserModel(
-        id: UserCredential.user!.vid,
-        firstname: firstname.text.trim(),
+        id: userCredential.user!.uid,
+        firstName: firstname.text.trim(),
         lastName: lastName.text.trim(),
         username: username.text.trim(),
         email: email.text.trim(),
@@ -71,22 +72,23 @@ class SignupController extends GetxController {
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 
-       // remove loader
+      // remove loader
       AFullScreenLoader.stopLoading();
-      
+
       //show success messege
       ALoaders.successSnackBar(
           title: 'Congratulations',
           message: 'Your Account has been created ! verify email to continue');
       //move to verify email Screen
-      Get.to(() => const VerifyEmailScreen());
+      Get.to(() => VerifyEmailScreen(
+            email: email.text.trim(),
+          ));
     } catch (e) {
       // remove loader
       AFullScreenLoader.stopLoading();
 
       // show some generic error to user
       ALoaders.errorSnackBar(title: 'Uh Oh MyNigga!', message: e.toString());
-      
     }
   }
 }

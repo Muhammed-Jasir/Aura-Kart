@@ -1,16 +1,18 @@
+import 'package:aurakart/features/personalization/models/user_model.dart';
 import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
 import 'package:aurakart/utils/exceptions/format_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
 
-  final FirebaseFirestore_db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   /// Function to save user data to Firestore.
   Future<void> saveUserRecord(UserModel user) async {
