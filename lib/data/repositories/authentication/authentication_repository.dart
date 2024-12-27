@@ -117,5 +117,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
+  loginWithEmailAndPassword(String trim, String trim2) {}
+
   /// Delete User - Remove user Auth and FireBase Account
 }
