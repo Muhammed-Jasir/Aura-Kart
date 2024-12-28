@@ -1,4 +1,5 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
+import 'package:aurakart/data/repositories/authentication/authentication_repository.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/primary_header_container.dart';
 import 'package:aurakart/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:aurakart/common/widgets/list_tiles/user_profile_tile.dart';
@@ -156,7 +157,8 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                        Get.offAll(() => AuthenticationRepository.instance.logout()),
                       child: const Text('Logout'),
                     ),
                   ),

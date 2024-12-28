@@ -1,4 +1,4 @@
-import 'package:aurakart/features/authentication/controllers/onboading/onboarding_controller.dart';
+import 'package:aurakart/features/authentication/controllers/onboarding/onboarding_controller.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/device/device_utility.dart';
@@ -20,8 +20,8 @@ class OnBoardingSkip extends StatelessWidget {
         style: TextButton.styleFrom(
           foregroundColor: darkMode ? AColors.light : AColors.dark,
           backgroundColor: darkMode
-              ? AColors.primary.withOpacity(0.2)
-              : AColors.primary.withOpacity(0.2),
+              ? AColors.primary.withValues(alpha: 0.2)
+              : AColors.primary.withValues(alpha: 0.2),
           textStyle: const TextStyle(fontSize: 16),
         ),
         child: const Text('Skip'),

@@ -49,7 +49,7 @@ class ATextTheme {
     bodySmall: const TextStyle().copyWith(
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
-      color: AColors.dark.withOpacity(0.5),
+      color: AColors.dark.withValues(alpha: 0.5),
     ),
     labelLarge: const TextStyle().copyWith(
       fontSize: 12.0,
@@ -59,7 +59,7 @@ class ATextTheme {
     labelMedium: const TextStyle().copyWith(
       fontSize: 12.0,
       fontWeight: FontWeight.normal,
-      color: AColors.dark.withOpacity(0.5),
+      color: AColors.dark.withValues(alpha: 0.5),
     ),
   );
 
@@ -108,7 +108,7 @@ class ATextTheme {
     bodySmall: const TextStyle().copyWith(
       fontSize: 14.0,
       fontWeight: FontWeight.w500,
-      color: AColors.light.withOpacity(0.5),
+      color: AColors.light.withValues(alpha: 0.5),
     ),
     labelLarge: const TextStyle().copyWith(
       fontSize: 12.0,
@@ -118,7 +118,7 @@ class ATextTheme {
     labelMedium: const TextStyle().copyWith(
       fontSize: 12.0,
       fontWeight: FontWeight.normal,
-      color: AColors.light.withOpacity(0.5),
+      color: AColors.light.withValues(alpha: 0.5),
     ),
   );
 }

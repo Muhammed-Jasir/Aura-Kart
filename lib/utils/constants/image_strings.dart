@@ -17,7 +17,7 @@ class AImages {
   static const String onBoardingImage3 =
       "assets/images/on_boarding_animations/delivery.json";
 
-  //Authentication Animations and Images
+  // Authentication Animations and Images
   static const String docerAnimation =
       "assets/images/animations/animations/141594-animation-of-docer.json";
   static const String successfullyRegisterAnimation =

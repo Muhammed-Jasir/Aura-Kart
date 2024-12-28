@@ -20,12 +20,13 @@ class ALoaders {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             color: AHelperFunctions.isDarkMode(Get.context!)
-                ? AColors.darkerGrey.withOpacity(0.9)
-                : AColors.grey.withOpacity(0.9),
+                ? AColors.darkerGrey.withValues(alpha: 0.9)
+                : AColors.grey.withValues(alpha: 0.9),
           ),
           child: Center(
-              child: Text(message,
-                  style: Theme.of(Get.context!).textTheme.labelLarge)),
+            child: Text(message,
+                style: Theme.of(Get.context!).textTheme.labelLarge),
+          ),
         ),
       ),
     );

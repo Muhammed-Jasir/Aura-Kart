@@ -47,9 +47,11 @@ class ALoginForm extends StatelessWidget {
                   suffixIcon: IconButton(
                     onPressed: () => controller.hidePassword.value =
                         !controller.hidePassword.value,
-                    icon: Icon(controller.hidePassword.value
-                        ? Iconsax.eye_slash
-                        : Iconsax.eye),
+                    icon: Icon(
+                      controller.hidePassword.value
+                          ? Iconsax.eye_slash
+                          : Iconsax.eye,
+                    ),
                   ),
                 ),
               ),
@@ -63,10 +65,13 @@ class ALoginForm extends StatelessWidget {
                 /// Remembear Me
                 Row(
                   children: [
-                    Obx(() => Checkbox(
+                    Obx(
+                      () => Checkbox(
                         value: controller.rememberMe.value,
                         onChanged: (value) => controller.rememberMe.value =
-                            !controller.rememberMe.value)),
+                            !controller.rememberMe.value,
+                      ),
+                    ),
                     const Text(ATexts.rememberMe),
                   ],
                 ),

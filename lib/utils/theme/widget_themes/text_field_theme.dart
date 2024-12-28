@@ -17,7 +17,7 @@ class ATextFieldTheme {
         .copyWith(fontSize: ASizes.fontSizeSm, color: AColors.darkGrey),
     errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
     floatingLabelStyle: const TextStyle().copyWith(
-      color: AColors.black.withOpacity(0.8),
+      color: AColors.black.withValues(alpha: 0.8),
     ),
     border: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(ASizes.inputFieldRadius),
@@ -56,7 +56,7 @@ class ATextFieldTheme {
         .copyWith(fontSize: ASizes.fontSizeSm, color: AColors.darkGrey),
     errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
     floatingLabelStyle: const TextStyle().copyWith(
-      color: AColors.white.withOpacity(0.8),
+      color: AColors.white.withValues(alpha: 0.8),
     ),
     border: const OutlineInputBorder().copyWith(
       borderRadius: BorderRadius.circular(ASizes.inputFieldRadius),

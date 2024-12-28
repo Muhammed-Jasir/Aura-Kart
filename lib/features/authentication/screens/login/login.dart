@@ -29,14 +29,14 @@ class LoginScreen extends StatelessWidget {
               children: [
                 /// Logo, Title & Sub-Title
                 const ALoginHeader(),
-      
+
                 /// Form
                 const ALoginForm(),
-      
+
                 /// Divider
-                AFormDivider(dividerText: ATexts.orSignInwith.capitalize!), 
+                AFormDivider(dividerText: ATexts.orSignInwith.capitalize!),
                 const SizedBox(height: ASizes.spaceBtwSections),
-      
+
                 /// Social Buttons
                 const ASocialButtons(),
               ],

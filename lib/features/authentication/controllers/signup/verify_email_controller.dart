@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:aurakart/common/widgets/success_screen/success_screen.dart';
 import 'package:aurakart/data/repositories/authentication/authentication_repository.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
@@ -13,9 +12,9 @@ import 'package:get/get.dart';
 class VerifyEmailController extends GetxController {
   static VerifyEmailController get instance => Get.find();
 
-  /// Send email Whenever Verify Screen appears & Set Timer for auto redirect.
+  /// Send Email Whenever Verify Screen appears & Set Timer for auto redirect.
   @override
-  void OnInit() {
+  void onInit() {
     sendEmailVerification();
     setTimerForAutoRedirect();
     super.onInit();
@@ -26,30 +25,36 @@ class VerifyEmailController extends GetxController {
     try {
       await AuthenticationRepository.instance.sendEmailVerification();
       ALoaders.successSnackBar(
-          title: 'Email Sent',
-          message: 'Please Check your inbox and Verify Your Email.');
+        title: 'Email Sent',
+        message: 'Please Check your inbox and Verify Your Email.',
+      );
     } catch (e) {
-      ALoaders.errorSnackBar(title: 'oh shap!', message: e.toString());
+      ALoaders.errorSnackBar(title: 'oh snap!', message: e.toString());
     }
   }
 
   /// Timer to Automatically redirect on Email verification
 
   setTimerForAutoRedirect() {
-    Timer.periodic(const Duration(seconds: 1), (Timer) async {
-      await FirebaseAuth.instance.currentUser?.reload();
-      final user = FirebaseAuth.instance.currentUser;
-      if (user?.emailVerified ?? false) {
-        Timer.cancel();
-        Get.off(() => SuccessScreen(
+    Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) async {
+        await FirebaseAuth.instance.currentUser?.reload();
+        final user = FirebaseAuth.instance.currentUser;
+        if (user?.emailVerified ?? false) {
+          timer.cancel();
+          Get.off(
+            () => SuccessScreen(
               image: AImages.successfullyRegisterAnimation,
               title: ATexts.yourAccountCreatedTitle,
               subTitle: ATexts.yourAccountCreatedSubTitle,
               onPressed: () =>
                   AuthenticationRepository.instance.screenRedirect(),
-            ));
-      }
-    });
+            ),
+          );
+        }
+      },
+    );
   }
 
   /// Manually check if Email verified

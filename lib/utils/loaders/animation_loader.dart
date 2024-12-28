@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 /// A widget for displaying an animated loading indicator with optional text and action button.
 class AAnimationLoaderWidget extends StatelessWidget {
   /// Default constructor for the TAnimationLoaderWidget.
-  ///
+
   /// Parameters:
   ///   - text: The text to be displayed below the animation.
   ///   - animation: The path to the Lottie animation file.
@@ -34,9 +34,10 @@ class AAnimationLoaderWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset(animation,
-              width: MediaQuery.of(context).size.width *
-                  0.8), // Display Lottie animation
+          Lottie.asset(
+            animation,
+            width: MediaQuery.of(context).size.width * 0.8,
+          ), // Display Lottie animation
           const SizedBox(height: ASizes.defaultSpace),
           Text(
             text,

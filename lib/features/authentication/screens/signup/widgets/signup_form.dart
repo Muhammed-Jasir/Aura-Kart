@@ -16,6 +16,7 @@ class ASignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignupController());
+
     return Form(
       key: controller.signupFormKey,
       child: Column(
@@ -29,7 +30,7 @@ class ASignupForm extends StatelessWidget {
                   controller: controller.firstname,
                   validator: (value) =>
                       AValidator.validateEmptyText('First name', value),
-                      expands: false,
+                  expands: false,
                   decoration: const InputDecoration(
                     labelText: ATexts.firstName,
                     prefixIcon: Icon(Iconsax.user),
@@ -60,7 +61,7 @@ class ASignupForm extends StatelessWidget {
           /// Username
           TextFormField(
             validator: (value) =>
-                      AValidator.validateEmptyText('username', value),
+                AValidator.validateEmptyText('Username', value),
             controller: controller.username,
             expands: false,
             decoration: const InputDecoration(
@@ -73,8 +74,7 @@ class ASignupForm extends StatelessWidget {
 
           /// Email
           TextFormField(
-            validator: (value) =>
-                      AValidator.validateEmail(value),
+            validator: (value) => AValidator.validateEmail(value),
             controller: controller.email,
             decoration: const InputDecoration(
               labelText: ATexts.email,
@@ -86,8 +86,7 @@ class ASignupForm extends StatelessWidget {
 
           /// Phone Number
           TextFormField(
-            validator: (value) =>
-                      AValidator.validatePhoneNumber(value),
+            validator: (value) => AValidator.validatePhoneNumber(value),
             controller: controller.phoneNumber,
             decoration: const InputDecoration(
               labelText: ATexts.phoneNo,
@@ -99,17 +98,21 @@ class ASignupForm extends StatelessWidget {
 
           /// Password
           Obx(
-            () =>  TextFormField(
-              validator: (value) =>
-                        AValidator.validatePassword(value),
+            () => TextFormField(
+              validator: (value) => AValidator.validatePassword(value),
               controller: controller.password,
               obscureText: controller.hidePassword.value,
               decoration: InputDecoration(
                 labelText: ATexts.password,
                 prefixIcon: const Icon(Iconsax.password_check),
                 suffixIcon: IconButton(
-                  onPressed: () => controller.hidePassword.value = !controller.hidePassword.value,
-                  icon: Icon(controller.hidePassword.value ? Iconsax.eye_slash :  Iconsax.eye), 
+                  onPressed: () => controller.hidePassword.value =
+                      !controller.hidePassword.value,
+                  icon: Icon(
+                    controller.hidePassword.value
+                        ? Iconsax.eye_slash
+                        : Iconsax.eye,
+                  ),
                 ),
               ),
             ),
@@ -121,11 +124,11 @@ class ASignupForm extends StatelessWidget {
           const ATermsConditonCheckbox(),
           const SizedBox(height: ASizes.spaceBtwSections),
 
-          /// Signup Button
+          /// Sign Up Button
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => Get.to(() => const VerifyEmailScreen()),
+              onPressed: () => controller.signup(),
               child: const Text(ATexts.createAccount),
             ),
           ),

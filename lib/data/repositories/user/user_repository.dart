@@ -6,8 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -28,11 +26,10 @@ class UserRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
+  /// Function to fetch user details based on user Id
+
+  /// Functions to update user data in Firestore
+
+  /// Update any field in specific users Collection
 }
-
-
- /// function to fetch user details based on user id
- 
- /// functions to update user data in firestore
- 
- /// update any field in specific users collection

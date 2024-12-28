@@ -11,7 +11,6 @@ class ATermsConditonCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final controller = SignupController.instance;
     final darkMode = AHelperFunctions.isDarkMode(context);
 
@@ -23,8 +22,10 @@ class ATermsConditonCheckbox extends StatelessWidget {
           height: 24,
           child: Obx(
             () => Checkbox(
-              value: controller.privacyPolicy.value , 
-          onChanged: (value) => controller.privacyPolicy.value = !controller.privacyPolicy.value),
+              value: controller.privacyPolicy.value,
+              onChanged: (value) => controller.privacyPolicy.value =
+                  !controller.privacyPolicy.value,
+            ),
           ),
         ),
 

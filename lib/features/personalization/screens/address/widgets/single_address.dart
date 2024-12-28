@@ -21,7 +21,7 @@ class ASingleAddress extends StatelessWidget {
       width: double.infinity,
       showBorder: true,
       backgroundColor: selectedAddress
-          ? AColors.primary.withOpacity(0.5)
+          ? AColors.primary.withValues(alpha: 0.5)
           : Colors.transparent,
       borderColor: selectedAddress
           ? Colors.transparent

@@ -43,10 +43,10 @@ class ACouponCode extends StatelessWidget {
               onPressed: () {},
               style: ElevatedButton.styleFrom(
                 foregroundColor: darkMode
-                    ? AColors.white.withOpacity(0.5)
-                    : AColors.dark.withOpacity(0.5),
-                backgroundColor: Colors.grey.withOpacity(0.2),
-                side: BorderSide(color: Colors.grey.withOpacity(0.1)),
+                    ? AColors.white.withValues(alpha: 0.5)
+                    : AColors.dark.withValues(alpha: 0.5),
+                backgroundColor: Colors.grey.withValues(alpha: 0.2),
+                side: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
               ),
               child: const Text('Apply'),
             ),

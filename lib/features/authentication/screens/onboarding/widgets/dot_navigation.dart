@@ -1,4 +1,4 @@
-import 'package:aurakart/features/authentication/controllers/onboading/onboarding_controller.dart';
+import 'package:aurakart/features/authentication/controllers/onboarding/onboarding_controller.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/device/device_utility.dart';

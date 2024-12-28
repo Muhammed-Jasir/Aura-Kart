@@ -50,7 +50,7 @@ class AProductHorizontal extends StatelessWidget {
                   top: 12,
                   child: ARoundedContainer(
                     radius: ASizes.sm,
-                    backgroundColor: AColors.secondary.withOpacity(0.8),
+                    backgroundColor: AColors.secondary.withValues(alpha: 0.8),
                     padding: const EdgeInsets.symmetric(
                       horizontal: ASizes.sm,
                       vertical: ASizes.xs,

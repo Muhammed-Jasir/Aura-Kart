@@ -1,5 +1,5 @@
 class AValidator {
-  ///empty text validation
+  /// Empty text validation
   static String? validateEmptyText(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
       return '$fieldName is required.';
@@ -7,6 +7,7 @@ class AValidator {
     return null;
   }
 
+  /// Email validation
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required.';
@@ -21,6 +22,7 @@ class AValidator {
     return null;
   }
 
+  /// Password validation
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password is required.';
@@ -49,6 +51,7 @@ class AValidator {
     return null;
   }
 
+  /// Phone validation
   static String? validatePhoneNumber(String? value) {
     if (value == null || value.isEmpty) {
       return 'Phone number is required.';

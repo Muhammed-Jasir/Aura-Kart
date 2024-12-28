@@ -7,7 +7,6 @@ import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
 import 'package:aurakart/utils/exceptions/format_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,24 +36,43 @@ class AuthenticationRepository extends GetxController {
       if (user.emailVerified) {
         Get.offAll(() => const NavigationMenu());
       } else {
-        Get.offAll(() => VerifyEmailScreen(
-              email: _auth.currentUser?.email,
-            ));
+        Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
     } else {
+      // Local Storage
       deviceStorage.writeIfNull('IsFirstTime', true);
-
       deviceStorage.read('IsFirstTime') != true
-          ? Get.offAll(() =>
-              const LoginScreen()) //redirect to login screen if not the first name
+          ? Get.offAll(
+              () => const LoginScreen(),
+            ) // Redirect to login screen if not the first name
           : Get.offAll(
-              const OnBoardingScreen()); // redirect to oonboarding screen if its first time} // Local Storage
+              const OnBoardingScreen(),
+            ); // Redirect to oonboarding screen if it's first time
     }
   }
 
-  /// email authentication- signin
+/* --------------------------- Email & Password sign-in  ------------------------------ */
 
-  /// email authentication register
+  /// [Email Authentication] - SignIn
+  Future<UserCredential> loginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      return await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+    } on FirebaseAuthException catch (e) {
+      throw AFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw AFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const AFormatException();
+    } on PlatformException catch (e) {
+      throw APlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  /// [Email Authentication] - Register
   Future<UserCredential> registerWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -73,7 +91,7 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  ///EmailVerification MAIL VERIFICATION
+  /// [Email Verification] - Mail Verification
   Future<void> sendEmailVerification() async {
     try {
       await _auth.currentUser?.sendEmailVerification();
@@ -90,16 +108,19 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  /// Reauntheticate user
+  /// [Re Auntheticate] - Re Authenticate User
 
-  /// Email Authentiaction Forget PassWord
+  /// [Email Authentiaction] - Forget Password
 
-  /// Google authentiaction
+/* --------------------------- Federated Identity & social sign-in  ------------------------------ */
 
-  /// FaceBook Authentication
+  /// [Google Authentiaction] - Google
 
-  /// LogoutUser - valid for any authentication
+  /// [Facebook Authentication] - Facebook
 
+/* --------------------------- ./end Federated Identity & social sign-in  ------------------------------ */
+
+  /// [Logout User] - Valid for any authentication
   Future<void> logout() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -117,7 +138,5 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  loginWithEmailAndPassword(String trim, String trim2) {}
-
-  /// Delete User - Remove user Auth and FireBase Account
+  /// [Delete User] - Remove user Auth and FireBase Account
 }

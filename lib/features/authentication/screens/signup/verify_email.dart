@@ -16,10 +16,15 @@ class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({super.key, this.email});
 
   final String? email;
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(VerifyEmailController());
+
     return Scaffold(
+      // The close icon is used to log out. This approach is used to handle when user enters signup process
+      // and data is stored. Upon reopening, it checks if email is verified. If not it moves to verify screen.
+
       // Appbar
       appBar: AAppBar(
         showBackArrow: false,

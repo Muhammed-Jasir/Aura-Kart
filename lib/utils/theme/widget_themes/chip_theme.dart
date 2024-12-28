@@ -6,7 +6,7 @@ class AChipTheme {
 
   // Light Theme For Chip
   static ChipThemeData lightChipTheme = ChipThemeData(
-    disabledColor: AColors.grey.withOpacity(0.4),
+    disabledColor: AColors.grey.withValues(alpha: 0.4),
     labelStyle: const TextStyle(color: AColors.black),
     selectedColor: AColors.primary,
     checkmarkColor: AColors.white,

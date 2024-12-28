@@ -25,7 +25,7 @@ class APrimaryHeaderContainer extends StatelessWidget {
               top: -150,
               right: -250,
               child: ACircularContainer(
-                backgroundColor: AColors.white.withOpacity(0.1),
+                backgroundColor: AColors.white.withValues(alpha: 0.1),
               ),
             ),
 
@@ -34,7 +34,7 @@ class APrimaryHeaderContainer extends StatelessWidget {
               top: 100,
               right: -300,
               child: ACircularContainer(
-                backgroundColor: AColors.white.withOpacity(0.1),
+                backgroundColor: AColors.white.withValues(alpha: 0.1),
               ),
             ),
 

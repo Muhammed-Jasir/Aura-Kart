@@ -1,4 +1,4 @@
-import 'package:aurakart/features/authentication/controllers/onboading/onboarding_controller.dart';
+import 'package:aurakart/features/authentication/controllers/onboarding/onboarding_controller.dart';
 import 'package:aurakart/features/authentication/screens/onboarding/widgets/dot_navigation.dart';
 import 'package:aurakart/features/authentication/screens/onboarding/widgets/next_button.dart';
 import 'package:aurakart/features/authentication/screens/onboarding/widgets/onboarding_page.dart';

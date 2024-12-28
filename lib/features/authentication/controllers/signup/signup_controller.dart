@@ -9,40 +9,48 @@ import 'package:aurakart/utils/popups/loaders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
 
-  ///variables
-  final hidePassword = true.obs; //observe for hiding/showing password
-  final privacyPolicy = true.obs; //observe for privacy policy acceptance
-  final email = TextEditingController(); //controller for email input
-  final lastName = TextEditingController(); //controller for lastname input
-  final username = TextEditingController(); //controller for username input
-  final password = TextEditingController(); //controller for password input
-  final firstname = TextEditingController(); //controller for firstname input
+  /// Variables
+  final hidePassword = true.obs; // Observe for hiding/showing password
+  final privacyPolicy = true.obs; // Observe for privacy policy acceptance
+  final email = TextEditingController(); // Controller for email input
+  final lastName = TextEditingController(); // Controller for lastname input
+  final username = TextEditingController(); // Controller for username input
+  final password = TextEditingController(); // Controller for password input
+  final firstname = TextEditingController(); // Controller for firstname input
   final phoneNumber =
-      TextEditingController(); //controller for phone number input
+      TextEditingController(); // Controller for phone number input
+
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
 
-  ///signup
+  /// Signup
   void signup() async {
     try {
-      //start loading
+      // Start Loading
       AFullScreenLoader.openLoadingDialog(
-          'We Are Processing Your Information...', AImages.docerAnimation);
+        'We Are Processing Your Information...',
+        AImages.docerAnimation,
+      );
 
-      // check internet connectivity
+      // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) return;
+      if (!isConnected) {
+        // Remove Loader
+        AFullScreenLoader.stopLoading();
+        return;
+      }
 
-      // form validation
-      if (!signupFormKey.currentState!.validate()) return;
+      // Form Validation
+      if (!signupFormKey.currentState!.validate()) {
+        // Remove Loader
+        AFullScreenLoader.stopLoading();
+        return;
+      }
 
-      //privacy policy check
-
+      // Privacy Policy Check
       if (!privacyPolicy.value) {
         ALoaders.warningSnackBar(
           title: 'Accept Privacy Policy',
@@ -52,13 +60,12 @@ class SignupController extends GetxController {
         return;
       }
 
-      //register user in the firebase & save user data in the firebase
-
+      // Register user in the Firebase Auth & save user data in the Firebase
       final userCredential = await AuthenticationRepository.instance
           .registerWithEmailAndPassword(
               email.text.trim(), password.text.trim());
 
-      // save authenticated user data in the firebase firestore
+      // Save Authenticated user data in the Firebase Firestore
       final newUser = UserModel(
         id: userCredential.user!.uid,
         firstName: firstname.text.trim(),
@@ -72,23 +79,24 @@ class SignupController extends GetxController {
       final userRepository = Get.put(UserRepository());
       await userRepository.saveUserRecord(newUser);
 
-      // remove loader
+      // Remove Loader
       AFullScreenLoader.stopLoading();
 
-      //show success messege
+      // Show Success Messege
       ALoaders.successSnackBar(
-          title: 'Congratulations',
-          message: 'Your Account has been created ! verify email to continue');
-      //move to verify email Screen
-      Get.to(() => VerifyEmailScreen(
-            email: email.text.trim(),
-          ));
+        title: 'Congratulations',
+        message: 'Your account has been created! Verify email to continue.',
+      );
+
+      // Move to Verify Email Screen
+      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
+
     } catch (e) {
-      // remove loader
+      // Remove Loader
       AFullScreenLoader.stopLoading();
 
-      // show some generic error to user
-      ALoaders.errorSnackBar(title: 'Uh Oh MyNigga!', message: e.toString());
+      // Show some generic error to user
+      ALoaders.errorSnackBar(title: 'Oh snapp!', message: e.toString());
     }
   }
 }

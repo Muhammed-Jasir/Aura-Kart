@@ -58,7 +58,7 @@ class UserModel {
       'LastName': lastName,
       'Username': username,
       'Email': email,
-      'PhoneNo': phoneNumber,
+      'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
     };
   }
@@ -71,7 +71,7 @@ class UserModel {
       id: document.id,
       firstName: data['FirstName'] ?? '',
       lastName: data['LastName'] ?? '',
-      phoneNumber: data['PhoneNo'] ?? '',
+      phoneNumber: data['PhoneNumber'] ?? '',
       profilePicture: data['ProfilePicture'] ?? '',
       username: data['Username'] ?? '',
       email: data['Email'] ?? '',
