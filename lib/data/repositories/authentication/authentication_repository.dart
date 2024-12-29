@@ -33,6 +33,7 @@ class AuthenticationRepository extends GetxController {
   // Function to Show Relevant Screen
   screenRedirect() async {
     final user = _auth.currentUser;
+
     if (user != null) {
       if (user.emailVerified) {
         Get.offAll(() => const NavigationMenu());
@@ -109,9 +110,24 @@ class AuthenticationRepository extends GetxController {
     }
   }
 
-  /// [Re Auntheticate] - Re Authenticate User
-
   /// [Email Authentiaction] - Forget Password
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw AFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw AFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const AFormatException();
+    } on PlatformException catch (e) {
+      throw APlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  /// [Re Auntheticate] - Re Authenticate User
 
 /* --------------------------- Federated Identity & social sign-in  ------------------------------ */
 
@@ -134,7 +150,8 @@ class AuthenticationRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      if (kDebugMode) print('Something went wrong: $e ');
+      return null;
     }
   }
 
