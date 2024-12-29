@@ -19,7 +19,7 @@ class AImages {
 
   // Authentication Animations and Images
   static const String docerAnimation =
-      "assets/images/animations/animations/141594-animation-of-docer.json";
+      "assets/images/animations/141594-animation-of-docer.json";
   static const String successfullyRegisterAnimation =
       "assets/images/animations/sammy-line-success.png";
 

@@ -81,24 +81,31 @@ class LoginController extends GetxController {
         'Logging you in...',
         AImages.docerAnimation,
       );
+
       // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         AFullScreenLoader.stopLoading();
         return;
       }
+
       // Google authentication
       final userCredential =
           await AuthenticationRepository.instance.signInWithGoogle();
+
       // Save User Record
       await userController.saveUserRecord(userCredential);
+
       //Remove Loader
       AFullScreenLoader.stopLoading();
+
       //Redirect
       AuthenticationRepository.instance.screenRedirect();
+      
     } catch (e) {
       // Remove Loader
       AFullScreenLoader.stopLoading();
+      
       ALoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }
   }

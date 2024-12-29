@@ -42,7 +42,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Generated plugin files
+# environment config file
+.env
+
+# generated files
 **/generated_plugin_registrant.*
 **/generated_plugins.*
 **/GeneratedPluginRegistrant.*

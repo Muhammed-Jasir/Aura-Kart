@@ -26,7 +26,10 @@ class AuthenticationRepository extends GetxController {
   // Called from main.dart on app launch
   @override
   void onReady() {
+    // Remove the splash screen
     FlutterNativeSplash.remove();
+    
+    // Redirect to next Screen
     screenRedirect();
   }
 
@@ -36,19 +39,23 @@ class AuthenticationRepository extends GetxController {
 
     if (user != null) {
       if (user.emailVerified) {
+        // If user email is verified move to navigation menu
         Get.offAll(() => const NavigationMenu());
       } else {
+        // If user email is not verified move to verify email screen
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));
       }
     } else {
       // Local Storage
       deviceStorage.writeIfNull('IsFirstTime', true);
+
+      // Redirect to login or onboarding screen
       deviceStorage.read('IsFirstTime') != true
           ? Get.offAll(
               () => const LoginScreen(),
             ) // Redirect to login screen if not the first name
           : Get.offAll(
-              const OnBoardingScreen(),
+              () => const OnBoardingScreen(),
             ); // Redirect to oonboarding screen if it's first time
     }
   }
@@ -138,8 +145,12 @@ class AuthenticationRepository extends GetxController {
 
       final GoogleSignInAuthentication? googleAuth =
           await userAccount?.authentication;
+
       final credentials = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      
       return await _auth.signInWithCredential(credentials);
     } on FirebaseAuthException catch (e) {
       throw AFirebaseAuthException(e.code).message;

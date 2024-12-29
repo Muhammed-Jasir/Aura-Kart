@@ -4,10 +4,10 @@ import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class ASocialButtons extends StatelessWidget {
   const ASocialButtons({super.key});
+  
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LoginController());
