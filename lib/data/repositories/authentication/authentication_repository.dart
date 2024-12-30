@@ -23,21 +23,25 @@ class AuthenticationRepository extends GetxController {
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
+  /// get authenticated user data
+  User? get authUser => _auth.currentUser;
+
   // Called from main.dart on app launch
   @override
   void onReady() {
     // Remove the splash screen
     FlutterNativeSplash.remove();
-    
+
     // Redirect to next Screen
     screenRedirect();
   }
 
   // Function to Show Relevant Screen
-  screenRedirect() async {
+  void screenRedirect() async {
     final user = _auth.currentUser;
 
     if (user != null) {
+      /// if the user is logged in
       if (user.emailVerified) {
         // If user email is verified move to navigation menu
         Get.offAll(() => const NavigationMenu());
@@ -150,7 +154,7 @@ class AuthenticationRepository extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      
+
       return await _auth.signInWithCredential(credentials);
     } on FirebaseAuthException catch (e) {
       throw AFirebaseAuthException(e.code).message;

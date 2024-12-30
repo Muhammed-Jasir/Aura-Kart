@@ -1,5 +1,6 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:aurakart/features/personalization/controllers/user_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
@@ -11,6 +12,7 @@ class AHomeAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return AAppBar(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +28,7 @@ class AHomeAppbar extends StatelessWidget {
 
           // Sub-Title
           Text(
-            ATexts.homeAppbarSubTitle,
+            controller.user.value.fullName,
             style: Theme.of(context)
                 .textTheme
                 .headlineSmall!
