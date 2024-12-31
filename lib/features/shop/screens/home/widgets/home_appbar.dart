@@ -18,30 +18,22 @@ class AHomeAppbar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Title
-          Text(
-            ATexts.homeAppbarTitle,
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium!
-                .apply(color: AColors.grey),
-          ),
-
+          Text(ATexts.homeAppbarTitle,style: Theme.of(context).textTheme.labelMedium!.apply(color: AColors.grey),),
           // Sub-Title
-          Text(
-            controller.user.value.fullName,
-            style: Theme.of(context)
-                .textTheme
-                .headlineSmall!
-                .apply(color: AColors.white),
-          ),
+          Obx(
+            () { 
+            if(controller.profileLoading.value) {
+              /// display a shimmer loader while user profile is being loaded
+              return const AShimmerEffect(width: 80 , height: 15);
+            } else {
+                return Text(controller.user.value.fullName, style: Theme.of(context).textTheme.headlineSmall!.apply(color: AColors.white),),
+             }
+            }),
         ],
       ),
       actions: [
         // Cart Icon
-        ACartCouterIcon(
-          onPressed: () => Get.to(() => const CartScreen()),
-          iconColor: AColors.white,
-        ),
+        ACartCouterIcon(onPressed: () => Get.to(() => const CartScreen()),iconColor: AColors.white,),
       ],
     );
   }
