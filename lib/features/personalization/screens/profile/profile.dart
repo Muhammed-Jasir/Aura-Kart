@@ -7,6 +7,8 @@ import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -52,7 +54,9 @@ class ProfileScreen extends StatelessWidget {
               /// Heading profile Info
               const ASectionHeading(title: 'Profile Information',showActionbutton: false,),
               const SizedBox(height: ASizes.spaceBtwItems),
-              AProfileMenu(title: 'Name', value: controller.user.value.fullName , onPressed: () {}),
+
+
+              AProfileMenu(title: 'Name', value: controller.user.value.fullName , onPressed: () => Get.to(() => const ChangeName())),
               AProfileMenu(title: 'Username', value: controller.user.value.username, onPressed: () {}),
 
               const SizedBox(height: ASizes.spaceBtwItems),
@@ -76,7 +80,8 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: ASizes.spaceBtwItems),
 
               Center(
-                child: TextButton(onPressed: () {},child: const Text('Close Account',
+                child: TextButton(onPressed: () => controller.deleteAccountWarningPopup(),
+                child: const Text('Close Account',
                 style: TextStyle(color: Colors.red),
                   ),
                 ),

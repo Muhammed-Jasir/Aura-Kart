@@ -139,6 +139,27 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// [Re Auntheticate] - Re Authenticate User
+  Future<void> reAuthenticateWithEmailANdPassword(
+      String email, String password) async {
+    try {
+      /// create account
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+
+      /// reauthentication
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      throw AFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw AFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const AFormatException();
+    } on PlatformException catch (e) {
+      throw APlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
 /* --------------------------- Federated Identity & social sign-in  ------------------------------ */
 
@@ -193,4 +214,20 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// [Delete User] - Remove user Auth and FireBase Account
+  Future<void> deleteAccount() async {
+    try {
+      await FirebaseAuth.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      throw AFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw AFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const AFormatException();
+    } on PlatformException catch (e) {
+      throw APlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 }
