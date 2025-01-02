@@ -7,6 +7,7 @@ import 'package:aurakart/features/personalization/screens/profile/widgets/profil
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
+import 'package:aurakart/utils/loaders/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
+
     return Scaffold(
       // Appbar
       appBar: const AAppBar(
@@ -36,15 +38,31 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     // Image
-                    const ACircularImage(
-                      image: AImages.user,
-                      width: 80,
-                      height: 80,
+                    Obx(
+                      () {
+                        final networkImage =
+                            controller.user.value.profilePicture;
+                        final image = networkImage.isNotEmpty
+                            ? networkImage
+                            : AImages.user;
+                        return controller.imageUploading.value
+                            ? const AShimmerEffect(
+                                width: 80,
+                                height: 80,
+                                radius: 80,
+                              )
+                            : ACircularImage(
+                                width: 80,
+                                height: 80,
+                                image: image,
+                                isNetworkImage: networkImage.isNotEmpty,
+                              );
+                      },
                     ),
 
                     // Button
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => controller.uploadUserProfilePicture(),
                       child: const Text('Change Profile Picture'),
                     ),
                   ],
