@@ -1,3 +1,4 @@
+import 'package:aurakart/data/repositories/user/user_repository.dart';
 import 'package:aurakart/features/authentication/screens/login/login.dart';
 import 'package:aurakart/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:aurakart/features/authentication/screens/signup/verify_email.dart';
@@ -23,7 +24,7 @@ class AuthenticationRepository extends GetxController {
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
-  /// get authenticated user data
+  /// Get Authenticated User Data
   User? get authUser => _auth.currentUser;
 
   // Called from main.dart on app launch
@@ -139,14 +140,14 @@ class AuthenticationRepository extends GetxController {
   }
 
   /// [Re Auntheticate] - Re Authenticate User
-  Future<void> reAuthenticateWithEmailANdPassword(
+  Future<void> reAuthenticateWithEmailAndPassword(
       String email, String password) async {
     try {
-      /// create account
+      /// Create a credential
       AuthCredential credential =
           EmailAuthProvider.credential(email: email, password: password);
 
-      /// reauthentication
+      /// Re Authenticate User
       await _auth.currentUser!.reauthenticateWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       throw AFirebaseAuthException(e.code).message;
@@ -216,7 +217,7 @@ class AuthenticationRepository extends GetxController {
   /// [Delete User] - Remove user Auth and FireBase Account
   Future<void> deleteAccount() async {
     try {
-      await FirebaseAuth.instance.removeUserRecord(_auth.currentUser!.uid);
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
       await _auth.currentUser?.delete();
     } on FirebaseAuthException catch (e) {
       throw AFirebaseAuthException(e.code).message;

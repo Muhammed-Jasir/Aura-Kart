@@ -4,6 +4,7 @@ import 'package:aurakart/features/personalization/controllers/user_controller.da
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
+import 'package:aurakart/utils/loaders/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,27 +14,45 @@ class AHomeAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(UserController());
+
     return AAppBar(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Title
-          Text(ATexts.homeAppbarTitle,style: Theme.of(context).textTheme.labelMedium!.apply(color: AColors.grey),),
+          Text(
+            ATexts.homeAppbarTitle,
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .apply(color: AColors.grey),
+          ),
+
           // Sub-Title
           Obx(
-            () { 
-            if(controller.profileLoading.value) {
-              /// display a shimmer loader while user profile is being loaded
-              return const AShimmerEffect(width: 80 , height: 15);
-            } else {
-                return Text(controller.user.value.fullName, style: Theme.of(context).textTheme.headlineSmall!.apply(color: AColors.white),),
-             }
-            }),
+            () {
+              if (controller.profileLoading.value) {
+                /// Display a Shimmer Loader while user profile is being loaded
+                return const AShimmerEffect(width: 80, height: 15);
+              } else {
+                return Text(
+                  controller.user.value.fullName,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .apply(color: AColors.white),
+                );
+              }
+            },
+          ),
         ],
       ),
       actions: [
         // Cart Icon
-        ACartCouterIcon(onPressed: () => Get.to(() => const CartScreen()),iconColor: AColors.white,),
+        ACartCouterIcon(
+          onPressed: () => Get.to(() => const CartScreen()),
+          iconColor: AColors.white,
+        ),
       ],
     );
   }

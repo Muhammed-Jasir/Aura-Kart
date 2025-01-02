@@ -5,7 +5,7 @@ import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/helpers/network_manager.dart';
 import 'package:aurakart/utils/popups/full_screen_loader.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
-import 'package:flutter/material.dart';  
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 /// Controller to manage user-related functionality.
@@ -14,11 +14,13 @@ class UpdateNameController extends GetxController {
 
   final firstName = TextEditingController();
   final lastName = TextEditingController();
+
   final userController = UserController.instance;
   final userRepository = Get.put(UserRepository());
+
   GlobalKey<FormState> updateUserNameFormkey = GlobalKey<FormState>();
 
-  /// init user doto when Home Screen appears
+  /// Init user data when Home Screen appears
   @override
   void onInit() {
     initializeNames();
@@ -33,48 +35,51 @@ class UpdateNameController extends GetxController {
 
   Future<void> updateUserName() async {
     try {
-  // Start Loading
+      // Start Loading
       AFullScreenLoader.openLoadingDialog(
-          'We are updating your information....', AImages.docerAnimation);
+        'We are updating your information....',
+        AImages.docerAnimation,
+      );
 
-  // Check Internet Connectivity
-
+      // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
-
       if (!isConnected) {
         AFullScreenLoader.stopLoading();
         return;
       }
 
-  // Form Validation
+      // Form Validation
       if (!updateUserNameFormkey.currentState!.validate()) {
         AFullScreenLoader.stopLoading();
         return;
       }
 
-  // Update user's first & last name in the Firebase Firestore
+      // Update user's first & last name in the Firebase Firestore
       Map<String, dynamic> name = {
         'FirstName': firstName.text.trim(),
         'LastName': lastName.text.trim()
       };
+
       await userRepository.updateSingleField(name);
 
-// Update the Rx User value
+      // Update the Rx User value
       userController.user.value.firstName = firstName.text.trim();
       userController.user.value.lastName = lastName.text.trim();
 
-// Remove Loader
+      // Remove Loader
       AFullScreenLoader.stopLoading();
 
-// Show Success Message
+      // Show Success Message
       ALoaders.successSnackBar(
-          title: 'Congratulations', message: 'Your Name has been updated.');
+        title: 'Congratulations',
+        message: 'Your Name has been updated.',
+      );
 
-// Move to previous screen.
+      // Move to previous screen.
       Get.off(() => const ProfileScreen());
     } catch (e) {
       AFullScreenLoader.stopLoading();
-      ALoaders.errorSnackBar(title: "Uh OH !!", message: e.toString());
+      ALoaders.errorSnackBar(title: "Oh Snap!", message: e.toString());
     }
   }
 }

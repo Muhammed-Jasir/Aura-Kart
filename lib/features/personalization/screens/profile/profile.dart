@@ -2,13 +2,13 @@ import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/images/circular_image.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/personalization/controllers/user_controller.dart';
+import 'package:aurakart/features/personalization/screens/profile/widgets/change_name.dart';
 import 'package:aurakart/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -36,11 +36,16 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     // Image
-                    const ACircularImage(image: AImages.user,width: 80,height: 80,
+                    const ACircularImage(
+                      image: AImages.user,
+                      width: 80,
+                      height: 80,
                     ),
 
                     // Button
-                    TextButton(onPressed: () {},child: const Text('Change Profile Picture'),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('Change Profile Picture'),
                     ),
                   ],
                 ),
@@ -51,38 +56,71 @@ class ProfileScreen extends StatelessWidget {
               const Divider(),
               const SizedBox(height: ASizes.spaceBtwItems),
 
-              /// Heading profile Info
-              const ASectionHeading(title: 'Profile Information',showActionbutton: false,),
+              /// Heading Profile Info
+              const ASectionHeading(
+                title: 'Profile Information',
+                showActionbutton: false,
+              ),
               const SizedBox(height: ASizes.spaceBtwItems),
 
-
-              AProfileMenu(title: 'Name', value: controller.user.value.fullName , onPressed: () => Get.to(() => const ChangeName())),
-              AProfileMenu(title: 'Username', value: controller.user.value.username, onPressed: () {}),
+              AProfileMenu(
+                title: 'Name',
+                value: controller.user.value.fullName,
+                onPressed: () => Get.to(() => const ChangeName()),
+              ),
+              AProfileMenu(
+                title: 'Username',
+                value: controller.user.value.username,
+                onPressed: () {},
+              ),
 
               const SizedBox(height: ASizes.spaceBtwItems),
               const Divider(),
               const SizedBox(height: ASizes.spaceBtwItems),
 
-
-             /// Heading profile info 
-             const ASectionHeading(title: 'Personal Information', showActionbutton: false),
-             const SizedBox(height: ASizes.spaceBtwItems),
-
-
-              AProfileMenu(title: 'User ID',value: controller.user.value.id ,icon: Iconsax.copy,onPressed: () {},),
-              AProfileMenu(title: 'E-mail',value: controller.user.value.email ,onPressed: () {},),
-              AProfileMenu(title: 'Phone Number',value: controller.user.value.phoneNumber ,onPressed: () {},),
-              AProfileMenu(title: 'Gender',value: 'Male',onPressed: () {},),
-              AProfileMenu(title: 'Date of Birth',value: '18 Oct, 2000',onPressed: () {},
+              /// Heading profile info
+              const ASectionHeading(
+                title: 'Personal Information',
+                showActionbutton: false,
               ),
-              
+              const SizedBox(height: ASizes.spaceBtwItems),
+
+              AProfileMenu(
+                title: 'User ID',
+                value: controller.user.value.id,
+                icon: Iconsax.copy,
+                onPressed: () {},
+              ),
+              AProfileMenu(
+                title: 'E-mail',
+                value: controller.user.value.email,
+                onPressed: () {},
+              ),
+              AProfileMenu(
+                title: 'Phone',
+                value: controller.user.value.phoneNumber,
+                onPressed: () {},
+              ),
+              AProfileMenu(
+                title: 'Gender',
+                value: 'Male',
+                onPressed: () {},
+              ),
+              AProfileMenu(
+                title: 'Date of Birth',
+                value: '18 Oct, 2000',
+                onPressed: () {},
+              ),
+
               const Divider(),
               const SizedBox(height: ASizes.spaceBtwItems),
 
               Center(
-                child: TextButton(onPressed: () => controller.deleteAccountWarningPopup(),
-                child: const Text('Close Account',
-                style: TextStyle(color: Colors.red),
+                child: TextButton(
+                  onPressed: () => controller.deleteAccountWarningPopup(),
+                  child: const Text(
+                    'Close Account',
+                    style: TextStyle(color: Colors.red),
                   ),
                 ),
               ),

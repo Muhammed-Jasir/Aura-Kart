@@ -22,7 +22,9 @@ class UserController extends GetxController {
   final hidePassword = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
+
   final userRepository = Get.put(UserRepository());
+
   GlobalKey<FormState> reAuthFormKey = GlobalKey<FormState>();
 
   @override
@@ -31,7 +33,7 @@ class UserController extends GetxController {
     fetchUserRecord();
   }
 
-  /// fetch user record
+  /// Fetch User Record
   Future<void> fetchUserRecord() async {
     try {
       profileLoading.value = true;
@@ -48,12 +50,12 @@ class UserController extends GetxController {
   Future<void> saveUserRecord(UserCredential? userCredentials) async {
     try {
       if (userCredentials != null) {
-// Convert Name to First and Last Name
+        // Convert Name to First and Last Name
         final nameParts =
             UserModel.nameParts(userCredentials.user!.displayName ?? '');
         final username =
             UserModel.generateUsername(userCredentials.user!.displayName ?? '');
-// Map Data
+        // Map Data
         final user = UserModel(
           id: userCredentials.user!.uid,
           firstName: nameParts[0],
@@ -63,7 +65,7 @@ class UserController extends GetxController {
           phoneNumber: userCredentials.user!.phoneNumber ?? '',
           profilePicture: userCredentials.user!.photoURL ?? '',
         );
-// Save user data
+        // Save user data
         await userRepository.saveUserRecord(user);
       }
     } catch (e) {
@@ -75,7 +77,7 @@ class UserController extends GetxController {
     }
   }
 
-  ///delete account warning
+  /// Delete Account Warning
   void deleteAccountWarningPopup() {
     Get.defaultDialog(
       contentPadding: const EdgeInsets.all(ASizes.md),
@@ -85,11 +87,13 @@ class UserController extends GetxController {
       confirm: ElevatedButton(
         onPressed: () async => deleteUserAccount(),
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            side: const BorderSide(color: Colors.red)),
+          backgroundColor: Colors.red,
+          side: const BorderSide(color: Colors.red),
+        ),
         child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: ASizes.lg),
-            child: Text('Delete')),
+          padding: EdgeInsets.symmetric(horizontal: ASizes.lg),
+          child: Text('Delete'),
+        ),
       ),
       cancel: OutlinedButton(
         child: const Text('Cancel'),
@@ -98,58 +102,63 @@ class UserController extends GetxController {
     );
   }
 
-  ///delete user account
+  /// Delete User Account
   void deleteUserAccount() async {
     try {
       AFullScreenLoader.openLoadingDialog('Processing', AImages.docerAnimation);
 
-      /// first re-authenticate user
+      /// First, Re-Authenticate User
       final auth = AuthenticationRepository.instance;
       final provider =
           auth.authUser!.providerData.map((e) => e.providerId).first;
       if (provider.isNotEmpty) {
-        /// re-verify auth email
+        /// Re-Verify Auth Email
         if (provider == 'google.com') {
           await auth.signInWithGoogle();
           await auth.deleteAccount();
           AFullScreenLoader.stopLoading();
           Get.offAll(() => const LoginScreen());
-        } else if (provider == 'passowrd') {
+        } else if (provider == 'password') {
           AFullScreenLoader.stopLoading();
           Get.to(() => const ReAuthLoginForm());
         }
       }
     } catch (e) {
       AFullScreenLoader.stopLoading();
-      ALoaders.warningSnackBar(title: 'Uh Oh!!', message: e.toString());
+      ALoaders.warningSnackBar(title: 'Oh Snap!!', message: e.toString());
     }
   }
 
-  /// re-Authenticate before deleting
+  /// Re-Authenticate before Deleting
   Future<void> reAuthenticateEmailAndPasswordUser() async {
     try {
       AFullScreenLoader.openLoadingDialog('Processing', AImages.docerAnimation);
 
-      /// check input
+      /// Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         AFullScreenLoader.stopLoading();
         return;
       }
 
+      // Form Validation
       if (!reAuthFormKey.currentState!.validate()) {
         AFullScreenLoader.stopLoading();
         return;
       }
 
-      await AuthenticationRepository.instance.reAuthenticateWithEmailAndPassword(verifyEmail.text.trim(), verifyPassword.text.trim());
+      // Re-Authenticate User
+      await AuthenticationRepository.instance
+          .reAuthenticateWithEmailAndPassword(
+        verifyEmail.text.trim(),
+        verifyPassword.text.trim(),
+      );
       await AuthenticationRepository.instance.deleteAccount();
       AFullScreenLoader.stopLoading();
       Get.offAll(() => const LoginScreen());
     } catch (e) {
       AFullScreenLoader.stopLoading();
-      ALoaders.warningSnackBar(title: 'Uh Oh', message: e.toString());
-
+      ALoaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 }

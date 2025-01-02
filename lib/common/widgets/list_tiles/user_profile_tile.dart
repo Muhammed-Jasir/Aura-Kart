@@ -15,19 +15,37 @@ class AUserProfileTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = UserController.instance ;
+    final controller = UserController.instance;
     return ListTile(
       // User Image
-      leading: const ACircularImage(image: AImages.user,width: 50,height: 50,padding: 0,),
+      leading: const ACircularImage(
+        image: AImages.user,
+        width: 50,
+        height: 50,
+        padding: 0,
+      ),
 
       // Name
-      title: Text(controller.user.value.fullName,style: Theme.of(context).textTheme.headlineSmall!.apply(color: AColors.white),),
+      title: Text(
+        controller.user.value.fullName,
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .apply(color: AColors.white),
+      ),
 
       // Email
-      subtitle: Text(controller.user.value.email,style: Theme.of(context).textTheme.bodyMedium!.apply(color: AColors.white),),
+      subtitle: Text(
+        controller.user.value.email,
+        style:
+            Theme.of(context).textTheme.bodyMedium!.apply(color: AColors.white),
+      ),
 
       // Edit Icon
-      trailing: IconButton(onPressed: onPressed,icon: const Icon(Iconsax.edit, color: AColors.white)),
+      trailing: IconButton(
+        onPressed: onPressed,
+        icon: const Icon(Iconsax.edit, color: AColors.white),
+      ),
     );
   }
 }
