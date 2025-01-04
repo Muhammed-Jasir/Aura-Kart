@@ -1,3 +1,4 @@
+import 'package:aurakart/common/widgets/images/circular_image.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
@@ -10,12 +11,14 @@ class AVerticalImageText extends StatelessWidget {
     required this.image,
     required this.title,
     this.textColor = AColors.white,
+    this.isNetworkImage = true,
     this.backgroundColor,
     this.onTap,
   });
 
   final String image, title;
   final Color textColor;
+  final bool isNetworkImage;
   final Color? backgroundColor;
   final void Function()? onTap;
 
@@ -29,23 +32,33 @@ class AVerticalImageText extends StatelessWidget {
         padding: const EdgeInsets.only(right: ASizes.spaceBtwItems),
         child: Column(
           children: [
-            /// Circular icon
-            Container(
-              width: 56,
-              height: 56,
-              padding: const EdgeInsets.all(ASizes.sm),
-              decoration: BoxDecoration(
-                color: backgroundColor ?? (darkMode ? AColors.dark : AColors.light),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Center(
-                child: Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                  color: darkMode ? AColors.light : AColors.dark,
-                ),
-              ),
+            /// Circular Icon
+            ACircularImage(
+              image: image,
+              fit: BoxFit.fitWidth,
+              padding: ASizes.sm * 1.4,
+              isNetworkImage: isNetworkImage,
+              backgroundColor: backgroundColor,
+              overLayColor: darkMode ? AColors.light : AColors.dark,
             ),
+
+            // Container(
+            //   width: 56,
+            //   height: 56,
+            //   padding: const EdgeInsets.all(ASizes.sm),
+            //   decoration: BoxDecoration(
+            //     color: backgroundColor ??
+            //         (darkMode ? AColors.dark : AColors.light),
+            //     borderRadius: BorderRadius.circular(100),
+            //   ),
+            //   child: Center(
+            //     child: Image(
+            //       image: AssetImage(image),
+            //       fit: BoxFit.cover,
+            //       color: darkMode ? AColors.light : AColors.dark,
+            //     ),
+            //   ),
+            // ),
 
             const SizedBox(height: ASizes.spaceBtwItems / 2),
 

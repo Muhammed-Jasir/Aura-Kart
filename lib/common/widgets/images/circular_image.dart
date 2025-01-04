@@ -1,8 +1,8 @@
+import 'package:aurakart/common/widgets/shimmers/shimmer.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';
-import 'package:aurakart/utils/loaders/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class ACircularImage extends StatelessWidget {
       height: height,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        color: backgroundColor ?? (darkMode ? AColors.black : AColors.light),
+        color: backgroundColor ?? (darkMode ? AColors.dark : AColors.light),
         borderRadius: BorderRadius.circular(100),
       ),
       child: ClipRRect(

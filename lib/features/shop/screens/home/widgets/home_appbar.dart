@@ -1,10 +1,10 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:aurakart/common/widgets/shimmers/shimmer.dart';
 import 'package:aurakart/features/personalization/controllers/user_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
-import 'package:aurakart/utils/loaders/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

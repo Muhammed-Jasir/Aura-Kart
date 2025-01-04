@@ -128,14 +128,16 @@ class UserRepository extends GetxController {
         final responseString = await response.stream.bytesToString();
         // Decode the response
         final data = jsonDecode(responseString);
-        print(data);
         // Get the image URL
         final String imageUrl = data['secure_url'];
-        print(imageUrl);
         return imageUrl;
       } else {
         throw 'Failed to upload image';
       }
+    } on FormatException catch (_) {
+      throw const AFormatException();
+    } on PlatformException catch (e) {
+      throw APlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
     }

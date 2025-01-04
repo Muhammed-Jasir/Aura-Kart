@@ -9,6 +9,7 @@ import 'package:aurakart/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/common/widgets/brands/brand_card.dart';
+import 'package:aurakart/features/shop/controllers/category_controller.dart';
 import 'package:aurakart/features/shop/screens/brand/all_brands.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/features/shop/screens/store/widgets/category_tab.dart';
@@ -26,9 +27,10 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
+    final categories = CategoryController.instance.featureCategories;
 
     return DefaultTabController(
-      length: 5,
+      length: categories.length,
       child: Scaffold(
         /// Appbar
         appBar: AAppBar(
@@ -43,7 +45,7 @@ class StoreScreen extends StatelessWidget {
             ),
           ],
         ),
-      
+
         /// Header
         body: NestedScrollView(
           headerSliverBuilder: (_, innerBoxisScrolled) {
@@ -54,7 +56,7 @@ class StoreScreen extends StatelessWidget {
                 floating: true,
                 backgroundColor: darkMode ? AColors.black : AColors.white,
                 expandedHeight: 440, // Space between Appbar and Tapbar
-      
+
                 flexibleSpace: Padding(
                   padding: const EdgeInsets.all(ASizes.defaultSpace),
                   child: ListView(
@@ -62,7 +64,7 @@ class StoreScreen extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       const SizedBox(height: ASizes.spaceBtwItems),
-      
+
                       /// Search Bar
                       const ASearchContainer(
                         text: 'Search in Store',
@@ -70,17 +72,17 @@ class StoreScreen extends StatelessWidget {
                         showBackground: false,
                         padding: EdgeInsets.zero,
                       ),
-      
+
                       const SizedBox(height: ASizes.spaceBtwSections),
-      
+
                       /// Featured Brands
                       ASectionHeading(
                         title: 'Featured Brands',
                         onPressed: () => Get.to(() => const AllBrandsScreen()),
                       ),
-      
+
                       const SizedBox(height: ASizes.spaceBtwItems / 1.5),
-      
+
                       /// Brands Grid
                       AGridLayout(
                         itemCount: 4,
@@ -92,30 +94,20 @@ class StoreScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-      
+
                 /// Tabs
-                bottom: const ATabBar(
-                  tabs: [
-                    Tab(child: Text('Sports')),
-                    Tab(child: Text('Furniture')),
-                    Tab(child: Text('Electronics')),
-                    Tab(child: Text('Clothes')),
-                    Tab(child: Text('Cosmetics')),
-                  ],
+                bottom: ATabBar(
+                  tabs: categories
+                      .map((category) => Tab(child: Text(category.name)))
+                      .toList(),
                 ),
               ),
             ];
           },
-          
+
           // Body
-          body: const TabBarView(
-            children: [
-              TCategoryTab(),
-              TCategoryTab(),
-              TCategoryTab(),
-              TCategoryTab(),
-              TCategoryTab(),
-            ],
+          body: TabBarView(
+            children: categories.map((category) => ACategoryTab(category: category)).toList()
           ),
         ),
       ),
