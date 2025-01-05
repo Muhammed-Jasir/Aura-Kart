@@ -5,8 +5,10 @@ import 'package:aurakart/common/widgets/images/rounded_image.dart';
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
+import 'package:aurakart/features/shop/controllers/product_controller.dart';
 import 'package:aurakart/features/shop/screens/product_details/product_details.dart';
 import 'package:aurakart/utils/constants/colors.dart';
+import 'package:aurakart/utils/constants/enums.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';
@@ -15,14 +17,18 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AProductCardVertical extends StatelessWidget {
-  const AProductCardVertical({super.key});
-
+  const AProductCardVertical({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
     final darkMode = AHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetailScreen()),
+      onTap: () => Get.to(() => ProductDetailScreen(product: product)),
+
       /// Product Card Container
       child: Container(
         width: 180,
@@ -37,14 +43,18 @@ class AProductCardVertical extends StatelessWidget {
             /// Thumbnail, Wishlist Button, Discount Tag
             ARoundedContainer(
               height: 180,
+              width: 180,
               padding: const EdgeInsets.all(ASizes.sm),
               backgroundColor: darkMode ? AColors.dark : AColors.light,
               child: Stack(
                 children: [
                   /// Thumbnail Image
-                  const ARoundedImage(
-                    imageUrl: AImages.productImage1,
-                    applyImageRadius: true,
+                  Center(
+                    child: ARoundedImage(
+                      imageUrl: product.thumbnail,
+                      applyImageRadius: true,
+                      isNetworkImage: true,
+                    ),
                   ),
 
                   /// Sale Tag
@@ -58,7 +68,7 @@ class AProductCardVertical extends StatelessWidget {
                         vertical: ASizes.xs,
                       ),
                       child: Text(
-                        '25%',
+                        '$salePercentage',
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!
@@ -83,8 +93,8 @@ class AProductCardVertical extends StatelessWidget {
             const SizedBox(height: ASizes.spaceBtwItems / 2),
 
             ///  Details
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: ASizes.sm),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: ASizes.sm),
               child: SizedBox(
                 width: double.infinity,
                 child: Column(
@@ -92,14 +102,14 @@ class AProductCardVertical extends StatelessWidget {
                   children: [
                     // Product Name
                     AProductTitleText(
-                      title: 'Green Nike Air Shoes',
+                      title: product.title,
                       smallSize: true,
                     ),
-                
-                    SizedBox(height: ASizes.spaceBtwItems / 2),
-                
+
+                    const SizedBox(height: ASizes.spaceBtwItems / 2),
+
                     // Brand & Verify Icon
-                    ABrandTitleWithVerifiedIcon(title: "Nike"),
+                    ABrandTitleWithVerifiedIcon(title: product.brand!.name),
                   ],
                 ),
               ),
@@ -113,9 +123,30 @@ class AProductCardVertical extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 /// Price
-                const Padding(
-                  padding: EdgeInsets.only(left: ASizes.sm),
-                  child: AProductPriceText(price: '35.0'),
+                Flexible(
+                  child: Column(
+                    children: [
+                      if (product.productType ==
+                              ProductType.single.toString() &&
+                          product.salePrice > 0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: ASizes.sm),
+                          child: Text(product.price.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .apply(
+                                      decoration: TextDecoration.lineThrough)),
+                        ),
+
+                      /// Price, Show sale price as main price if sale exist
+                      Padding(
+                        padding: const EdgeInsets.only(left: ASizes.sm),
+                        child: AProductPriceText(
+                            price: controller.getProductPrice(product)),
+                      ),
+                    ],
+                  ),
                 ),
 
                 /// Add to Cart Button

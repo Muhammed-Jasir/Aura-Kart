@@ -18,8 +18,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({super.key});
+  const ProductDetailScreen({super.key, required this.product});
 
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
