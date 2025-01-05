@@ -37,14 +37,15 @@ class HomeScreen extends StatelessWidget {
                   // Appbar
                   AHomeAppbar(),
                   SizedBox(height: ASizes.spaceBtwSections),
-    
+
                   // Searchbar
                   ASearchContainer(text: 'Search in Store'),
                   SizedBox(height: ASizes.spaceBtwSections),
-    
+
                   // Category Section
                   Padding(
-                    padding: EdgeInsets.only(left: ASizes.defaultSpace, right: ASizes.defaultSpace),
+                    padding: EdgeInsets.only(
+                        left: ASizes.defaultSpace, right: ASizes.defaultSpace),
                     child: Column(
                       children: [
                         /// Heading
@@ -53,44 +54,38 @@ class HomeScreen extends StatelessWidget {
                           showActionbutton: false,
                           textColor: AColors.white,
                         ),
-    
+
                         SizedBox(height: ASizes.spaceBtwItems),
-    
+
                         /// Categories
                         AHomeCategories(),
                       ],
                     ),
                   ),
-    
+
                   SizedBox(height: ASizes.spaceBtwSections),
                 ],
               ),
             ),
-    
+
             /// Body
             Padding(
               padding: const EdgeInsets.all(ASizes.defaultSpace),
               child: Column(
                 children: [
                   // Banner Promo Slider
-                  const APromoSlider(
-                    banners: [
-                      AImages.promoBanner1,
-                      AImages.promoBanner2,
-                      AImages.promoBanner3,
-                    ],
-                  ),
-    
+                  const APromoSlider(),
+
                   const SizedBox(height: ASizes.spaceBtwSections),
-    
+
                   /// Product Heading
                   ASectionHeading(
                     title: 'Popular Products',
                     onPressed: () => Get.to(() => const AllProducts()),
                   ),
-    
+
                   const SizedBox(height: ASizes.spaceBtwItems),
-    
+
                   /// Popular Products
                   AGridLayout(
                     itemCount: 4,
