@@ -187,7 +187,9 @@ class UserController extends GetxController {
       if (image != null) {
         imageUploading.value = true;
         final imageUrl = await userRepository.uploadImageToCloudinary(
-            'Users/Images/Profile/', image);
+          'Users/Images/Profile/',
+          image,
+        );
 
         Map<String, dynamic> json = {
           'ProfilePicture': imageUrl,
@@ -205,7 +207,9 @@ class UserController extends GetxController {
       }
     } catch (e) {
       ALoaders.errorSnackBar(
-          title: 'Oh Snap!', message: 'Something went wrong: $e');
+        title: 'Oh Snap!',
+        message: 'Something went wrong: $e',
+      );
     } finally {
       imageUploading.value = false;
     }

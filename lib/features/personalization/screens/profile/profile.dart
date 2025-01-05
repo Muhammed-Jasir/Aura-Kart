@@ -1,5 +1,6 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/images/circular_image.dart';
+import 'package:aurakart/common/widgets/shimmers/shimmer.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/personalization/controllers/user_controller.dart';
 import 'package:aurakart/features/personalization/screens/profile/widgets/change_name.dart';
@@ -7,7 +8,6 @@ import 'package:aurakart/features/personalization/screens/profile/widgets/profil
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
-import 'package:aurakart/utils/loaders/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';

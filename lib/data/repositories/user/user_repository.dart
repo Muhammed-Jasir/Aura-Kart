@@ -111,13 +111,13 @@ class UserRepository extends GetxController {
   Future<String> uploadImageToCloudinary(String path, XFile image) async {
     try {
       // Cloudinary API uri
-      final uri = Uri.parse(
-          'https://api.cloudinary.com/v1_1/${APIConstants.cloudinaryCloudName}/image/upload');
+      final uri = Uri.parse(APIConstants.cloudinaryBaseUrl);
 
       // Multipart Request
       var request = http.MultipartRequest('POST', uri);
       request.fields['upload_preset'] = APIConstants.cloudinaryUploadPreset;
       request.fields['resource_type'] = 'image';
+      request.fields['folder'] = path;
       request.files.add(await http.MultipartFile.fromPath('file', image.path));
 
       // Send Request
