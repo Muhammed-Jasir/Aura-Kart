@@ -1,6 +1,7 @@
 import 'package:aurakart/common/widgets/custom_shapes/curved_edges/curved_edges_widget.dart';
 import 'package:aurakart/common/widgets/images/rounded_image.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/checkout/checkout.dart';
 import 'package:aurakart/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
 import 'package:aurakart/features/shop/screens/product_details/widgets/product_attributes.dart';

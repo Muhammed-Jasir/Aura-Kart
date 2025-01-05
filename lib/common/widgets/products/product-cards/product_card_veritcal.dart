@@ -6,6 +6,8 @@ import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_ico
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
 import 'package:aurakart/features/shop/controllers/product_controller.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
+import 'package:aurakart/features/shop/models/product_variation_model.dart';
 import 'package:aurakart/features/shop/screens/product_details/product_details.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/enums.dart';

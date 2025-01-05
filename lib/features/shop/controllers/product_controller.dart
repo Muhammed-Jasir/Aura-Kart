@@ -1,3 +1,4 @@
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/enums.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
   final isLoading = false.obs;
-  final productRepository = Get.put(productRepository());
+  final ProductRepository = Get.put(productRepository());
   RxList<ProductController> featuredProducts = <ProductController>[].obs;
 
   @override
@@ -41,10 +42,10 @@ class ProductController extends GetxController {
           .toString();
     } else {
       // Calculate the Smallest and Largest price among variations
-      for (var variation in product.productVariation!) {
+      for (var variation in product.productVariations!) {
         //Determine The Price to Consider (sale price if available,otherwise regular price)
         double priceToConsider =
-            variation.salePrice > 0.0 ? variation.saleprice : variation.price;
+            variation.salePrice > 0.0 ? variation.salePrice : variation.price;
         // Update smallest and Largest Prices
         if (priceToConsider < smallestPrice) {
           smallestPrice = priceToConsider;

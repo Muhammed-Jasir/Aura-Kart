@@ -1,3 +1,4 @@
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
