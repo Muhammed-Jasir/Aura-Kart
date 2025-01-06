@@ -1,3 +1,4 @@
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
@@ -5,7 +6,12 @@ import 'package:aurakart/common/widgets/products/product-cards/product_card_veri
 import 'package:iconsax/iconsax.dart';
 
 class ASortableProducts extends StatelessWidget {
-  const ASortableProducts({super.key});
+  const ASortableProducts({
+    super.key,
+    required this.product,
+  });
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class ASortableProducts extends StatelessWidget {
         /// Products
         AGridLayout(
           itemCount: 8,
-          itemBuilder: (_, index) => const AProductCardVertical(),
+          itemBuilder: (_, index) => AProductCardVertical(product: product),
         )
       ],
     );

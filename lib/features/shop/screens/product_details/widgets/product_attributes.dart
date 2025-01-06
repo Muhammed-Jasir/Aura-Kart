@@ -3,173 +3,170 @@ import 'package:aurakart/common/widgets/custom_shapes/container/rounded_containe
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
+import 'package:aurakart/features/shop/controllers/product/variation_controller.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AProductAttributes extends StatelessWidget {
-  const AProductAttributes({super.key});
+  const AProductAttributes({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
 
-    return Column(
-      children: [
-        // Selected Attribute Pricing & Description
-        ARoundedContainer(
-          backgroundColor: darkMode ? AColors.darkGrey : AColors.grey,
-          padding: const EdgeInsets.all(ASizes.md),
-          child: Column(
-            children: [
-              // Title, Price and Stock status
-              Row(
+    final controller = Get.put(VariationController());
+
+    return Obx(
+      () => Column(
+        children: [
+          // Selected Attribute Pricing & Description
+          // Display variation price and stock when some variation is selected.
+          if (controller.selectedVariation.value.id.isNotEmpty)
+            ARoundedContainer(
+              backgroundColor: darkMode ? AColors.darkGrey : AColors.grey,
+              padding: const EdgeInsets.all(ASizes.md),
+              child: Column(
                 children: [
-                  // Title
-                  const ASectionHeading(
-                    title: 'Variation',
-                    showActionbutton: false,
-                  ),
-
-                  const SizedBox(width: ASizes.spaceBtwItems),
-
-                  // Price and Stock status
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  // Title, Price and Stock status
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          // Price Text
-                          const AProductTitleText(
-                            title: "Price: ",
-                            smallSize: true,
-                          ),
-
-                          /// Actual Price
-                          Text(
-                            '₹25',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .apply(decoration: TextDecoration.lineThrough),
-                          ),
-
-                          const SizedBox(width: ASizes.spaceBtwItems),
-
-                          // Sale Price
-                          const AProductPriceText(price: '20'),
-                        ],
+                      // Title
+                      const ASectionHeading(
+                        title: 'Variation',
+                        showActionbutton: false,
                       ),
 
-                      /// Stock Status
-                      Row(
+                      const SizedBox(width: ASizes.spaceBtwItems),
+
+                      // Price and Stock status
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Stock Text
-                          const AProductTitleText(
-                            title: 'Stock: ',
-                            smallSize: true,
+                          Row(
+                            children: [
+                              // Price Text
+                              const AProductTitleText(
+                                title: "Price: ",
+                                smallSize: true,
+                              ),
+
+                              /// Actual Price
+                              if (controller.selectedVariation.value.salePrice >
+                                  0)
+                                Text(
+                                  '₹${controller.selectedVariation.value.price}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall!
+                                      .apply(
+                                          decoration:
+                                              TextDecoration.lineThrough),
+                                ),
+
+                              const SizedBox(width: ASizes.spaceBtwItems),
+
+                              // Sale Price
+                              AProductPriceText(
+                                price: controller.getVariationPrice(),
+                              ),
+                            ],
                           ),
 
-                          // Stock Status
-                          Text(
-                            'In Stock',
-                            style: Theme.of(context).textTheme.titleMedium,
+                          /// Stock Status
+                          Row(
+                            children: [
+                              // Stock Text
+                              const AProductTitleText(
+                                title: 'Stock: ',
+                                smallSize: true,
+                              ),
+
+                              // Stock Status
+                              Text(
+                                controller.variationStockStatus.value,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
+
+                  /// Variation Description
+                  AProductTitleText(
+                    title: controller.selectedVariation.value.description ?? '',
+                    smallSize: true,
+                    maxlines: 4,
+                  ),
                 ],
               ),
+            ),
 
-              /// Variation Description
-              const AProductTitleText(
-                title:
-                    "This is the description of the product and it can go up to max 4 lines.",
-                smallSize: true,
-                maxlines: 4,
-              ),
-            ],
+          const SizedBox(height: ASizes.spaceBtwItems),
+
+          // Attributes
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: product.productAttributes!
+                .map(
+                  (attribute) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title
+                      ASectionHeading(
+                          title: attribute.name ?? '', showActionbutton: false),
+
+                      const SizedBox(height: ASizes.spaceBtwItems / 2),
+
+                      // Attributes
+                      Obx(
+                        () => Wrap(
+                          spacing: 8,
+                          children: attribute.values!.map(
+                            (attributeValue) {
+                              final isSelected = controller
+                                      .selectedAttributes[attribute.name] ==
+                                  attributeValue;
+                              final available = controller
+                                  .getAttributesAvailabilityInVariation(
+                                      product.productVariations!,
+                                      attribute.name!)
+                                  .contains(attributeValue);
+
+                              return AChoiceChip(
+                                text: attributeValue,
+                                selected: isSelected,
+                                onSelected: available
+                                    ? (selected) {
+                                        if (selected && available) {
+                                          controller.onAttributeSelected(
+                                              product,
+                                              attribute.name ?? '',
+                                              attributeValue);
+                                        }
+                                      }
+                                    : null,
+                              );
+                            },
+                          ).toList(),
+                        ),
+                      ),
+
+                      const SizedBox(height: ASizes.spaceBtwItems),
+                    ],
+                  ),
+                )
+                .toList(),
           ),
-        ),
-
-        const SizedBox(height: ASizes.spaceBtwItems),
-
-        // Color Attributes
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Title
-            const ASectionHeading(
-              title: "Colors",
-              showActionbutton: false,
-            ),
-
-            const SizedBox(height: ASizes.spaceBtwItems / 2),
-
-            // Attributes
-            Wrap(
-              spacing: 8,
-              children: [
-                AChoiceChip(
-                  text: 'Green',
-                  selected: true,
-                  onSelected: (value) {},
-                ),
-                AChoiceChip(
-                  text: 'Blue',
-                  selected: false,
-                  onSelected: (value) {},
-                ),
-                AChoiceChip(
-                  text: 'Pink',
-                  selected: false,
-                  onSelected: (value) {},
-                ),
-              ],
-            ),
-          ],
-        ),
-
-        const SizedBox(height: ASizes.spaceBtwItems),
-
-        // Size Attributes
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Title
-            const ASectionHeading(
-              title: "Size",
-              showActionbutton: false,
-            ),
-
-            const SizedBox(height: ASizes.spaceBtwItems / 2),
-
-            // Attributes
-            Wrap(
-              spacing: 8,
-              children: [
-                AChoiceChip(
-                  text: 'EU 34',
-                  selected: true,
-                  onSelected: (value) {},
-                ),
-                AChoiceChip(
-                  text: 'EU 36',
-                  selected: false,
-                  onSelected: (value) {},
-                ),
-                AChoiceChip(
-                  text: 'WU 38',
-                  selected: false,
-                  onSelected: (value) {},
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

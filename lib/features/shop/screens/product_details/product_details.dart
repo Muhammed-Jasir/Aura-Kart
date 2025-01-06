@@ -10,6 +10,7 @@ import 'package:aurakart/features/shop/screens/product_details/widgets/product_m
 import 'package:aurakart/features/shop/screens/product_details/widgets/rating_share_widget.dart';
 import 'package:aurakart/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:aurakart/utils/constants/colors.dart';
+import 'package:aurakart/utils/constants/enums.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';
@@ -22,6 +23,7 @@ class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key, required this.product});
 
   final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,7 @@ class ProductDetailScreen extends StatelessWidget {
         child: Column(
           children: [
             /// Product Image Slider
-            const AProductImageSlider(),
+            AProductImageSlider(product: product),
 
             /// Product Details
             Padding(
@@ -45,12 +47,14 @@ class ProductDetailScreen extends StatelessWidget {
                   const ARatingAndShare(),
 
                   /// Price, Title, Stack, & Brand
-                  const AProductMetaData(),
+                  AProductMetaData(product: product),
                   const SizedBox(height: ASizes.spaceBtwItems),
 
                   /// Attributes
-                  const AProductAttributes(),
-                  const SizedBox(height: ASizes.spaceBtwSections),
+                  if (product.productType == ProductType.variable.toString())
+                    AProductAttributes(product: product),
+                  if (product.productType == ProductType.variable.toString())
+                    const SizedBox(height: ASizes.spaceBtwSections),
 
                   /// Checkout Button
                   SizedBox(
@@ -71,16 +75,16 @@ class ProductDetailScreen extends StatelessWidget {
 
                   const SizedBox(height: ASizes.spaceBtwItems),
 
-                  const ReadMoreText(
-                    'This is a product description for Blue Nike Sleeve less vest. There are more things that can be added. This is a product description for Blue Nike Sleeve less vest. There are more things that can be added',
+                  ReadMoreText(
+                    product.description ?? '',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: ' more',
                     trimExpandedText: ' less',
-                    moreStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
                   const SizedBox(height: ASizes.spaceBtwItems),

@@ -5,8 +5,10 @@ import "package:aurakart/common/widgets/custom_shapes/container/search_container
 import "package:aurakart/common/widgets/layouts/grid_layout.dart";
 import "package:aurakart/common/widgets/products/cart/cart_menu_icon.dart";
 import "package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart";
+import "package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart";
 import "package:aurakart/common/widgets/texts/section_heading.dart";
-import "package:aurakart/features/shop/controllers/product_controller.dart";
+import "package:aurakart/features/shop/controllers/product/product_controller.dart";
+import "package:aurakart/features/shop/models/product_model.dart";
 import "package:aurakart/features/shop/screens/all_products/all_products.dart";
 import "package:aurakart/features/shop/screens/home/widgets/home_appbar.dart";
 import "package:aurakart/features/shop/screens/home/widgets/home_categories.dart";
@@ -23,11 +25,14 @@ import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProductController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -83,25 +88,36 @@ class HomeScreen extends StatelessWidget {
                   /// Product Heading
                   ASectionHeading(
                     title: 'Popular Products',
-                    onPressed: () => Get.to(() => const AllProducts()),
+                    onPressed: () =>
+                        Get.to(() => AllProducts(product: product)),
                   ),
 
                   const SizedBox(height: ASizes.spaceBtwItems),
 
                   /// Popular Products
-                  Obx(() {
-                    if (controller.isLoading.value)
-                      return const AVerticalProductShimmer();
-                    if (controller.featuredProducts.isEmpty) {
-                      return Center(
-                          child: Text('No Data Found!',
-                              style: Theme.of(context).textTheme.bodyMedium));
-                    }
-                    return AGridLayout(
+                  Obx(
+                    () {
+                      if (controller.isLoading.value) {
+                        return const AVerticalProductShimmer();
+                      }
+
+                      if (controller.featuredProducts.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'No Data Found!',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        );
+                      }
+
+                      return AGridLayout(
                         itemCount: controller.featuredProducts.length,
                         itemBuilder: (_, index) => AProductCardVertical(
-                            product: controller.featuredProducts[index]));
-                  }),
+                          product: controller.featuredProducts[index],
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

@@ -38,6 +38,6 @@ Future<void> main() async {
   // Initialize Cloudinary
   cloudinary = CloudinaryObject.fromCloudName(cloudName: APIConstants.cloudinaryCloudName);
 
-  // Run the App
+  // Load all the Material Design / Themes / Localizations / Bindings
   runApp(const MyApp());
 }

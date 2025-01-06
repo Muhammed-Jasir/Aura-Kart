@@ -7,17 +7,18 @@ class BrandModel {
   bool? isFeatured;
   int? productsCount;
 
-  BrandModel(
-      {required this.id,
-      required this.image,
-      required this.name,
-      this.isFeatured,
-      this.productsCount});
+  BrandModel({
+    required this.id,
+    required this.image,
+    required this.name,
+    this.isFeatured,
+    this.productsCount,
+  });
 
   /// Empty Helper Function
   static BrandModel empty() => BrandModel(id: '', name: '', image: '');
 
-  ///convert model to json structure so that you can store data in FireBase
+  /// Convert model to Json structure so that you can store data in FireBase
   toJson() {
     return {
       'Id': id,
@@ -33,9 +34,9 @@ class BrandModel {
     final data = document;
     if (data.isEmpty) return BrandModel.empty();
     return BrandModel(
-      id: data['id'] ?? '',
-      name: data['name'] ?? '',
-      image: data['image'] ?? '',
+      id: data['Id'] ?? '',
+      name: data['Name'] ?? '',
+      image: data['Image'] ?? '',
       isFeatured: data['IsFeatured'] ?? false,
       productsCount: int.parse((data['ProductsCount'] ?? 0).toString()),
     );

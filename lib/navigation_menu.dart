@@ -1,4 +1,5 @@
 import 'package:aurakart/features/personalization/screens/settings/setting.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/home/home.dart';
 import 'package:aurakart/features/shop/screens/store/store.dart';
 import 'package:aurakart/features/shop/screens/wishlist/wishlist.dart';
@@ -48,9 +49,9 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-    const HomeScreen(),
-    const StoreScreen(),
-    const FavouriteScreen(),
+    HomeScreen(product: ProductModel.empty()),
+    StoreScreen(product: ProductModel.empty()),
+    FavouriteScreen(product: ProductModel.empty()),
     const SettingsScreen(),
   ];
 }

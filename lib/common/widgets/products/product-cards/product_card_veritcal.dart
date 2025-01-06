@@ -5,7 +5,7 @@ import 'package:aurakart/common/widgets/images/rounded_image.dart';
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
-import 'package:aurakart/features/shop/controllers/product_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/product_controller.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/models/product_variation_model.dart';
 import 'package:aurakart/features/shop/screens/product_details/product_details.dart';
@@ -20,14 +20,20 @@ import 'package:iconsax/iconsax.dart';
 
 class AProductCardVertical extends StatelessWidget {
   const AProductCardVertical({super.key, required this.product});
+
   final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    final salePercentage =
-        controller.calculateSalePercentage(product.price, product.salePrice);
+    
+    final salePercentage = controller.calculateSalePercentage(
+      product.price,
+      product.salePrice,
+    );
     final darkMode = AHelperFunctions.isDarkMode(context);
 
+    // Container with side paddings, color, edges, radius and shadow
     return GestureDetector(
       onTap: () => Get.to(() => ProductDetailScreen(product: product)),
 
@@ -103,10 +109,7 @@ class AProductCardVertical extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Product Name
-                    AProductTitleText(
-                      title: product.title,
-                      smallSize: true,
-                    ),
+                    AProductTitleText(title: product.title, smallSize: true),
 
                     const SizedBox(height: ASizes.spaceBtwItems / 2),
 
@@ -133,19 +136,21 @@ class AProductCardVertical extends StatelessWidget {
                           product.salePrice > 0)
                         Padding(
                           padding: const EdgeInsets.only(left: ASizes.sm),
-                          child: Text(product.price.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelMedium!
-                                  .apply(
-                                      decoration: TextDecoration.lineThrough)),
+                          child: Text(
+                            product.price.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .apply(decoration: TextDecoration.lineThrough),
+                          ),
                         ),
 
                       /// Price, Show sale price as main price if sale exist
                       Padding(
                         padding: const EdgeInsets.only(left: ASizes.sm),
                         child: AProductPriceText(
-                            price: controller.getProductPrice(product)),
+                          price: controller.getProductPrice(product),
+                        ),
                       ),
                     ],
                   ),

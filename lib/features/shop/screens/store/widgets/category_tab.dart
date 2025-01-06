@@ -3,6 +3,7 @@ import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
 import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/shop/models/category_model.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,11 @@ class ACategoryTab extends StatelessWidget {
   const ACategoryTab({
     super.key,
     required this.category,
+    required this.product,
   });
 
   final CategoryModel category;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +53,15 @@ class ACategoryTab extends StatelessWidget {
               ASectionHeading(
                 title: 'You might like',
                 showActionbutton: true,
-                onPressed: () => Get.to(() => const AllProducts()),
+                onPressed: () => Get.to(() => AllProducts(product: product)),
               ),
 
               const SizedBox(height: ASizes.spaceBtwItems),
 
               AGridLayout(
                 itemCount: 4,
-                itemBuilder: (_, index) => const AProductCardVertical(),
+                itemBuilder: (_, index) =>
+                    AProductCardVertical(product: product),
               ),
             ],
           ),

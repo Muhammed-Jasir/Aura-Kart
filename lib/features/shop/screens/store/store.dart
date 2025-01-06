@@ -10,6 +10,7 @@ import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_ico
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/common/widgets/brands/brand_card.dart';
 import 'package:aurakart/features/shop/controllers/category_controller.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/brand/all_brands.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/features/shop/screens/store/widgets/category_tab.dart';
@@ -22,7 +23,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class StoreScreen extends StatelessWidget {
-  const StoreScreen({super.key});
+  const StoreScreen({super.key, required this.product});
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +81,8 @@ class StoreScreen extends StatelessWidget {
                       /// Featured Brands
                       ASectionHeading(
                         title: 'Featured Brands',
-                        onPressed: () => Get.to(() => const AllBrandsScreen()),
+                        onPressed: () =>
+                            Get.to(() => AllBrandsScreen(product: product)),
                       ),
 
                       const SizedBox(height: ASizes.spaceBtwItems / 1.5),
@@ -107,7 +111,14 @@ class StoreScreen extends StatelessWidget {
 
           // Body
           body: TabBarView(
-            children: categories.map((category) => ACategoryTab(category: category)).toList()
+            children: categories
+                .map(
+                  (category) => ACategoryTab(
+                    category: category,
+                    product: product,
+                  ),
+                )
+                .toList(),
           ),
         ),
       ),

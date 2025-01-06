@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:aurakart/common/widgets/shimmers/shimmer.dart';
 import 'package:aurakart/features/shop/controllers/banner_controller.dart';
-import 'package:aurakart/features/shop/controllers/home/home_controller.dart';
+import 'package:aurakart/features/shop/controllers/home_controller.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/common/widgets/images/rounded_image.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/circular_container.dart';
@@ -25,8 +25,9 @@ class APromoSlider extends StatelessWidget {
     return Obx(
       () {
         // Loder
-        if (controller.isLoading.value)
+        if (controller.isLoading.value) {
           return const AShimmerEffect(width: double.infinity, height: 190);
+        }
 
         // No Data Found
         if (controller.banners.isEmpty) {
