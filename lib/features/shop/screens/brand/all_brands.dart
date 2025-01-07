@@ -1,4 +1,7 @@
 import 'package:aurakart/common/widgets/products/sortable/sortable_products.dart';
+import 'package:aurakart/common/widgets/shimmers/brands_shimmer.dart';
+import 'package:aurakart/features/shop/controllers/brand_controller.dart';
+import 'package:aurakart/features/shop/models/brand_model.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/brand/brand_products.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +13,15 @@ import 'package:aurakart/common/widgets/brands/brand_card.dart';
 import 'package:get/get.dart';
 
 class AllBrandsScreen extends StatelessWidget {
-  const AllBrandsScreen({super.key, required this.product});
-
-  final ProductModel product;
+  const AllBrandsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brandController = BrandController.instance;
+
     return Scaffold(
       // Appbar
-      appBar: const AAppBar(
-        title: Text('Brand'),
-        showBackArrow: true,
-      ),
+      appBar: const AAppBar(title: Text('Brand'), showBackArrow: true),
       // Body
       body: SingleChildScrollView(
         child: Padding(
@@ -32,14 +32,36 @@ class AllBrandsScreen extends StatelessWidget {
               const ASectionHeading(title: 'Brands', showActionbutton: false),
               const SizedBox(height: ASizes.spaceBtwItems),
 
-              /// Brands
-              AGridLayout(
-                itemCount: 10,
-                mainAxisExtent: 80,
-                itemBuilder: (context, index) => ABrandCard(
-                  showBorder: true,
-                  onTap: () => Get.to(() => BrandProducts(product: product)),
-                ),
+              Obx(
+                () {
+                  if (brandController.isLoading.value) {
+                    return const ABrandShimmer();
+                  }
+
+                  if (brandController.allBrands.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No Data Found!',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .apply(color: Colors.white),
+                      ),
+                    );
+                  }
+                  return AGridLayout(
+                    itemCount: brandController.allBrands.length,
+                    mainAxisExtent: 80,
+                    itemBuilder: (_, index) {
+                      final brand = brandController.allBrands[index];
+                      return ABrandCard(
+                        showBorder: false,
+                        brand: brand,
+                        onTap: () => Get.to(() => BrandProducts(brand: brand)),
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),

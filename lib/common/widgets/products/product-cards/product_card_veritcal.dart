@@ -26,7 +26,7 @@ class AProductCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    
+
     final salePercentage = controller.calculateSalePercentage(
       product.price,
       product.salePrice,
@@ -66,24 +66,26 @@ class AProductCardVertical extends StatelessWidget {
                   ),
 
                   /// Sale Tag
-                  Positioned(
-                    top: 12,
-                    child: ARoundedContainer(
-                      radius: ASizes.sm,
-                      backgroundColor: AColors.secondary.withValues(alpha: 0.8),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: ASizes.sm,
-                        vertical: ASizes.xs,
-                      ),
-                      child: Text(
-                        '$salePercentage',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .apply(color: AColors.black),
+                  if (salePercentage != null)
+                    Positioned(
+                      top: 12,
+                      child: ARoundedContainer(
+                        radius: ASizes.sm,
+                        backgroundColor:
+                            AColors.secondary.withValues(alpha: 0.8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: ASizes.sm,
+                          vertical: ASizes.xs,
+                        ),
+                        child: Text(
+                          '$salePercentage%',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .apply(color: AColors.black),
+                        ),
                       ),
                     ),
-                  ),
 
                   /// Favourite Icon Button
                   const Positioned(

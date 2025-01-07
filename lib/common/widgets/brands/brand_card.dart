@@ -1,6 +1,7 @@
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:aurakart/common/widgets/images/circular_image.dart';
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
+import 'package:aurakart/features/shop/models/brand_model.dart';
 import 'package:flutter/material.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
@@ -13,8 +14,10 @@ class ABrandCard extends StatelessWidget {
     super.key,
     required this.showBorder,
     this.onTap,
+    required this.brand,
   });
 
+  final BrandModel brand;
   final bool showBorder;
   final void Function()? onTap;
 
@@ -35,8 +38,8 @@ class ABrandCard extends StatelessWidget {
             /// Icon
             Flexible(
               child: ACircularImage(
-                isNetworkImage: false,
-                image: AImages.clothIcon,
+                isNetworkImage: true,
+                image: brand.image,
                 backgroundColor: Colors.transparent,
                 overLayColor: darkMode ? AColors.white : AColors.black,
               ),
@@ -52,12 +55,12 @@ class ABrandCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const ABrandTitleWithVerifiedIcon(
-                    title: "Nike",
+                  ABrandTitleWithVerifiedIcon(
+                    title: brand.name,
                     brandTextSize: TextSizes.large,
                   ),
                   Text(
-                    '256 products',
+                    '${brand.productsCount ?? 0} products',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.labelMedium,
                   ),

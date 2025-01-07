@@ -5,7 +5,6 @@ import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ASortableProducts extends StatelessWidget {
@@ -21,6 +20,7 @@ class ASortableProducts extends StatelessWidget {
     // Initialize controller for managing product sorting
     final controller = Get.put(AllProductsController());
     controller.assignProducts(products);
+    
     return Column(
       children: [
         /// Dropdown
