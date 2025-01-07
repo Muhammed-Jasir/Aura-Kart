@@ -7,6 +7,7 @@ import 'package:aurakart/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
 import 'package:aurakart/utils/exceptions/format_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
+import 'package:aurakart/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,10 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       /// if the user is logged in
       if (user.emailVerified) {
+        
+        ///initialize user specific storage
+        await ALocalStorage.init(user.uid);
+
         // If user email is verified move to navigation menu
         Get.offAll(() => const NavigationMenu());
       } else {

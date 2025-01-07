@@ -2,6 +2,7 @@ import 'package:aurakart/common/styles/shadows.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:aurakart/common/widgets/icons/circular_icon.dart';
 import 'package:aurakart/common/widgets/images/rounded_image.dart';
+import 'package:aurakart/common/widgets/products/favourite_icon/favourite_icon.dart';
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
@@ -66,6 +67,7 @@ class AProductCardVertical extends StatelessWidget {
                   ),
 
                   /// Sale Tag
+                  if (salePercentage != null)
                   Positioned(
                     top: 12,
                     child: ARoundedContainer(
@@ -89,10 +91,7 @@ class AProductCardVertical extends StatelessWidget {
                   const Positioned(
                     top: 0,
                     right: 0,
-                    child: ACircularIcon(
-                      icon: Iconsax.heart5,
-                      color: Colors.red,
-                    ),
+                    child: AFavouriteIcon(productId: product.id),
                   ),
                 ],
               ),

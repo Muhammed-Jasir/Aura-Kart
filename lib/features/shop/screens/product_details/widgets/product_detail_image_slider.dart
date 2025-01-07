@@ -2,6 +2,7 @@ import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/custom_shapes/curved_edges/curved_edges_widget.dart';
 import 'package:aurakart/common/widgets/icons/circular_icon.dart';
 import 'package:aurakart/common/widgets/images/rounded_image.dart';
+import 'package:aurakart/common/widgets/products/favourite_icon/favourite_icon.dart';
 import 'package:aurakart/features/shop/controllers/product/images_controller.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/colors.dart';
@@ -103,8 +104,7 @@ class AProductImageSlider extends StatelessWidget {
             const AAppBar(
               showBackArrow: true,
               actions: [
-                ACircularIcon(icon: Iconsax.heart5, color: Colors.red),
-              ],
+                AFavouriteIcon(productId: product.id)],
             ),
           ],
         ),
