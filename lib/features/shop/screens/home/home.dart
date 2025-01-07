@@ -20,6 +20,7 @@ import "package:aurakart/utils/constants/text_strings.dart";
 import "package:aurakart/utils/device/device_utility.dart";
 import "package:aurakart/utils/helpers/helper_functions.dart";
 import "package:carousel_slider/carousel_slider.dart";
+import "package:cloud_firestore/cloud_firestore.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
@@ -88,8 +89,11 @@ class HomeScreen extends StatelessWidget {
                   /// Product Heading
                   ASectionHeading(
                     title: 'Popular Products',
-                    onPressed: () =>
-                        Get.to(() => AllProducts(product: product)),
+                    onPressed: () => Get.to(() => AllProducts(
+                          title: 'Popular Products',
+                          futureMethod: controller.fetchAllFeaturedProducts(),
+                          product: product,
+                        )),
                   ),
 
                   const SizedBox(height: ASizes.spaceBtwItems),

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:aurakart/common/widgets/shimmers/shimmer.dart';
 import 'package:aurakart/features/shop/controllers/banner_controller.dart';
 import 'package:aurakart/features/shop/controllers/home_controller.dart';
