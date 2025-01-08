@@ -32,6 +32,7 @@ class AProductCardVertical extends StatelessWidget {
       product.price,
       product.salePrice,
     );
+
     final darkMode = AHelperFunctions.isDarkMode(context);
 
     // Container with side paddings, color, edges, radius and shadow
@@ -68,26 +69,28 @@ class AProductCardVertical extends StatelessWidget {
 
                   /// Sale Tag
                   if (salePercentage != null)
-                  Positioned(
-                    top: 12,
-                    child: ARoundedContainer(
-                      radius: ASizes.sm,
-                      backgroundColor: AColors.secondary.withValues(alpha: 0.8),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: ASizes.sm,
-                        vertical: ASizes.xs,
-                      ),
-                      child: Text(
-                        '$salePercentage',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .apply(color: AColors.black),
+                    Positioned(
+                      top: 12,
+                      child: ARoundedContainer(
+                        radius: ASizes.sm,
+                        backgroundColor:
+                            AColors.secondary.withValues(alpha: 0.8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: ASizes.sm,
+                          vertical: ASizes.xs,
+                        ),
+                        child: Text(
+                          '$salePercentage%',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .apply(color: AColors.black),
+                        ),
                       ),
                     ),
 
                   /// Favourite Icon Button
-                   Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
                     child: AFavouriteIcon(productId: product.id),

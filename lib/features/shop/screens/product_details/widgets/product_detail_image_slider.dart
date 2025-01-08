@@ -101,7 +101,7 @@ class AProductImageSlider extends StatelessWidget {
             ),
 
             /// Appbar Icons
-            const AAppBar(
+            AAppBar(
               showBackArrow: true,
               actions: [
                 AFavouriteIcon(productId: product.id)],

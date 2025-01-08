@@ -19,10 +19,10 @@ import '../features/shop/screens/home/home.dart';
 
 class AppRoutes {
   static final pages = [
-    GetPage(name: ARoutes.home, page: () => HomeScreen(products: ProductModel.empty())),
-    GetPage(name: ARoutes.store, page: () =>  StoreScreen(product: ProductModel.empty())),
-    GetPage(name: ARoutes.favourites, page: () =>  FavouriteScreen(product: ProductModel.empty())),
-    GetPage(name: ARoutes.settings, page: () =>  const SettingsScreen()),
+    GetPage(name: ARoutes.home, page: () => const HomeScreen()),
+    GetPage(name: ARoutes.store, page: () => const StoreScreen()),
+    GetPage(name: ARoutes.favourites, page: () => const FavouriteScreen()),
+    GetPage(name: ARoutes.settings, page: () => const SettingsScreen()),
     GetPage(
       name: ARoutes.productReviews,
       page: () => const ProductReviewsScreens(),

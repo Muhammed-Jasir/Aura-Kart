@@ -19,7 +19,6 @@ class AllProducts extends StatelessWidget {
     required this.title,
     this.query,
     this.futureMethod,
-    required ProductModel products,
   });
 
   final String title;

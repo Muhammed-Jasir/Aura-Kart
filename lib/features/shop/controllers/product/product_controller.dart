@@ -41,7 +41,7 @@ class ProductController extends GetxController {
   Future<List<ProductModel>> fetchAllFeaturedProducts() async {
     try {
       // Fetch Products
-      final products = await productRepository.getFeaturedProducts();
+      final products = await productRepository.getAllFeaturedProducts();
       return products;
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());

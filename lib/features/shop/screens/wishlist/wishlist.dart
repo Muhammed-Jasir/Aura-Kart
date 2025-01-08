@@ -16,9 +16,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class FavouriteScreen extends StatelessWidget {
-  const FavouriteScreen({super.key, required this.product});
-
-  final ProductModel product;
+  const FavouriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class FavouriteScreen extends StatelessWidget {
         actions: [
           ACircularIcon(
             icon: Iconsax.add,
-            onPressed: () => Get.to(HomeScreen(products: product)),
+            onPressed: () => Get.to(const HomeScreen()),
           ),
         ],
       ),
@@ -47,29 +45,33 @@ class FavouriteScreen extends StatelessWidget {
 
           child: Obx(
             () => FutureBuilder(
-                future: controller.favoriteProducts(),
-                builder: (context, snapshot) {
-                  //nothing found widget
-                  final emptyWidget = AAnimationLoaderWidget(
-                    text: 'oops! Wishlist is Empty',
-                    animation: AImages.pencilAnimaton,
-                    showAction: true,
-                    actionText: 'Lets\'s add some',
-                    onActionPressed: () => Get.off(() => const NavigationMenu()),
-                  );
-                  const loader = AVerticalProductShimmer(itemCount: 6);
-                  final widget = ACloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot,
-                      loader: loader,
-                      nothingFound: emptyWidget);
-                  if (widget != null) return widget;
-            
-                  final product = snapshot.data!; 
-                  return AGridLayout(
-                    itemCount: products.length,
-                    itemBuilder: (_, index) =>
-                        AProductCardVertical(product: products[index]) );
-                }),
+              future: controller.favoriteProducts(),
+              builder: (context, snapshot) {
+                // nothing found widget
+                final emptyWidget = AAnimationLoaderWidget(
+                  text: 'oops! Wishlist is Empty',
+                  animation: AImages.pencilAnimaton,
+                  showAction: true,
+                  actionText: 'Lets\'s add some',
+                  onActionPressed: () => Get.off(() => const NavigationMenu()),
+                );
+
+                const loader = AVerticalProductShimmer(itemCount: 6);
+                final widget = ACloudHelperFunctions.checkMultiRecordState(
+                    snapshot: snapshot,
+                    loader: loader,
+                    nothingFound: emptyWidget);
+                if (widget != null) return widget;
+
+                final products = snapshot.data!;
+
+                return AGridLayout(
+                  itemCount: products.length,
+                  itemBuilder: (_, index) =>
+                      AProductCardVertical(product: products[index]),
+                );
+              },
+            ),
           ),
         ),
       ),

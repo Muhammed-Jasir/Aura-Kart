@@ -17,11 +17,13 @@ class AImages {
   static const String onBoardingImage3 =
       "assets/images/on_boarding_animations/delivery.json";
 
-  // Authentication Animations and Images
+  // Animations and Images
   static const String docerAnimation =
       "assets/images/animations/141594-animation-of-docer.json";
   static const String successfullyRegisterAnimation =
       "assets/images/animations/sammy-line-success.png";
+  static const String pencilAnimaton =
+      'assets/images/animations/140429-pencil-drawing.json';
 
   // Images
   static const String deleiveredEmailIllustration =

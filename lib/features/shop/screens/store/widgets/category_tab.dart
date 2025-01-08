@@ -53,10 +53,9 @@ class ACategoryTab extends StatelessWidget {
               ASectionHeading(
                 title: 'You might like',
                 showActionbutton: true,
-                onPressed: () => Get.to(() => AllProducts(
-                      products: products,
-                      title: '',
-                    )),
+                onPressed: () => Get.to(
+                  () => const AllProducts(title: 'Popular Products'),
+                ),
               ),
 
               const SizedBox(height: ASizes.spaceBtwItems),

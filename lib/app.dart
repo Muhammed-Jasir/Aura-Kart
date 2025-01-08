@@ -1,7 +1,9 @@
 import 'package:aurakart/bindings/general_bindings.dart';
+import 'package:aurakart/common/widgets/custom_shapes/container/circular_container.dart';
 import 'package:aurakart/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:aurakart/routes/app_routes.dart';
 import 'package:aurakart/utils/constants/colors.dart';
+import 'package:aurakart/utils/loaders/circular_loader.dart';
 import 'package:aurakart/utils/theme/theme.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +21,12 @@ class MyApp extends StatelessWidget {
       theme: AAppTheme.lightTheme,
       darkTheme: AAppTheme.darkTheme,
       initialBinding: GeneralBindings(),
-      getPages:AppRoutes.pages,
-      /// show loader or cicular progress indicator meanwhile auth is deciding to show screen
+      getPages: AppRoutes.pages,
+      /// Show Loader or Cicular progress Indicator while Auth is deciding to show Screen
       home: const Scaffold(
-        backgroundColor: AColors.primary,
-        body: Center(
-          child: CircularProgressIndicator(color: AColors.white),
+        body: ACircularLoader(
+          foregroundColor: AColors.white,
+          backgroundColor: AColors.primary,
         ),
       ),
     );
