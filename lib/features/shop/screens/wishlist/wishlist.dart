@@ -33,7 +33,7 @@ class FavouriteScreen extends StatelessWidget {
         actions: [
           ACircularIcon(
             icon: Iconsax.add,
-            onPressed: () => Get.to(HomeScreen(product: product)),
+            onPressed: () => Get.to(HomeScreen(products: product)),
           ),
         ],
       ),

@@ -27,7 +27,7 @@ class AProductCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    
+
     final salePercentage = controller.calculateSalePercentage(
       product.price,
       product.salePrice,
@@ -85,10 +85,9 @@ class AProductCardVertical extends StatelessWidget {
                             .apply(color: AColors.black),
                       ),
                     ),
-                  ),
 
                   /// Favourite Icon Button
-                  const Positioned(
+                   Positioned(
                     top: 0,
                     right: 0,
                     child: AFavouriteIcon(productId: product.id),

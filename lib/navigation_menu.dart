@@ -49,7 +49,7 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-    HomeScreen(product: ProductModel.empty()),
+    HomeScreen(products: ProductModel.empty()),
     StoreScreen(product: ProductModel.empty()),
     FavouriteScreen(product: ProductModel.empty()),
     const SettingsScreen(),

@@ -14,12 +14,13 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AllProducts extends StatelessWidget {
-  const AllProducts(
-      {super.key,
-      required this.title,
-      this.query,
-      this.futureMethod,
-      required ProductModel product});
+  const AllProducts({
+    super.key,
+    required this.title,
+    this.query,
+    this.futureMethod,
+    required ProductModel products,
+  });
 
   final String title;
   final Query? query;
@@ -29,12 +30,10 @@ class AllProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     // Initialize controller for managing product fetching
     final controller = Get.put(AllProductsController());
+
     return Scaffold(
       // Appbar
-      appBar: const AAppBar(
-        title: Text('Popular Products'),
-        showBackArrow: true,
-      ),
+      appBar: AAppBar(title: Text(title), showBackArrow: true),
 
       // Body
       body: SingleChildScrollView(
@@ -46,11 +45,16 @@ class AllProducts extends StatelessWidget {
                 // Check the state of the FutureBuilder snapshot
                 const loader = AVerticalProductShimmer();
                 final widget = ACloudHelperFunctions.checkMultiRecordState(
-                    snapshot: snapshot, loader: loader);
-//Return appropriate widget based on snapshot state
+                  snapshot: snapshot,
+                  loader: loader,
+                );
+
+                // Return appropriate widget based on snapshot state
                 if (widget != null) return widget;
+
                 //Products Found
                 final products = snapshot.data!;
+
                 return ASortableProducts(products: products);
               }),
         ),

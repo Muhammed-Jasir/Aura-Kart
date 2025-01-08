@@ -26,9 +26,9 @@ import "package:get/get.dart";
 import "package:iconsax/iconsax.dart";
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.product});
+  const HomeScreen({super.key, required this.products});
 
-  final ProductModel product;
+  final ProductModel products;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,9 @@ class HomeScreen extends StatelessWidget {
                   // Category Section
                   Padding(
                     padding: EdgeInsets.only(
-                        left: ASizes.defaultSpace, right: ASizes.defaultSpace),
+                      left: ASizes.defaultSpace,
+                      right: ASizes.defaultSpace,
+                    ),
                     child: Column(
                       children: [
                         /// Heading
@@ -88,13 +90,12 @@ class HomeScreen extends StatelessWidget {
 
                   /// Product Heading
                   ASectionHeading(
-                    title: 'Popular Products',
-                    onPressed: () => Get.to(() => AllProducts(
-                          title: 'Popular Products',
-                          futureMethod: controller.fetchAllFeaturedProducts(),
-                          product: product,
-                        )),
-                  ),
+                      title: 'Popular Products',
+                      onPressed: () => Get.to(() => AllProducts(
+                            title: 'Popular Products',
+                            futureMethod: controller.fetchAllFeaturedProducts(),
+                            products: products,
+                          ))),
 
                   const SizedBox(height: ASizes.spaceBtwItems),
 

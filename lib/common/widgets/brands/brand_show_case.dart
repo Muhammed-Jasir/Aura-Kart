@@ -1,5 +1,6 @@
 import 'package:aurakart/common/widgets/brands/brand_card.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
+import 'package:aurakart/features/shop/models/brand_model.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
@@ -25,7 +26,7 @@ class ABrandShowcase extends StatelessWidget {
       child: Column(
         children: [
           // Brands with Product Count
-          const ABrandCard(showBorder: false),
+          ABrandCard(showBorder: false, brand: BrandModel.empty()),
           const SizedBox(height: ASizes.spaceBtwItems),
           
           // Brand Top 3 Product Images

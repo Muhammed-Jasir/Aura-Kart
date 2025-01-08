@@ -7,9 +7,12 @@ import 'package:get/get.dart';
 
 class AllProductsController extends GetxController {
   static AllProductsController get instance => Get.find();
+
   final repository = ProductRepository.instance;
+  
   final RxString selectSortOption = 'Name'.obs;
   final RxList<ProductModel> products = <ProductModel>[].obs;
+
   Future<List<ProductModel>> fetchProductsByQuery(Query? query) async {
     try {
       if (query == null) return [];

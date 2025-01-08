@@ -14,11 +14,11 @@ class ACategoryTab extends StatelessWidget {
   const ACategoryTab({
     super.key,
     required this.category,
-    required this.product,
+    required this.products,
   });
 
   final CategoryModel category;
-  final ProductModel product;
+  final ProductModel products;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class ACategoryTab extends StatelessWidget {
                 title: 'You might like',
                 showActionbutton: true,
                 onPressed: () => Get.to(() => AllProducts(
-                      product: product,
+                      products: products,
                       title: '',
                     )),
               ),
@@ -64,7 +64,7 @@ class ACategoryTab extends StatelessWidget {
               AGridLayout(
                 itemCount: 4,
                 itemBuilder: (_, index) =>
-                    AProductCardVertical(product: product),
+                    AProductCardVertical(product: products),
               ),
             ],
           ),
