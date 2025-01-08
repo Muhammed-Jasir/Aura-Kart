@@ -120,6 +120,42 @@ class ProductRepository extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> getProductsForCategory({
+    required String categoryId,
+    int limit = 4,
+  }) async {
+    try {
+      QuerySnapshot productCategoryQuery = limit == -1
+          ? await _db
+              .collection('ProductsCategory')
+              .where('categoryid', isEqualTo: categoryId)
+              .get()
+          : await _db
+              .collection('ProductsCategory')
+              .where('categoryid', isEqualTo: categoryId)
+              .limit(limit)
+              .get();
+      List<String> productIds = productCategoryQuery.docs
+          .map((docs) => doc['productId'] as String)
+          .toList();
+      final productsQuery = await _db
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
+      List<ProductModel> products = productsQuery.docs
+          .map((doc) => ProductModel.fromQuerySnapshot(doc))
+          .toList();
+
+      return products;
+    } on FirebaseException catch (e) {
+      throw AFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw APlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong. Please try again';
+    }
+  }
+
   /// Upload Proucts to the Cloud Firestore
   Future<void> uploadDummyData(List<ProductModel> products) async {
     try {

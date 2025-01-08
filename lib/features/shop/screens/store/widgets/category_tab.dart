@@ -1,11 +1,14 @@
 import 'package:aurakart/common/widgets/brands/brand_show_case.dart';
 import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
 import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
+import 'package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/shop/models/category_model.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
+import 'package:aurakart/features/shop/screens/store/widgets/category_brands.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
+import 'package:aurakart/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/material.dart';
 import "package:aurakart/features/shop/screens/all_products/all_products.dart";
 import "package:get/get.dart";
@@ -31,40 +34,43 @@ class ACategoryTab extends StatelessWidget {
           child: Column(
             children: [
               // Brands
-              const ABrandShowcase(
-                images: [
-                  AImages.productImage10,
-                  AImages.productImage11,
-                  AImages.productImage16
-                ],
-              ),
-
-              const ABrandShowcase(
-                images: [
-                  AImages.productImage10,
-                  AImages.productImage11,
-                  AImages.productImage16
-                ],
-              ),
-
+              CategoryBrands(category: category),
               const SizedBox(height: ASizes.spaceBtwItems),
 
               // Products
-              ASectionHeading(
-                title: 'You might like',
-                showActionbutton: true,
-                onPressed: () => Get.to(
-                  () => const AllProducts(title: 'Popular Products'),
-                ),
-              ),
+              FutureBuilder(
+                  future:
+                      controller.getCategoryProducts(categoryId: category.id),
+                  builder: (context, snapshot) {
+                    /// Helper Function :Handle Loder , No Record, OR ERROR Message
+                    final response =
+                        ACloudHelperFunctions.checkMultiRecordState(
+                            snapshot: snapshot,
+                            loader: const AVerticalProductShimmer());
+                    if (response != null) return response;
 
-              const SizedBox(height: ASizes.spaceBtwItems),
+                    /// Record Found!
+                    final products = snapshot.data!;
 
-              AGridLayout(
-                itemCount: 4,
-                itemBuilder: (_, index) =>
-                    AProductCardVertical(product: products),
-              ),
+                    return Column(
+                      children: [
+                        ASectionHeading(
+                          title: 'You might like',
+                          showActionbutton: true,
+                          onPressed: () => Get.to(() => AllProducts(
+                                title: category.name,
+                                futureMethod: controller.getCategoryProducts(
+                                    categoryId: category.id, limit: -1),
+                              ),),
+                        ),
+                        const SizedBox(height: ASizes.spaceBtwItems),
+                        AGridLayout(
+                            itemCount: products.length,
+                            itemBuilder: (_, index) =>
+                                AProductCardVertical(product: products[index])),
+                      ],
+                    );
+                  }),
             ],
           ),
         ),
