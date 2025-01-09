@@ -3,7 +3,7 @@ import 'package:get_storage/get_storage.dart';
 class ALocalStorage {
   late final GetStorage _storage;
 
-  //single instance
+  // Singleton instance
   static ALocalStorage? _instance;
 
   ALocalStorage._internal();

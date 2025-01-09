@@ -15,15 +15,16 @@ class ABrandShowcase extends StatelessWidget {
   const ABrandShowcase({
     super.key,
     required this.images,
-     required this.brand,
+    required this.brand,
   });
+
   final BrandModel brand;
   final List<String> images;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ()=> Get.to(()=> BrandProducts(brand: brand)),
+      onTap: () => Get.to(() => BrandProducts(brand: brand)),
       child: ARoundedContainer(
         showBorder: true,
         borderColor: AColors.darkGrey,
@@ -33,9 +34,9 @@ class ABrandShowcase extends StatelessWidget {
         child: Column(
           children: [
             // Brands with Product Count
-            ABrandCard(showBorder: false, brand:brand),
+            ABrandCard(showBorder: false, brand: brand),
             const SizedBox(height: ASizes.spaceBtwItems),
-            
+
             // Brand Top 3 Product Images
             Row(
               children: images
@@ -58,12 +59,13 @@ Widget brandTopProductImageWidget(String image, context) {
           : AColors.grey,
       margin: const EdgeInsets.only(right: ASizes.sm),
       padding: const EdgeInsets.all(ASizes.md),
-      child:CachedNetworkImage(
-        
+      child: CachedNetworkImage(
         fit: BoxFit.contain,
         imageUrl: image,
-        progressIndicatorBuilder: (context, url, downloadprogress) =>const AShimmerEffect(width: 100, height: 100),
-        errorWidget: (context, url, error) =>const Icon(Icons.error),)
+        progressIndicatorBuilder: (context, url, downloadprogress) =>
+            const AShimmerEffect(width: 100, height: 100),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
     ),
   );
 }

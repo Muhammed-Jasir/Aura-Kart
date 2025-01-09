@@ -13,6 +13,7 @@ class AFavouriteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(FavouritesController());
+
     return Obx(
       () => ACircularIcon(
         icon:

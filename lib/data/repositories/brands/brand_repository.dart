@@ -38,18 +38,23 @@ class BrandRepository extends GetxController {
           .collection('BrandCategory')
           .where('categoryId', isEqualTo: categoryId)
           .get();
+
       // Extract brands from the documents
       List<String> brandIds = brandCategoryQuery.docs
           .map((doc) => doc['brandId'] as String)
           .toList();
+
       // Query to get all documents where the brandId is in the list of brandIds, FieldPath.DocumentId to query documents in Collection
       final brandsQuery = await _db
           .collection('Brands')
           .where(FieldPath.documentId, whereIn: brandIds)
           .limit(2)
-          .get;
+          .get();
+
       // Extract brand names or other relevant data from the documents
-       List<BrandModel> brands = brandsQuery.docs.map((doc) => BrandModel.fromSnapshot(doc)).toList();
+      List<BrandModel> brands =
+          brandsQuery.docs.map((doc) => BrandModel.fromSnapshot(doc)).toList();
+
       return brands;
     } on FirebaseException catch (e) {
       throw AFirebaseException(e.code).message;

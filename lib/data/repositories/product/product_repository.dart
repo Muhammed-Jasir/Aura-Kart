@@ -69,12 +69,12 @@ class ProductRepository extends GetxController {
     }
   }
 
-  ///Get Product based on the query
+  /// Get Product based on the query
   Future<List<ProductModel>> getFavouriteProducts(
       List<String> productIds) async {
     try {
       final snapshot = await _db
-          .collection('products')
+          .collection('Products')
           .where(FieldPath.documentId, whereIn: productIds)
           .get();
       return snapshot.docs
@@ -125,6 +125,7 @@ class ProductRepository extends GetxController {
     int limit = 4,
   }) async {
     try {
+      /// Query to get all documents where productId matches the provided categoryId & Fetch limited or unlimited based on limit
       QuerySnapshot productCategoryQuery = limit == -1
           ? await _db
               .collection('ProductsCategory')
@@ -135,15 +136,21 @@ class ProductRepository extends GetxController {
               .where('categoryid', isEqualTo: categoryId)
               .limit(limit)
               .get();
+
+      // Extract productIds from the documents
       List<String> productIds = productCategoryQuery.docs
-          .map((docs) => doc['productId'] as String)
+          .map((doc) => doc['productId'] as String)
           .toList();
+      
+      // Query to get all documents where the brandId is in the list of brandIds, FieldPath.documentId to query documents in Collection
       final productsQuery = await _db
           .collection('Products')
           .where(FieldPath.documentId, whereIn: productIds)
           .get();
+      
+      // Extract brand names or other relevant data from the documents
       List<ProductModel> products = productsQuery.docs
-          .map((doc) => ProductModel.fromQuerySnapshot(doc))
+          .map((doc) => ProductModel.fromSnapshot(doc))
           .toList();
 
       return products;

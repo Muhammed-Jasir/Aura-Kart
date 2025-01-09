@@ -21,7 +21,7 @@ class CategoryController extends GetxController {
     super.onInit();
   }
 
-  /// load categories data
+  /// Load categories data
   Future<void> fetchCategories() async {
     try {
       // Show loader while categories
@@ -35,9 +35,11 @@ class CategoryController extends GetxController {
 
       // Filter featured catgories
       featureCategories.assignAll(
-        allCategories.where(
-          (category) => category.isFeatured && category.parentId.isEmpty,
-        ).take(8).toList()
+        allCategories
+            .where(
+                (category) => category.isFeatured && category.parentId.isEmpty)
+            .take(8)
+            .toList(),
       );
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Uh Oh !!', message: e.toString());
@@ -47,13 +49,16 @@ class CategoryController extends GetxController {
     }
   }
 
-  /// load selected category data
+  /// Load selected category data
 
-  /// get category or sub-category products
-  Future<List<ProductModel>>getCategoryProducts({required String categoryId,int limit=4})async{
+  /// Get category or sub-category products
+  Future<List<ProductModel>> getCategoryProducts({
+    required String categoryId,
+    int limit = 4,
+  }) async {
     // Fecth Limited (4) products against each aubCategory;
-    final products = await ProductRepository.instance.getProductsForCategory(categoryId:categoryId, limit:limit);
+    final products = await ProductRepository.instance
+        .getProductsForCategory(categoryId: categoryId, limit: limit);
     return products;
-
   }
 }

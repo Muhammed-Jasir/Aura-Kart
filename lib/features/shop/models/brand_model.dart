@@ -47,6 +47,8 @@ class BrandModel {
       DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
+    
+      // Map JSON Record to the Model
       return BrandModel(
         id: document.id,
         name: data['Name'] ?? '',

@@ -24,10 +24,8 @@ class FavouriteScreen extends StatelessWidget {
     return Scaffold(
       // Appbar
       appBar: AAppBar(
-        title: Text(
-          'Wishlist',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+        title:
+            Text('Wishlist', style: Theme.of(context).textTheme.headlineMedium),
         actions: [
           ACircularIcon(
             icon: Iconsax.add,
@@ -41,13 +39,12 @@ class FavouriteScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(ASizes.defaultSpace),
 
-          //products grid
-
+          // Products Grid
           child: Obx(
             () => FutureBuilder(
               future: controller.favoriteProducts(),
               builder: (context, snapshot) {
-                // nothing found widget
+                // Nothing found widget
                 final emptyWidget = AAnimationLoaderWidget(
                   text: 'oops! Wishlist is Empty',
                   animation: AImages.pencilAnimaton,
@@ -58,9 +55,10 @@ class FavouriteScreen extends StatelessWidget {
 
                 const loader = AVerticalProductShimmer(itemCount: 6);
                 final widget = ACloudHelperFunctions.checkMultiRecordState(
-                    snapshot: snapshot,
-                    loader: loader,
-                    nothingFound: emptyWidget);
+                  snapshot: snapshot,
+                  loader: loader,
+                  nothingFound: emptyWidget,
+                );
                 if (widget != null) return widget;
 
                 final products = snapshot.data!;

@@ -33,7 +33,8 @@ class BrandProducts extends StatelessWidget {
               const SizedBox(height: ASizes.spaceBtwSections),
 
               FutureBuilder(
-                future: controller.getBrandProducts(brandId:brand.id),
+                future: controller.getBrandProducts(brandId: brand.id),
+                
                 builder: (context, snapshot) {
                   /// Handle Loader, No Record, OR Error Message
                   const loader = AVerticalProductShimmer();

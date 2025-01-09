@@ -3,6 +3,7 @@ import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
 import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
 import 'package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
+import 'package:aurakart/features/shop/controllers/category_controller.dart';
 import 'package:aurakart/features/shop/models/category_model.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/store/widgets/category_brands.dart';
@@ -25,6 +26,8 @@ class ACategoryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = CategoryController.instance;
+
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -45,8 +48,10 @@ class ACategoryTab extends StatelessWidget {
                     /// Helper Function :Handle Loder , No Record, OR ERROR Message
                     final response =
                         ACloudHelperFunctions.checkMultiRecordState(
-                            snapshot: snapshot,
-                            loader: const AVerticalProductShimmer());
+                      snapshot: snapshot,
+                      loader: const AVerticalProductShimmer(),
+                    );
+
                     if (response != null) return response;
 
                     /// Record Found!
@@ -57,17 +62,22 @@ class ACategoryTab extends StatelessWidget {
                         ASectionHeading(
                           title: 'You might like',
                           showActionbutton: true,
-                          onPressed: () => Get.to(() => AllProducts(
-                                title: category.name,
-                                futureMethod: controller.getCategoryProducts(
-                                    categoryId: category.id, limit: -1),
-                              ),),
+                          onPressed: () => Get.to(
+                            () => AllProducts(
+                              title: category.name,
+                              futureMethod: controller.getCategoryProducts(
+                                categoryId: category.id,
+                                limit: -1,
+                              ),
+                            ),
+                          ),
                         ),
                         const SizedBox(height: ASizes.spaceBtwItems),
                         AGridLayout(
-                            itemCount: products.length,
-                            itemBuilder: (_, index) =>
-                                AProductCardVertical(product: products[index])),
+                          itemCount: products.length,
+                          itemBuilder: (_, index) =>
+                              AProductCardVertical(product: products[index]),
+                        ),
                       ],
                     );
                   }),

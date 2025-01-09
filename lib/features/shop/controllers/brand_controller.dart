@@ -5,13 +5,15 @@ import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
-class BrandController extends GetxController{
+class BrandController extends GetxController {
   static BrandController get instance => Get.find();
 
   RxBool isLoading = true.obs;
   final RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
   final RxList<BrandModel> allBrands = <BrandModel>[].obs;
+
   final brandRepository = Get.put(BrandRepository());
+  final productRepository = Get.put(ProductRepository());
 
   @override
   void onInit() {
@@ -29,8 +31,8 @@ class BrandController extends GetxController{
 
       allBrands.assignAll(brands);
 
-      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured ?? false).take(4));
-
+      featuredBrands.assignAll(
+          allBrands.where((brand) => brand.isFeatured ?? false).take(4));
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
@@ -39,27 +41,25 @@ class BrandController extends GetxController{
   }
 
   /// Get Brands for Category
-   
-    Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
     try {
-    final brands = await ProductRepository.instance. getBrandsForCategory(categoryId);
-    return brands;
+      final brands = await brandRepository.getBrandsForCategory(categoryId);
+      return brands;
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
       return [];
     }
   }
-  
 
   /// Get Brand Specific Products from your data source
-  Future<List<ProductModel>> getBrandProducts(String brandId, {required String brandId, required int limit}) async {
+  Future<List<ProductModel>> getBrandProducts({required String brandId, int limit = -1}) async {
     try {
-    final products = await ProductRepository.instance.getProductsForBrand(brandId: brandId);
-    return products;
+      final products =
+          await productRepository.getProductsForBrand(brandId: brandId, limit: limit);
+      return products;
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
       return [];
     }
   }
-  
 }

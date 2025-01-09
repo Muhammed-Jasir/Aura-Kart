@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 class FavouritesController extends GetxController {
   static FavouritesController get instance => Get.find();
 
-  /// variables
+  /// Variables
   final favorites = <String, bool>{}.obs;
 
   @override
@@ -19,7 +19,7 @@ class FavouritesController extends GetxController {
     initFavourites();
   }
 
-  // method to initialize favopurite by reading from storgae
+  // Method to initialize favopurite by reading from storgae
   Future<void> initFavourites() async {
     final json = ALocalStorage.instance().readData('favourites');
     if (json != null) {
@@ -37,8 +37,7 @@ class FavouritesController extends GetxController {
     if (!favorites.containsKey(productId)) {
       favorites[productId] = true;
       saveFavoritesToStorage();
-      ALoaders.customToast(
-          message: 'product has been added to Wislist succesfully.');
+      ALoaders.customToast(message: 'Product has been added to Wishlist.');
     } else {
       ALocalStorage.instance().removeData(productId);
       favorites.remove(productId);
