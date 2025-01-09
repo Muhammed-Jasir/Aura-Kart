@@ -60,6 +60,23 @@ class ACloudHelperFunctions {
     return null;
   }
 
+  /// Create a reference with an initial file path and name and retrieve the download URL.
+
+  // static Future<String> getURLFromFilePathAndName(String path) async {
+  //   try {
+  //     if (path.isEmpty) return '';
+  //     final ref = FirebaseStorage.instance.ref().child(path);
+  //     final url = await ref.getDownloadURL();
+  //     return url;
+  //   } on FirebaseException catch (e) {
+  //     throw e.message!;
+  //   } on PlatformException catch (e) {
+  //     throw e.message!;
+  //   } catch (e) {
+  //     throw 'Something went wrong.';
+  //   }
+  // }
+
   /// Upload an image to Cloudinary and get the download URL
   static Future<String> uploadImageToCloudinary(
       String path, String? folder) async {

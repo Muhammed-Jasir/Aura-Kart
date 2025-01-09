@@ -3,10 +3,14 @@ import 'package:aurakart/common/widgets/custom_shapes/container/rounded_containe
 import 'package:aurakart/common/widgets/icons/circular_icon.dart';
 import 'package:aurakart/common/widgets/images/rounded_image.dart';
 import 'package:aurakart/common/widgets/products/favourite_icon/favourite_icon.dart';
+import 'package:aurakart/common/widgets/products/product-cards/product_card_add_to_cart_btn.dart';
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
+import 'package:aurakart/features/shop/controllers/product/product_controller.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/colors.dart';
+import 'package:aurakart/utils/constants/enums.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';
@@ -14,11 +18,18 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AProductHorizontal extends StatelessWidget {
-  const AProductHorizontal({super.key});
-
+  const AProductHorizontal({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
+
+    final controller = ProductController.instance;
+
+    final salePercentage = controller.calculateSalePercentage(
+      product.price,
+      product.salePrice,
+    );
 
     return Container(
       width: 310,
@@ -37,12 +48,13 @@ class AProductHorizontal extends StatelessWidget {
             child: Stack(
               children: [
                 /// Thumbnail Image
-                const SizedBox(
+                SizedBox(
                   height: 120,
                   width: 120,
                   child: ARoundedImage(
-                    imageUrl: AImages.productImage1,
+                    imageUrl: product.thumbnail,
                     applyImageRadius: true,
+                    isNetworkImage: true,
                   ),
                 ),
 
@@ -67,10 +79,10 @@ class AProductHorizontal extends StatelessWidget {
                 ),
 
                 /// Favourite Icon Button
-                const  Positioned(
+                Positioned(
                   top: 0,
                   right: 0,
-                  child: AFavouriteIcon(productId: ''),
+                  child: AFavouriteIcon(productId: product.id),
                 ),
               ],
             ),
@@ -80,30 +92,61 @@ class AProductHorizontal extends StatelessWidget {
           SizedBox(
             width: 172,
             child: Padding(
-              padding: const EdgeInsets.only(left: ASizes.sm, top:ASizes.sm),
+              padding: const EdgeInsets.only(left: ASizes.sm, top: ASizes.sm),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AProductTitleText(
-                        title: 'Green Nike Half Sleeves Shirt',
+                        title: product.title,
                         smallSize: true,
                       ),
                       SizedBox(height: ASizes.spaceBtwItems / 2),
-                      ABrandTitleWithVerifiedIcon(title: 'Nike'),
+                      ABrandTitleWithVerifiedIcon(title: product.brand!.name),
                     ],
                   ),
-              
+
                   const Spacer(),
-              
+
+                  /// Price Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       /// Price
-                      const Flexible(child: AProductPriceText(price: '256.0')),
-              
+                      Flexible(
+                        child: Column(
+                          children: [
+                            if (product.productType ==
+                                    ProductType.single.toString() &&
+                                product.salePrice > 0)
+                              Padding(
+                                padding: const EdgeInsets.only(left: ASizes.sm),
+                                child: Text(
+                                  product.price.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .apply(
+                                          decoration:
+                                              TextDecoration.lineThrough),
+                                ),
+                              ),
+
+                            /// Price, Show sale price as main price if sale exist
+                            Padding(
+                              padding: const EdgeInsets.only(left: ASizes.sm),
+                              child: AProductPriceText(
+                                price: controller.getProductPrice(product),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
                       /// Add to Cart Button
+
                       Container(
                         decoration: const BoxDecoration(
                           color: AColors.dark,
@@ -117,8 +160,7 @@ class AProductHorizontal extends StatelessWidget {
                           width: ASizes.iconLg * 1.2,
                           height: ASizes.iconLg * 1.2,
                           child: Center(
-                            child: Icon(Iconsax.add, color: AColors.white),
-                          ),
+                              child: Icon(Iconsax.add, color: AColors.white)),
                         ),
                       ),
                     ],
