@@ -47,10 +47,11 @@ class AHomeAppbar extends StatelessWidget {
           ),
         ],
       ),
-      actions: [
+      actions: const [
         // Cart Icon
         ACartCouterIcon(
-          onPressed: () => Get.to(() => const CartScreen()),
+          counterBgColor: AColors.black,
+          counterTextColor: AColors.white,
           iconColor: AColors.white,
         ),
       ],

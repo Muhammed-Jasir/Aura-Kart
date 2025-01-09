@@ -24,6 +24,8 @@ class AImages {
       "assets/images/animations/sammy-line-success.png";
   static const String pencilAnimaton =
       'assets/images/animations/140429-pencil-drawing.json';
+  static const String cartAnimation =
+      'assets/images/animations/lady-adding-product-in-cart-animation.json';
 
   // Images
   static const String deleiveredEmailIllustration =

@@ -3,9 +3,11 @@ import 'package:aurakart/common/widgets/custom_shapes/container/rounded_containe
 import 'package:aurakart/common/widgets/icons/circular_icon.dart';
 import 'package:aurakart/common/widgets/images/rounded_image.dart';
 import 'package:aurakart/common/widgets/products/favourite_icon/favourite_icon.dart';
+import 'package:aurakart/common/widgets/products/product-cards/product_card_add_to_cart_btn.dart';
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
+import 'package:aurakart/features/shop/controllers/cart_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/product_controller.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/models/product_variation_model.dart';
@@ -158,22 +160,7 @@ class AProductCardVertical extends StatelessWidget {
                 ),
 
                 /// Add to Cart Button
-                Container(
-                  decoration: const BoxDecoration(
-                    color: AColors.dark,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(ASizes.cardRadiusMd),
-                      bottomRight: Radius.circular(ASizes.productImageRadius),
-                    ),
-                  ),
-                  child: const SizedBox(
-                    width: ASizes.iconLg * 1.2,
-                    height: ASizes.iconLg * 1.2,
-                    child: Center(
-                      child: Icon(Iconsax.add, color: AColors.white),
-                    ),
-                  ),
-                ),
+                AProductCardAddToCartButton(product: product),
               ],
             ),
           ],
@@ -182,3 +169,4 @@ class AProductCardVertical extends StatelessWidget {
     );
   }
 }
+

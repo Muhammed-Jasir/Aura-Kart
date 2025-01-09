@@ -6,7 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class AProductQuantityWithAddRemoveButton extends StatelessWidget {
-  const AProductQuantityWithAddRemoveButton({super.key});
+  const AProductQuantityWithAddRemoveButton({
+    super.key,
+    required this.quantity,
+    this.add,
+    this.remove,
+  });
+
+  final int quantity;
+  final VoidCallback? add, remove;
 
   @override
   Widget build(BuildContext context) {
@@ -23,21 +31,24 @@ class AProductQuantityWithAddRemoveButton extends StatelessWidget {
           size: ASizes.md,
           color: darkMode ? AColors.white : AColors.black,
           backgroundColor: darkMode ? AColors.darkerGrey : AColors.light,
+          onPressed: remove,
         ),
-
         const SizedBox(width: ASizes.spaceBtwItems),
+        
         // Cart Quantity
-        Text('12', style: Theme.of(context).textTheme.titleSmall),
+        Text(quantity.toString(),
+            style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(width: ASizes.spaceBtwItems),
 
         // Plus Icon
-        const ACircularIcon(
+        ACircularIcon(
           icon: Iconsax.add,
           width: 32,
           height: 32,
           size: ASizes.md,
           color: AColors.white,
           backgroundColor: AColors.primary,
+          onPressed: add,
         ),
       ],
     );

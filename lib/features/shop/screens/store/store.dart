@@ -45,7 +45,6 @@ class StoreScreen extends StatelessWidget {
           ),
           actions: [
             ACartCouterIcon(
-              onPressed: () => Get.to(() => const CartScreen()),
               iconColor: darkMode ? AColors.white : AColors.black,
             ),
           ],
