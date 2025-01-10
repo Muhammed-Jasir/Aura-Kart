@@ -1,9 +1,11 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
+import 'package:aurakart/features/personalization/controllers/address_controller.dart';
 import 'package:aurakart/features/personalization/screens/address/add_new_address.dart';
 import 'package:aurakart/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
+import 'package:aurakart/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -13,6 +15,7 @@ class UserAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AddressController());
     return Scaffold(
       // Add new Address Button
       floatingActionButton: FloatingActionButton(
@@ -20,7 +23,7 @@ class UserAddressScreen extends StatelessWidget {
         onPressed: () => Get.to(() => const AddNewAddressscreen()),
         child: const Icon(Iconsax.add, color: AColors.white),
       ),
-      
+
       // Appbar
       appBar: AAppBar(
         showBackArrow: true,
@@ -31,17 +34,29 @@ class UserAddressScreen extends StatelessWidget {
       ),
 
       // Body
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(ASizes.defaultSpace),
-          child: Column(
-            children: [
-              ASingleAddress(selectedAddress: false),
-              ASingleAddress(selectedAddress: true),
-            ],
+          padding: const EdgeInsets.all(ASizes.defaultSpace),
+          child: FutureBuilder(
+            future: controller.getAllUserAddress(),
+            builder: (context, snapshot) {
+              /// Helper Function Loader, No Record, OR ERROR MESSAGE
+              final response = ACloudHelperFunctions.checkMultiRecordState(
+                  snapshot: snapshot);
+              if (response != null) return response;
+              final addresses = snapshot.data!;
+              return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: addresses.length,
+                  itemBuilder: (_, index) => ASingleAddress(
+                        address: addresses[index],
+                        onTap: () => controller.selectAddress(addresses[index]),
+                      ));
+            },
           ),
         ),
       ),
     );
   }
 }
+

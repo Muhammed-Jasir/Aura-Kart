@@ -1,4 +1,5 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
+import 'package:aurakart/features/personalization/controllers/address_controller.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -8,6 +9,7 @@ class AddNewAddressscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = AddressController.instance;
     return Scaffold(
       // Appbar
       appBar: const AAppBar(
@@ -20,6 +22,7 @@ class AddNewAddressscreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(ASizes.defaultSpace),
           child: Form(
+            key: controller.addressFormkey,
             child: Column(
               children: [
                 // Name

@@ -1,4 +1,6 @@
+import 'package:aurakart/features/shop/controllers/cart_controller.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
+import 'package:aurakart/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
 
 class ABillingAmountSection extends StatelessWidget {
@@ -6,6 +8,9 @@ class ABillingAmountSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = CartController.instance;
+    final subTotal = cartController.totalCartPrice.value;
+
     return Column(
       children: [
         /// Sub-Total
@@ -13,7 +18,7 @@ class ABillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
-            Text('₹256.0', style: Theme.of(context).textTheme.bodyMedium),
+            Text('\$$subTotal', style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
 
@@ -24,7 +29,9 @@ class ABillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Shipping Fee', style: Theme.of(context).textTheme.bodyMedium),
-            Text('₹6.0', style: Theme.of(context).textTheme.labelLarge),
+            Text(
+                '\$${APricingCalculator.calculateShippingCost(subTotal, 'US')}',
+                style: Theme.of(context).textTheme.labelLarge),
           ],
         ),
 
@@ -34,7 +41,8 @@ class ABillingAmountSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Tax Fee', style: Theme.of(context).textTheme.bodyMedium),
+            Text('\$${APricingCalculator.calculateTax(subTotal, 'US')}',
+                style: Theme.of(context).textTheme.bodyMedium),
             Text('₹6.0', style: Theme.of(context).textTheme.labelLarge),
           ],
         ),
@@ -46,7 +54,8 @@ class ABillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Order Total', style: Theme.of(context).textTheme.bodyMedium),
-            Text('₹6.0', style: Theme.of(context).textTheme.titleMedium),
+            Text('\$${APricingCalculator.calculateTotalPrice(subTotal, 'US')}',
+                style: Theme.of(context).textTheme.titleMedium),
           ],
         ),
       ],
