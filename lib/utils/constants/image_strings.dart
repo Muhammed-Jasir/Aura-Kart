@@ -26,7 +26,8 @@ class AImages {
       'assets/images/animations/140429-pencil-drawing.json';
   static const String cartAnimation =
       'assets/images/animations/lady-adding-product-in-cart-animation.json';
-
+  static const String orderCompletedAnimation =
+      'assets/images/animations/order-complete-car-delivery-animation.json';
   // Images
   static const String deleiveredEmailIllustration =
       "assets/images/animations/email_verification.png";

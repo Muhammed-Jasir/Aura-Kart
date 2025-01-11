@@ -1,6 +1,11 @@
+import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/data/repositories/repositories/address_repositories.dart';
 import 'package:aurakart/features/personalization/models/address_model.dart';
+import 'package:aurakart/features/personalization/screens/address/add_new_address.dart';
+import 'package:aurakart/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
+import 'package:aurakart/utils/constants/sizes.dart';
+import 'package:aurakart/utils/helpers/cloud_helper_functions.dart';
 import 'package:aurakart/utils/helpers/network_manager.dart';
 import 'package:aurakart/utils/popups/full_screen_loader.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
@@ -108,6 +113,53 @@ class AddressController extends GetxController {
       AFullScreenLoader.stopLoading();
       ALoaders.errorSnackBar(title: 'Address not found', message: e.toString());
     }
+  }
+
+  ///Show Address Model Bottom Sheet at checkout
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (_) => Container(
+              padding: const EdgeInsets.all(ASizes.lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const ASectionHeading(
+                    title: 'Select Address',
+                    showActionbutton: false,
+                  ),
+                  FutureBuilder(
+                    future: getAllUserAddress(),
+                    builder: (_, snapshot) {
+                      /// Helper fuction Handle Loader ,No Record,Or ERROR Message
+                      final response =
+                          ACloudHelperFunctions.checkMultiRecordState(
+                              snapshot: snapshot);
+                      if (response != null) return response;
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (_, index) => ASingleAddress(
+                          address: snapshot.data![index],
+                          onTap: () async {
+                            await selectAddress(snapshot.data![index]);
+                            Get.back();
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: ASizes.defaultSpace * 2),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () =>
+                            Get.to(() => const AddNewAddressscreen()),
+                        child: const Text('Add new address')),
+                  )
+                ],
+              ),
+            ));
   }
 
   /// Fuction to reset form fields

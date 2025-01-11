@@ -3,6 +3,7 @@ import 'package:aurakart/common/widgets/custom_shapes/container/rounded_containe
 import 'package:aurakart/common/widgets/products/cart/coupon_widget.dart';
 import 'package:aurakart/common/widgets/success_screen/success_screen.dart';
 import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/order_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:aurakart/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:aurakart/features/shop/screens/checkout/widgets/billing_amount_section.dart';
@@ -23,7 +24,7 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
-    final subTotal = CartController.totalCartPrice.value;
+    final subTotal = cartController.totalCartPrice.value;
     final darkMode = AHelperFunctions.isDarkMode(context);
     final orderController = Get.put(OrderController());
     final totalAmount = APricingCalculator.calculateTotalPrice(subTotal, 'US');
