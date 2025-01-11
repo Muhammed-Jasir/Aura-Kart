@@ -31,6 +31,7 @@ class OrderController extends GetxController {
       return userOrders;
     } catch (e) {
       ALoaders.warningSnackBar(title: 'Oh Snap', message: e.toString());
+      return [];
     }
   }
 

@@ -26,7 +26,7 @@ class AuthenticationRepository extends GetxController {
   final _auth = FirebaseAuth.instance;
 
   /// Get Authenticated User Data
-  User? get authUser => _auth.currentUser;
+  User get authUser => _auth.currentUser!;
 
   // Called from main.dart on app launch
   @override
@@ -45,7 +45,6 @@ class AuthenticationRepository extends GetxController {
     if (user != null) {
       /// if the user is logged in
       if (user.emailVerified) {
-        
         ///initialize user specific storage
         await ALocalStorage.init(user.uid);
 
