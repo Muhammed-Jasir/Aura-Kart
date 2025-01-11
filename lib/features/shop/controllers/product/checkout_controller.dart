@@ -1,4 +1,4 @@
-import 'package:aurakart/common/widgets/list_tiles/payment_tyle.dart';
+import 'package:aurakart/common/widgets/list_tiles/payment_tile.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/shop/models/payment_method_model.dart';
 import 'package:aurakart/utils/constants/enums.dart';

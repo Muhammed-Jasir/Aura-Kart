@@ -37,26 +37,30 @@ class UserAddressScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(ASizes.defaultSpace),
-          child: FutureBuilder(
-            future: controller.getAllUserAddress(),
-            builder: (context, snapshot) {
-              /// Helper Function Loader, No Record, OR ERROR MESSAGE
-              final response = ACloudHelperFunctions.checkMultiRecordState(
-                  snapshot: snapshot);
-              if (response != null) return response;
-              final addresses = snapshot.data!;
-              return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: addresses.length,
-                  itemBuilder: (_, index) => ASingleAddress(
-                        address: addresses[index],
-                        onTap: () => controller.selectAddress(addresses[index]),
-                      ));
-            },
+          child: Obx(
+            () => FutureBuilder(
+              // USe key to trigger refresh
+              key: Key(controller.refreshData.value.toString()),
+              future: controller.getAllUserAddress(),
+              builder: (context, snapshot) {
+                /// Helper Function Loader, No Record, OR ERROR MESSAGE
+                final response = ACloudHelperFunctions.checkMultiRecordState(
+                    snapshot: snapshot);
+                if (response != null) return response;
+                final addresses = snapshot.data!;
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: addresses.length,
+                    itemBuilder: (_, index) => ASingleAddress(
+                          address: addresses[index],
+                          onTap: () =>
+                              controller.selectAddress(addresses[index]),
+                        ));
+              },
+            ),
           ),
         ),
       ),
     );
   }
 }
-

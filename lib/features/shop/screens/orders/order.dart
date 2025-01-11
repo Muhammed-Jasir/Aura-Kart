@@ -11,14 +11,17 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       /// Appbar
       appBar: AAppBar(
-        title:
-            Text('My Orders', style: Theme.of(context).textTheme.headlineSmall,),
+        title: Text(
+          'My Orders',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
         showBackArrow: true,
       ),
 
       // Body
       body: const Padding(
         padding: EdgeInsets.all(ASizes.defaultSpace),
+
         /// Orders
         child: AOrderListItems(),
       ),

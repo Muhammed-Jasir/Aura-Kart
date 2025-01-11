@@ -2,6 +2,7 @@ import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:aurakart/common/widgets/products/cart/coupon_widget.dart';
 import 'package:aurakart/common/widgets/success_screen/success_screen.dart';
+import 'package:aurakart/features/shop/controllers/cart_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:aurakart/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:aurakart/features/shop/screens/checkout/widgets/billing_amount_section.dart';
@@ -11,15 +12,21 @@ import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';
+import 'package:aurakart/utils/helpers/pricing_calculator.dart';
+import 'package:aurakart/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen({super.key});
+  const CheckoutScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final cartController = CartController.instance;
+    final subTotal = CartController.totalCartPrice.value;
     final darkMode = AHelperFunctions.isDarkMode(context);
+    final orderController = Get.put(OrderController());
+    final totalAmount = APricingCalculator.calculateTotalPrice(subTotal, 'US');
 
     return Scaffold(
       // Appbar
@@ -79,15 +86,13 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(ASizes.defaultSpace),
         child: ElevatedButton(
-            onPressed: () => Get.to(
-                  () => SuccessScreen(
-                    image: AImages.google,
-                    title: 'Payment Success!',
-                    subTitle: 'Your item will be shipped soon!',
-                    onPressed: () => Get.offAll(() => const NavigationMenu()),
-                  ),
-                ),
-            child: const Text('Checkout ₹256.0')),
+          onPressed: subTotal > 0
+              ? () => orderController.processOrder(totalAmount)
+              : () => ALoaders.warningSnackBar(
+                  title: 'Empty Cart',
+                  message: 'Add items in the cart in order to proceed'),
+          child: Text('Checkout \$$totalAmount'),
+        ),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/features/personalization/controllers/address_controller.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
+import 'package:aurakart/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -24,9 +25,13 @@ class AddNewAddressscreen extends StatelessWidget {
           child: Form(
             key: controller.addressFormkey,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 // Name
                 TextFormField(
+                  controller: controller.name,
+                  validator: (value) =>
+                      AValidator.validateEmptyText('Name', value),
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Iconsax.user),
                     labelText: 'Name',
@@ -37,9 +42,11 @@ class AddNewAddressscreen extends StatelessWidget {
 
                 // Phone
                 TextFormField(
+                  controller: controller.phoneNumber,
+                  validator: AValidator.validatePhoneNumber,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Iconsax.mobile),
-                    labelText: 'Phone number',
+                    labelText: 'Phone Number',
                   ),
                 ),
 
@@ -50,6 +57,9 @@ class AddNewAddressscreen extends StatelessWidget {
                     // Street
                     Expanded(
                       child: TextFormField(
+                        controller: controller.street,
+                        validator: (value) =>
+                            AValidator.validateEmptyText('Street', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.building_31),
                           labelText: 'Street',
@@ -62,6 +72,9 @@ class AddNewAddressscreen extends StatelessWidget {
                     // Postal Code
                     Expanded(
                       child: TextFormField(
+                        controller: controller.postalCode,
+                        validator: (value) =>
+                            AValidator.validateEmptyText('Postal Code', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.code),
                           labelText: 'Postal Code',
@@ -78,6 +91,9 @@ class AddNewAddressscreen extends StatelessWidget {
                     // City
                     Expanded(
                       child: TextFormField(
+                        controller: controller.city,
+                        validator: (value) =>
+                            AValidator.validateEmptyText('City', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.building),
                           labelText: 'City',
@@ -90,6 +106,9 @@ class AddNewAddressscreen extends StatelessWidget {
                     // State
                     Expanded(
                       child: TextFormField(
+                        controller: controller.state,
+                        validator: (value) =>
+                            AValidator.validateEmptyText('State', value),
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Iconsax.activity),
                           labelText: 'State',
@@ -103,6 +122,9 @@ class AddNewAddressscreen extends StatelessWidget {
 
                 // Country
                 TextFormField(
+                  controller: controller.country,
+                  validator: (value) =>
+                      AValidator.validateEmptyText('Country', value),
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Iconsax.global),
                     labelText: 'Country',
