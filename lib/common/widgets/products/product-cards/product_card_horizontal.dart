@@ -69,7 +69,7 @@ class AProductHorizontal extends StatelessWidget {
                       vertical: ASizes.xs,
                     ),
                     child: Text(
-                      '25%',
+                      '$salePercentage%',
                       style: Theme.of(context)
                           .textTheme
                           .labelLarge!
@@ -103,7 +103,7 @@ class AProductHorizontal extends StatelessWidget {
                         title: product.title,
                         smallSize: true,
                       ),
-                      SizedBox(height: ASizes.spaceBtwItems / 2),
+                      const SizedBox(height: ASizes.spaceBtwItems / 2),
                       ABrandTitleWithVerifiedIcon(title: product.brand!.name),
                     ],
                   ),

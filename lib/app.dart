@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
       getPages: AppRoutes.pages,
       /// Show Loader or Cicular progress Indicator while Auth is deciding to show Screen
       home: const Scaffold(
-        body: ACircularLoader(
-          foregroundColor: AColors.white,
-          backgroundColor: AColors.primary,
+        backgroundColor: AColors.primary,
+        body: Center(
+          child: CircularProgressIndicator(color: AColors.white),
         ),
       ),
     );

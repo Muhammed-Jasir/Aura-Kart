@@ -31,7 +31,6 @@ class CategoryRepository extends GetxController {
   }
 
   /// Get Sub Categories
-
   Future<List<CategoryModel>> getSubCategories(String categoryId) async {
     try {
       final snapshot = await _db
@@ -49,38 +48,4 @@ class CategoryRepository extends GetxController {
       throw 'Something went wrong, Plaease try again';
     }
   }
-
-  /// Upload Categories to the Cloud Firebase
-  Future<void> uploadDummyData(List<CategoryModel> categories) async {
-    try {
-      // Upload all the categories along with thier images
-      final storage = Get.put(ADummyDataHelperFunctions());
-
-      // Loop through each category
-      for (var category in categories) {
-        // Get ImageData link from the local assets
-        final file = await storage.getImageDataFromAssets(category.image);
-
-        // Upload Image and get its URL
-        final url =
-            await storage.uploadImageData('Categories', file, category.name);
-
-        // Assign URL to Category.Image attribute
-        category.image = url;
-
-        // Store Category in Firestore
-        await _db
-            .collection('Categories')
-            .doc(category.id)
-            .set(category.toJson());
-      }
-    } on FirebaseException catch (e) {
-      throw AFirebaseAuthException(e.code).message;
-    } on PlatformException catch (e) {
-      throw APlatformException(e.code).message;
-    } catch (e) {
-      throw 'Something went wrong, Plaease try again';
-    }
-  }
-  
 }

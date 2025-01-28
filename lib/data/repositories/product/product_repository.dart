@@ -141,13 +141,13 @@ class ProductRepository extends GetxController {
       List<String> productIds = productCategoryQuery.docs
           .map((doc) => doc['productId'] as String)
           .toList();
-      
+
       // Query to get all documents where the brandId is in the list of brandIds, FieldPath.documentId to query documents in Collection
       final productsQuery = await _db
           .collection('Products')
           .where(FieldPath.documentId, whereIn: productIds)
           .get();
-      
+
       // Extract brand names or other relevant data from the documents
       List<ProductModel> products = productsQuery.docs
           .map((doc) => ProductModel.fromSnapshot(doc))
@@ -162,70 +162,4 @@ class ProductRepository extends GetxController {
       throw 'something went wrong. Please try again';
     }
   }
-
-  /// Upload Proucts to the Cloud Firestore
-  Future<void> uploadDummyData(List<ProductModel> products) async {
-    try {
-      // Upload all the categories along with thier images
-      final storage = Get.put(ADummyDataHelperFunctions());
-
-      // Loop through each category
-      for (var product in products) {
-        // Get ImageData link from the local assets
-        final thumbnail =
-            await storage.getImageDataFromAssets(product.thumbnail);
-
-        // Upload Image and get its URL
-        final url = await storage.uploadImageData(
-            'Products/Images', thumbnail, product.thumbnail);
-
-        // Assign URL to product.thumbnail attribute
-        product.thumbnail = url;
-
-        // Product list of images
-        if (product.images != null && product.images!.isNotEmpty) {
-          List<String> imagesUrl = [];
-          for (var image in product.images!) {
-            // Get image data link from local assets
-            final assetImage = await storage.getImageDataFromAssets(image);
-
-            // Upload image and get its URL
-            final url = await storage.uploadImageData(
-                'Products/Images', assetImage, image);
-
-            // Assign URL to product.thumbnail attribute
-            imagesUrl.add(url);
-          }
-          product.images!.clear();
-          product.images!.addAll(imagesUrl);
-        }
-
-        // Upload Variation Images
-        if (product.productType == ProductType.variable.toString()) {
-          for (var variation in product.productVariations!) {
-            // Get image data link from local assets
-            final assetImage =
-                await storage.getImageDataFromAssets(variation.image);
-
-            // Upload image and get its URL
-            final url = await storage.uploadImageData(
-                'Products/Images', assetImage, variation.image);
-
-            // Assign URL to variation.thumbnail attribute
-            variation.image = url;
-          }
-        }
-
-        // Store product in Firestore
-        await _db.collection('Products').doc(product.id).set(product.toJson());
-      }
-    } on FirebaseException catch (e) {
-      throw AFirebaseAuthException(e.code).message;
-    } on PlatformException catch (e) {
-      throw APlatformException(e.code).message;
-    } catch (e) {
-      throw 'Something went wrong, Plaease try again';
-    }
-  }
 }
-  

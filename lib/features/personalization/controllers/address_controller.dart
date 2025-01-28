@@ -1,5 +1,5 @@
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
-import 'package:aurakart/data/repositories/repositories/address_repositories.dart';
+import 'package:aurakart/data/repositories/address/address_repositories.dart';
 import 'package:aurakart/features/personalization/models/address_model.dart';
 import 'package:aurakart/features/personalization/screens/address/add_new_address.dart';
 import 'package:aurakart/features/personalization/screens/address/widgets/single_address.dart';

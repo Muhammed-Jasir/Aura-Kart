@@ -1,5 +1,5 @@
 import 'package:aurakart/common/widgets/success_screen/success_screen.dart';
-import 'package:aurakart/data/order/order_repository.dart';
+import 'package:aurakart/data/repositories/order/order_repository.dart';
 import 'package:aurakart/data/repositories/authentication/authentication_repository.dart';
 import 'package:aurakart/features/personalization/controllers/address_controller.dart';
 import 'package:aurakart/features/shop/controllers/cart_controller.dart';
@@ -12,8 +12,6 @@ import 'package:aurakart/utils/popups/full_screen_loader.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class OrderController extends GetxController {
   static OrderController get instance => Get.find();

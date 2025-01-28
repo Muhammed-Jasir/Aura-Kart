@@ -38,7 +38,7 @@ class UserRepository extends GetxController {
     try {
       final documentSnapshot = await _db
           .collection("Users")
-          .doc(AuthenticationRepository.instance.authUser?.uid)
+          .doc(AuthenticationRepository.instance.authUser.uid)
           .get();
       if (documentSnapshot.exists) {
         return UserModel.fromSnapshot(documentSnapshot);
@@ -79,7 +79,7 @@ class UserRepository extends GetxController {
     try {
       await _db
           .collection("Users")
-          .doc(AuthenticationRepository.instance.authUser?.uid)
+          .doc(AuthenticationRepository.instance.authUser.uid)
           .update(json);
     } on FirebaseException catch (e) {
       throw AFirebaseException(e.code).message;
@@ -108,7 +108,7 @@ class UserRepository extends GetxController {
   }
 
   /// upload any image using cloudinary
-  Future<String> uploadImageToCloudinary(String path, XFile image) async {
+  Future<String> uploadImageToCloudinary(String folderPath, XFile image) async {
     try {
       // Cloudinary API uri
       final uri = Uri.parse(APIConstants.cloudinaryBaseUrl);
@@ -117,7 +117,7 @@ class UserRepository extends GetxController {
       var request = http.MultipartRequest('POST', uri);
       request.fields['upload_preset'] = APIConstants.cloudinaryUploadPreset;
       request.fields['resource_type'] = 'image';
-      request.fields['folder'] = path;
+      request.fields['folder'] = folderPath;
       request.files.add(await http.MultipartFile.fromPath('file', image.path));
 
       // Send Request

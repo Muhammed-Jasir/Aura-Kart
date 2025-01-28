@@ -121,7 +121,7 @@ class UserController extends GetxController {
       /// First, Re-Authenticate User
       final auth = AuthenticationRepository.instance;
       final provider =
-          auth.authUser!.providerData.map((e) => e.providerId).first;
+          auth.authUser.providerData.map((e) => e.providerId).first;
       if (provider.isNotEmpty) {
         /// Re-Verify Auth Email
         if (provider == 'google.com') {
@@ -187,7 +187,7 @@ class UserController extends GetxController {
       if (image != null) {
         imageUploading.value = true;
         final imageUrl = await userRepository.uploadImageToCloudinary(
-          'Users/Images/Profile/',
+          'aurakart/customer',
           image,
         );
 

@@ -9,7 +9,7 @@ class AddressRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
   Future<List<AddressModel>> fecthUserAddresses() async {
     try {
-      final userId = AuthenticationRepository.instance.authUser!.uid;
+      final userId = AuthenticationRepository.instance.authUser.uid;
       if (userId.isEmpty) {
         throw 'Unable to Find your information.try again in few minute.';
       }
@@ -27,7 +27,7 @@ class AddressRepository extends GetxController {
   ///Clear the "Selected" field for all addresses
   Future<void> updateSelectedField(String addressId, bool selected) async {
     try {
-      final userId = AuthenticationRepository.instance.authUser!.uid;
+      final userId = AuthenticationRepository.instance.authUser.uid;
       await _db
           .collection('Users')
           .doc(userId)
@@ -42,7 +42,7 @@ class AddressRepository extends GetxController {
   ///Store new User order
   Future<String> addAddress(AddressModel address) async {
     try {
-      final userId = AuthenticationRepository.instance.authUser!.uid;
+      final userId = AuthenticationRepository.instance.authUser.uid;
       final currentAddress = await _db
           .collection('Users')
           .doc(userId)

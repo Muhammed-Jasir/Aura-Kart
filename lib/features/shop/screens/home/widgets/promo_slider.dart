@@ -12,9 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class APromoSlider extends StatelessWidget {
-  const APromoSlider({
-    super.key,
-  });
+  const APromoSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
