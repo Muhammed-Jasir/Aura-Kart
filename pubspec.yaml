@@ -28,7 +28,6 @@ dependencies:
   lottie: ^3.1.3
   flutter_dotenv: ^5.2.1
   image_picker: ^1.1.2
-  cached_network_image: ^3.4.1
 
   # Product Specific
   carousel_slider: ^5.0.0
@@ -48,6 +47,18 @@ dependencies:
   firebase_auth: ^5.3.4
   cloud_firestore: ^5.6.0
   google_sign_in: ^6.2.2
+
+  # Cloudinary
+  cloudinary_flutter: ^1.3.0
+  cloudinary_url_gen: ^1.6.0
+
+  # Chatbot
+  flutter_chat_types: ^3.6.2
+  google_generative_ai: ^0.4.6
+  provider: ^6.1.2
+  uuid: ^3.0.7
+  flutter_chat_ui: ^1.6.15
+  cached_network_image: ^3.3.1
 
 #--------------- ./ PACKAGES END ------------------#
 

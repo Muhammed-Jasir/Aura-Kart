@@ -7,6 +7,7 @@ import "package:aurakart/common/widgets/products/cart/cart_menu_icon.dart";
 import "package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart";
 import "package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart";
 import "package:aurakart/common/widgets/texts/section_heading.dart";
+import "package:aurakart/features/chatbot/screen/chatbot_button.dart";
 import "package:aurakart/features/shop/controllers/product/product_controller.dart";
 import "package:aurakart/features/shop/models/product_model.dart";
 import "package:aurakart/features/shop/screens/all_products/all_products.dart";
@@ -33,101 +34,110 @@ class HomeScreen extends StatelessWidget {
     final controller = Get.put(ProductController());
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            /// Header
-            const APrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  // Appbar
-                  AHomeAppbar(),
-                  SizedBox(height: ASizes.spaceBtwSections),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                /// Header
+                const APrimaryHeaderContainer(
+                  child: Column(
+                    children: [
+                      // Appbar
+                      AHomeAppbar(),
+                      SizedBox(height: ASizes.spaceBtwSections),
 
-                  // Searchbar
-                  ASearchContainer(text: 'Search in Store'),
-                  SizedBox(height: ASizes.spaceBtwSections),
+                      // Searchbar
+                      ASearchContainer(text: 'Search in Store'),
+                      SizedBox(height: ASizes.spaceBtwSections),
 
-                  // Category Section
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: ASizes.defaultSpace,
-                      right: ASizes.defaultSpace,
-                    ),
-                    child: Column(
-                      children: [
-                        /// Heading
-                        ASectionHeading(
-                          title: 'Popular Categories',
-                          showActionbutton: false,
-                          textColor: AColors.white,
+                      // Category Section
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: ASizes.defaultSpace,
+                          right: ASizes.defaultSpace,
                         ),
+                        child: Column(
+                          children: [
+                            /// Heading
+                            ASectionHeading(
+                              title: 'Popular Categories',
+                              showActionbutton: false,
+                              textColor: AColors.white,
+                            ),
 
-                        SizedBox(height: ASizes.spaceBtwItems),
+                            SizedBox(height: ASizes.spaceBtwItems),
 
-                        /// Categories
-                        AHomeCategories(),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: ASizes.spaceBtwSections),
-                ],
-              ),
-            ),
-
-            /// Body
-            Padding(
-              padding: const EdgeInsets.all(ASizes.defaultSpace),
-              child: Column(
-                children: [
-                  // Banner Promo Slider
-                  const APromoSlider(),
-
-                  const SizedBox(height: ASizes.spaceBtwSections),
-
-                  /// Product Heading
-                  ASectionHeading(
-                    title: 'Popular Products',
-                    onPressed: () => Get.to(
-                      () => AllProducts(
-                        title: 'Popular Products',
-                        futureMethod: controller.fetchAllFeaturedProducts(),
+                            /// Categories
+                            AHomeCategories(),
+                          ],
+                        ),
                       ),
-                    ),
+
+                      SizedBox(height: ASizes.spaceBtwSections),
+                    ],
                   ),
+                ),
 
-                  const SizedBox(height: ASizes.spaceBtwItems),
+                /// Body
+                Padding(
+                  padding: const EdgeInsets.all(ASizes.defaultSpace),
+                  child: Column(
+                    children: [
+                      // Banner Promo Slider
+                      const APromoSlider(),
 
-                  /// Popular Products
-                  Obx(
-                    () {
-                      if (controller.isLoading.value) {
-                        return const AVerticalProductShimmer();
-                      }
+                      const SizedBox(height: ASizes.spaceBtwSections),
 
-                      if (controller.featuredProducts.isEmpty) {
-                        return Center(
-                          child: Text(
-                            'No Data Found!',
-                            style: Theme.of(context).textTheme.bodyMedium,
+                      /// Product Heading
+                      ASectionHeading(
+                        title: 'Popular Products',
+                        onPressed: () => Get.to(
+                          () => AllProducts(
+                            title: 'Popular Products',
+                            futureMethod: controller.fetchAllFeaturedProducts(),
                           ),
-                        );
-                      }
-
-                      return AGridLayout(
-                        itemCount: controller.featuredProducts.length,
-                        itemBuilder: (_, index) => AProductCardVertical(
-                          product: controller.featuredProducts[index],
                         ),
-                      );
-                    },
+                      ),
+
+                      const SizedBox(height: ASizes.spaceBtwItems),
+
+                      /// Popular Products
+                      Obx(
+                        () {
+                          if (controller.isLoading.value) {
+                            return const AVerticalProductShimmer();
+                          }
+
+                          if (controller.featuredProducts.isEmpty) {
+                            return Center(
+                              child: Text(
+                                'No Data Found!',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            );
+                          }
+
+                          return AGridLayout(
+                            itemCount: controller.featuredProducts.length,
+                            itemBuilder: (_, index) => AProductCardVertical(
+                              product: controller.featuredProducts[index],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ), // Chatbot Button
+          const Positioned(
+            bottom: 16,
+            right: 16,
+            child: ChatButton(),
+          ),
+        ],
       ),
     );
   }
