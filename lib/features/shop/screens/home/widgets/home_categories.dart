@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AHomeCategories extends StatelessWidget {
-  const AHomeCategories({
-    super.key,
-  });
+  const AHomeCategories({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +17,11 @@ class AHomeCategories extends StatelessWidget {
     return Obx(
       () {
         if (categoryController.isLoading.value) return const ACategoryShimmer();
-        if (categoryController.featureCategories.isEmpty) {
+
+        if (categoryController.featuredCategories.isEmpty) {
           return Center(
             child: Text(
-              'No Data Found',
+              'No Data Found!',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
@@ -30,18 +29,21 @@ class AHomeCategories extends StatelessWidget {
             ),
           );
         }
+
         return SizedBox(
           height: 80,
           child: ListView.builder(
             shrinkWrap: true,
-            itemCount: categoryController.featureCategories.length,
+            itemCount: categoryController.featuredCategories.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, index) {
-              final category = categoryController.featureCategories[index];
+              final category = categoryController.featuredCategories[index];
+
               return AVerticalImageText(
                 image: category.image,
-                title: 'category.name',
-                onTap: () => Get.to(() => SubCatogoriesScreen(category: category)),
+                title: category.name,
+                onTap: () =>
+                    Get.to(() => SubCategoriesScreen(category: category)),
               );
             },
           ),

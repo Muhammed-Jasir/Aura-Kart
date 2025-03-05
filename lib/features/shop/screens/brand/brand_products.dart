@@ -34,16 +34,20 @@ class BrandProducts extends StatelessWidget {
 
               FutureBuilder(
                 future: controller.getBrandProducts(brandId: brand.id),
-                
                 builder: (context, snapshot) {
                   /// Handle Loader, No Record, OR Error Message
                   const loader = AVerticalProductShimmer();
+
                   final widget = ACloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot, loader: loader);
+                    snapshot: snapshot,
+                    loader: loader,
+                  );
+
                   if (widget != null) return widget;
 
                   /// Record Found!
                   final brandProducts = snapshot.data!;
+
                   return ASortableProducts(products: brandProducts);
                 },
               ),

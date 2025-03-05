@@ -13,13 +13,15 @@ import 'package:google_sign_in/google_sign_in.dart';
 class LoginController extends GetxController {
   /// Variables
   final rememberMe = false.obs;
-
   final hidePassword = true.obs;
+
   final localStorage = GetStorage();
+
   final email = TextEditingController();
   final password = TextEditingController();
 
   GlobalKey<FormState> loginFormkey = GlobalKey<FormState>();
+
   final userController = Get.put(UserController());
 
   @override
@@ -58,9 +60,10 @@ class LoginController extends GetxController {
       }
 
       // Login user using Email & Password Authentication
-      // ignore: unused_local_variable
-      final userCredentials = await AuthenticationRepository.instance
-          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+      await AuthenticationRepository.instance.loginWithEmailAndPassword(
+        email.text.trim(),
+        password.text.trim(),
+      );
 
       // Remove Loader
       AFullScreenLoader.stopLoading();
@@ -69,7 +72,7 @@ class LoginController extends GetxController {
       AuthenticationRepository.instance.screenRedirect();
     } catch (e) {
       AFullScreenLoader.stopLoading();
-      ALoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 
@@ -90,23 +93,22 @@ class LoginController extends GetxController {
       }
 
       // Google authentication
-      final userCredential =
+      final userCredentials =
           await AuthenticationRepository.instance.signInWithGoogle();
 
       // Save User Record
-      await userController.saveUserRecord(userCredential);
+      await userController.saveUserRecord(userCredentials);
 
-      //Remove Loader
+      // Remove Loader
       AFullScreenLoader.stopLoading();
 
-      //Redirect
+      // Redirect
       AuthenticationRepository.instance.screenRedirect();
-      
     } catch (e) {
       // Remove Loader
       AFullScreenLoader.stopLoading();
-      
-      ALoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
+
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 }

@@ -42,24 +42,6 @@ class AVerticalImageText extends StatelessWidget {
               overLayColor: darkMode ? AColors.light : AColors.dark,
             ),
 
-            // Container(
-            //   width: 56,
-            //   height: 56,
-            //   padding: const EdgeInsets.all(ASizes.sm),
-            //   decoration: BoxDecoration(
-            //     color: backgroundColor ??
-            //         (darkMode ? AColors.dark : AColors.light),
-            //     borderRadius: BorderRadius.circular(100),
-            //   ),
-            //   child: Center(
-            //     child: Image(
-            //       image: AssetImage(image),
-            //       fit: BoxFit.cover,
-            //       color: darkMode ? AColors.light : AColors.dark,
-            //     ),
-            //   ),
-            // ),
-
             const SizedBox(height: ASizes.spaceBtwItems / 2),
 
             /// Text

@@ -1,7 +1,7 @@
 import 'package:aurakart/features/shop/models/category_model.dart';
 import 'package:aurakart/utils/exceptions/firebase_auth_exceptions.dart';
+import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
-import 'package:aurakart/utils/dummy_data/dummy_helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,39 +13,38 @@ class CategoryRepository extends GetxController {
   /// Variables
   final _db = FirebaseFirestore.instance;
 
-  /// Get all Categories
+  // Get all categories from the Categories collection
   Future<List<CategoryModel>> getAllCategories() async {
     try {
-      final snapshot = await _db.collection('Categories').get();
-      final list = snapshot.docs
-          .map((document) => CategoryModel.fromSnapshot(document))
-          .toList();
-      return list;
+      final snapshot = await _db.collection("Categories").get();
+      final result =
+          snapshot.docs.map((doc) => CategoryModel.fromSnapshot(doc)).toList();
+      return result;
     } on FirebaseException catch (e) {
-      throw AFirebaseAuthException(e.code).message;
+      throw AFirebaseException(e.code).message;
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong, Plaease try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
-  /// Get Sub Categories
+  /// Get Sub Categories from the Categories collection
   Future<List<CategoryModel>> getSubCategories(String categoryId) async {
     try {
       final snapshot = await _db
-          .collection("Category")
+          .collection("Categories")
           .where('ParentId', isEqualTo: categoryId)
           .get();
       final result =
           snapshot.docs.map((e) => CategoryModel.fromSnapshot(e)).toList();
       return result;
     } on FirebaseException catch (e) {
-      throw AFirebaseAuthException(e.code).message;
+      throw AFirebaseException(e.code).message;
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong, Plaease try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 }

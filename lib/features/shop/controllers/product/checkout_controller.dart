@@ -9,8 +9,10 @@ import 'package:get/get.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();
+
   final Rx<PaymentMethodModel> selectedPaymentMethod =
       PaymentMethodModel.empty().obs;
+
   @override
   void onInit() {
     selectedPaymentMethod.value =
@@ -30,41 +32,34 @@ class CheckoutController extends GetxController {
               const ASectionHeading(
                   title: 'Select Payment Method', showActionbutton: false),
               const SizedBox(height: ASizes.spaceBtwSections),
+
               APaymentTile(
-                  paymentMethod: PaymentMethodModel(
-                      name: 'PayPal', image: AImages.paypal)),
+                paymentMethod:
+                    PaymentMethodModel(name: 'Cash On Delivery', image: ''),
+              ),
               const SizedBox(height: ASizes.spaceBtwItems / 2),
-              const SizedBox(height: ASizes.spaceBtwSections),
+
+              APaymentTile(
+                paymentMethod:
+                    PaymentMethodModel(name: 'PayPal', image: AImages.paypal),
+              ),
+              const SizedBox(height: ASizes.spaceBtwItems / 2),
+
               APaymentTile(
                   paymentMethod: PaymentMethodModel(
                       name: 'Google Pay', image: AImages.googlePay)),
               const SizedBox(height: ASizes.spaceBtwItems / 2),
-              const SizedBox(height: ASizes.spaceBtwSections),
-              APaymentTile(
-                  paymentMethod: PaymentMethodModel(
-                      name: 'Apple Pay', image: AImages.applePay)),
-              const SizedBox(height: ASizes.spaceBtwItems / 2),
-              const SizedBox(height: ASizes.spaceBtwSections),
+
               APaymentTile(
                   paymentMethod:
                       PaymentMethodModel(name: 'VISA', image: AImages.visa)),
               const SizedBox(height: ASizes.spaceBtwItems / 2),
-              const SizedBox(height: ASizes.spaceBtwSections),
-              APaymentTile(
-                  paymentMethod: PaymentMethodModel(
-                      name: 'Master Card', image: AImages.masterCard)),
-              const SizedBox(height: ASizes.spaceBtwItems / 2),
-              const SizedBox(height: ASizes.spaceBtwSections),
+
               APaymentTile(
                   paymentMethod:
                       PaymentMethodModel(name: 'Paytm', image: AImages.paytm)),
               const SizedBox(height: ASizes.spaceBtwItems / 2),
-              const SizedBox(height: ASizes.spaceBtwSections),
-              APaymentTile(
-                  paymentMethod: PaymentMethodModel(
-                      name: 'Paystack', image: AImages.paystack)),
-              const SizedBox(height: ASizes.spaceBtwItems / 2),
-              const SizedBox(height: ASizes.spaceBtwSections),
+
               APaymentTile(
                   paymentMethod: PaymentMethodModel(
                       name: 'Credit Card', image: AImages.creditCard)),

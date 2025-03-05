@@ -21,7 +21,7 @@ class AImages {
   static const String docerAnimation =
       "assets/images/animations/141594-animation-of-docer.json";
   static const String successfullyRegisterAnimation =
-      "assets/images/animations/sammy-line-success.png";
+      "assets/images/animations/72462-check-register.json";
   static const String pencilAnimaton =
       'assets/images/animations/140429-pencil-drawing.json';
   static const String cartAnimation =

@@ -21,6 +21,7 @@ class FavouriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = FavouritesController.instance;
+
     return Scaffold(
       // Appbar
       appBar: AAppBar(
@@ -46,7 +47,7 @@ class FavouriteScreen extends StatelessWidget {
               builder: (context, snapshot) {
                 // Nothing found widget
                 final emptyWidget = AAnimationLoaderWidget(
-                  text: 'oops! Wishlist is Empty',
+                  text: 'Whoops! Wishlist is Empty',
                   animation: AImages.pencilAnimaton,
                   showAction: true,
                   actionText: 'Lets\'s add some',
@@ -54,11 +55,13 @@ class FavouriteScreen extends StatelessWidget {
                 );
 
                 const loader = AVerticalProductShimmer(itemCount: 6);
+                
                 final widget = ACloudHelperFunctions.checkMultiRecordState(
                   snapshot: snapshot,
                   loader: loader,
                   nothingFound: emptyWidget,
                 );
+
                 if (widget != null) return widget;
 
                 final products = snapshot.data!;

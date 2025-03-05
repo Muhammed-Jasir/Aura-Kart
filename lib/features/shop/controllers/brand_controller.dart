@@ -31,8 +31,8 @@ class BrandController extends GetxController {
 
       allBrands.assignAll(brands);
 
-      featuredBrands.assignAll(
-          allBrands.where((brand) => brand.isFeatured ?? false).take(4));
+      featuredBrands
+          .assignAll(allBrands.where((brand) => brand.isFeatured).take(4));
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
@@ -52,10 +52,15 @@ class BrandController extends GetxController {
   }
 
   /// Get Brand Specific Products from your data source
-  Future<List<ProductModel>> getBrandProducts({required String brandId, int limit = -1}) async {
+  Future<List<ProductModel>> getBrandProducts({
+    required String brandId,
+    int limit = -1,
+  }) async {
     try {
-      final products =
-          await productRepository.getProductsForBrand(brandId: brandId, limit: limit);
+      final products = await productRepository.getProductsForBrand(
+        brandId: brandId,
+        limit: limit,
+      );
       return products;
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());

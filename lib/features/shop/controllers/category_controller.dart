@@ -11,10 +11,11 @@ class CategoryController extends GetxController {
   static CategoryController get instance => Get.find();
 
   final isLoading = false.obs;
+
   final _categoryRepository = Get.put(CategoryRepository());
 
   RxList<CategoryModel> allCategories = <CategoryModel>[].obs;
-  RxList<CategoryModel> featureCategories = <CategoryModel>[].obs;
+  RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
 
   @override
   void onInit() {
@@ -35,7 +36,7 @@ class CategoryController extends GetxController {
       allCategories.assignAll(categories);
 
       // Filter featured catgories
-      featureCategories.assignAll(
+      featuredCategories.assignAll(
         allCategories
             .where(
                 (category) => category.isFeatured && category.parentId.isEmpty)
@@ -43,7 +44,7 @@ class CategoryController extends GetxController {
             .toList(),
       );
     } catch (e) {
-      ALoaders.errorSnackBar(title: 'Uh Oh !!', message: e.toString());
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
       // Remove loader
       isLoading.value = false;
@@ -51,27 +52,32 @@ class CategoryController extends GetxController {
   }
 
   /// Load selected category data
-  Future<List<CategoryModel>> getSubCategories(String categoryId)async{
-try{
-  final subCatogories = await _categoryRepository.getSubCategories(categoryId);
-  return subCatogories;
-
-}catch(e){
-  ALoaders.errorSnackBar(title: 'Oh Snap!',message: e.toString());
-  return [];
-}
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
+    try {
+      final subCatogories =
+          await _categoryRepository.getSubCategories(categoryId);
+      return subCatogories;
+    } catch (e) {
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return [];
+    }
   }
 
   /// Get category or sub-category products
-  Future<List<ProductModel>> getCategoryProducts({required String categoryId,int limit = 4,}) async {
-    try{
-    // Fecth Limited (4) products against each aubCategory;
-    final products = await ProductRepository.instance
-        .getProductsForCategory(categoryId: categoryId, limit: limit);
-    return products;
-  } catch (e){
-    ALoaders.errorSnackBar(title: 'Oh Snap!',message: e.toString());
-    return [];
+  Future<List<ProductModel>> getCategoryProducts({
+    required String categoryId,
+    int limit = 4,
+  }) async {
+    try {
+      // Fecth Limited (4) products against each aubCategory;
+      final products = await ProductRepository.instance.getProductsForCategory(
+        categoryId: categoryId,
+        limit: limit,
+      );
+      return products;
+    } catch (e) {
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return [];
+    }
   }
-}
 }

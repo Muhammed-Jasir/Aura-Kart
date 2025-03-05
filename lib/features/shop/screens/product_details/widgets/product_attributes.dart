@@ -12,7 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AProductAttributes extends StatelessWidget {
-  const AProductAttributes({super.key, required this.product});
+  const AProductAttributes({
+    super.key,
+    required this.product,
+  });
 
   final ProductModel product;
 
@@ -38,9 +41,7 @@ class AProductAttributes extends StatelessWidget {
                     children: [
                       // Title
                       const ASectionHeading(
-                        title: 'Variation',
-                        showActionbutton: false,
-                      ),
+                          title: 'Variation', showActionbutton: false),
 
                       const SizedBox(width: ASizes.spaceBtwItems),
 
@@ -52,15 +53,13 @@ class AProductAttributes extends StatelessWidget {
                             children: [
                               // Price Text
                               const AProductTitleText(
-                                title: "Price: ",
-                                smallSize: true,
-                              ),
+                                  title: "Price : ", smallSize: true),
 
                               /// Actual Price
                               if (controller.selectedVariation.value.salePrice >
                                   0)
                                 Text(
-                                  '₹${controller.selectedVariation.value.price}',
+                                  '\u{20B9}${controller.selectedVariation.value.price}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleSmall!
@@ -69,12 +68,13 @@ class AProductAttributes extends StatelessWidget {
                                               TextDecoration.lineThrough),
                                 ),
 
-                              const SizedBox(width: ASizes.spaceBtwItems),
+                              if (controller.selectedVariation.value.salePrice >
+                                  0)
+                                const SizedBox(width: ASizes.spaceBtwItems),
 
                               // Sale Price
                               AProductPriceText(
-                                price: controller.getVariationPrice(),
-                              ),
+                                  price: controller.getVariationPrice()),
                             ],
                           ),
 
@@ -83,9 +83,7 @@ class AProductAttributes extends StatelessWidget {
                             children: [
                               // Stock Text
                               const AProductTitleText(
-                                title: 'Stock: ',
-                                smallSize: true,
-                              ),
+                                  title: 'Stock: ', smallSize: true),
 
                               // Stock Status
                               Text(
@@ -134,10 +132,12 @@ class AProductAttributes extends StatelessWidget {
                               final isSelected = controller
                                       .selectedAttributes[attribute.name] ==
                                   attributeValue;
+
                               final available = controller
                                   .getAttributesAvailabilityInVariation(
-                                      product.productVariations!,
-                                      attribute.name!)
+                                    product.productVariations!,
+                                    attribute.name!,
+                                  )
                                   .contains(attributeValue);
 
                               return AChoiceChip(
@@ -147,9 +147,10 @@ class AProductAttributes extends StatelessWidget {
                                     ? (selected) {
                                         if (selected && available) {
                                           controller.onAttributeSelected(
-                                              product,
-                                              attribute.name ?? '',
-                                              attributeValue);
+                                            product,
+                                            attribute.name ?? '',
+                                            attributeValue,
+                                          );
                                         }
                                       }
                                     : null,

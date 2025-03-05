@@ -1,5 +1,5 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
-import 'package:aurakart/features/shop/screens/orders/widgets/orders_list.dart';
+import 'package:aurakart/features/shop/screens/order/widgets/orders_list.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 

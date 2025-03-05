@@ -69,9 +69,7 @@ class ProductDetailScreen extends StatelessWidget {
 
                   /// Description
                   const ASectionHeading(
-                    title: "Description",
-                    showActionbutton: false,
-                  ),
+                      title: "Description", showActionbutton: false),
 
                   const SizedBox(height: ASizes.spaceBtwItems),
 
@@ -79,8 +77,8 @@ class ProductDetailScreen extends StatelessWidget {
                     product.description ?? '',
                     trimLines: 2,
                     trimMode: TrimMode.Line,
-                    trimCollapsedText: ' more',
-                    trimExpandedText: ' less',
+                    trimCollapsedText: ' Show more',
+                    trimExpandedText: ' Less',
                     moreStyle: const TextStyle(
                         fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle: const TextStyle(
@@ -97,16 +95,11 @@ class ProductDetailScreen extends StatelessWidget {
                     children: [
                       // Title
                       const ASectionHeading(
-                        title: 'Reviews (99)',
-                        showActionbutton: false,
-                      ),
+                          title: 'Reviews (99)', showActionbutton: false),
 
                       // Arrow Button
                       IconButton(
-                        icon: const Icon(
-                          Iconsax.arrow_right_3,
-                          size: 18,
-                        ),
+                        icon: const Icon(Iconsax.arrow_right_3, size: 18),
                         onPressed: () =>
                             Get.to(() => const ProductReviewsScreens()),
                       ),

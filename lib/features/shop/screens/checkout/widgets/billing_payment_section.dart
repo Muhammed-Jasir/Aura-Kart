@@ -33,13 +33,16 @@ class ABillingPaymentSection extends StatelessWidget {
                 backgroundColor: darkMode ? AColors.light : AColors.white,
                 padding: const EdgeInsets.all(ASizes.sm),
                 child: Image(
-                    image: AssetImage(
-                        controller.selectedPaymentMethod.value.image),
-                    fit: BoxFit.contain),
+                  image:
+                      AssetImage(controller.selectedPaymentMethod.value.image),
+                  fit: BoxFit.contain,
+                ),
               ),
               const SizedBox(width: ASizes.spaceBtwItems / 2),
-              Text(controller.selectedPaymentMethod.value.name,
-                  style: Theme.of(context).textTheme.bodyLarge),
+              Text(
+                controller.selectedPaymentMethod.value.name,
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ],
           ),
         )

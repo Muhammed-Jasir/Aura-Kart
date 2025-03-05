@@ -59,33 +59,35 @@ class ALoginForm extends StatelessWidget {
             const SizedBox(height: ASizes.spaceBtwInputFields / 2),
 
             /// Remembear Me & Forget Password
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                /// Remembear Me
-                Row(
-                  children: [
-                    Obx(
-                      () => Checkbox(
-                        value: controller.rememberMe.value,
-                        onChanged: (value) => controller.rememberMe.value =
-                            !controller.rememberMe.value,
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  /// Remembear Me
+                  Row(
+                    children: [
+                      Obx(
+                        () => Checkbox(
+                          value: controller.rememberMe.value,
+                          onChanged: (value) => controller.rememberMe.value =
+                              !controller.rememberMe.value,
+                        ),
                       ),
-                    ),
-                    const Text(ATexts.rememberMe),
-                  ],
-                ),
-
-                // Forget Password
-                TextButton(
-                  onPressed: () => Get.to(() => const ForgetPassword()),
-                  style: TextButton.styleFrom(
-                    foregroundColor:
-                        darkMode ? AColors.textSecondary : AColors.textPrimary,
+                      const Text(ATexts.rememberMe),
+                    ],
                   ),
-                  child: const Text(ATexts.forgetPassword),
-                ),
-              ],
+              
+                  // Forget Password
+                  TextButton(
+                    onPressed: () => Get.to(() => const ForgetPassword()),
+                    style: TextButton.styleFrom(
+                      foregroundColor:
+                          darkMode ? AColors.textSecondary : AColors.textPrimary,
+                    ),
+                    child: const Text(ATexts.forgetPassword),
+                  ),
+                ],
+              ),
             ),
 
             const SizedBox(height: ASizes.spaceBtwSections),

@@ -16,6 +16,7 @@ class SignupController extends GetxController {
   /// Variables
   final hidePassword = true.obs; // Observe for hiding/showing password
   final privacyPolicy = true.obs; // Observe for privacy policy acceptance
+
   final email = TextEditingController(); // Controller for email input
   final lastName = TextEditingController(); // Controller for lastname input
   final username = TextEditingController(); // Controller for username input
@@ -52,6 +53,8 @@ class SignupController extends GetxController {
 
       // Privacy Policy Check
       if (!privacyPolicy.value) {
+        AFullScreenLoader.stopLoading();
+
         ALoaders.warningSnackBar(
           title: 'Accept Privacy Policy',
           message:
@@ -61,9 +64,11 @@ class SignupController extends GetxController {
       }
 
       // Register user in the Firebase Auth & save user data in the Firebase
-      final userCredential = await AuthenticationRepository.instance
-          .registerWithEmailAndPassword(
-              email.text.trim(), password.text.trim());
+      final userCredential =
+          await AuthenticationRepository.instance.registerWithEmailAndPassword(
+        email.text.trim(),
+        password.text.trim(),
+      );
 
       // Save Authenticated user data in the Firebase Firestore
       final newUser = UserModel(
@@ -85,7 +90,7 @@ class SignupController extends GetxController {
       // Show Success Messege
       ALoaders.successSnackBar(
         title: 'Congratulations',
-        message: 'Your account has been created! Verify email to continue.',
+        message: 'Your account has been created!. Verify email to continue.',
       );
 
       // Move to Verify Email Screen
@@ -94,8 +99,8 @@ class SignupController extends GetxController {
       // Remove Loader
       AFullScreenLoader.stopLoading();
 
-      // Show some generic error to user
-      ALoaders.errorSnackBar(title: 'Oh snapp!', message: e.toString());
+      // Show some Generic Error to User
+      ALoaders.errorSnackBar(title: 'Oh Snapp!', message: e.toString());
     }
   }
 }

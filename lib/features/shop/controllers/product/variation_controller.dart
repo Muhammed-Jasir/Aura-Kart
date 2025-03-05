@@ -1,4 +1,4 @@
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/images_controller.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/models/product_variation_model.dart';
@@ -15,7 +15,10 @@ class VariationController extends GetxController {
 
   /// Select Attribute, and Variation
   void onAttributeSelected(
-      ProductModel product, attributeName, attributeValue) {
+    ProductModel product,
+    attributeName,
+    attributeValue,
+  ) {
     // When attribute is selected we wil first add that attribute to the selectedAttributes
     final selectedAttributes =
         Map<String, dynamic>.from(this.selectedAttributes);
@@ -31,7 +34,7 @@ class VariationController extends GetxController {
     // Show the selected Variation image as a Main Image
     if (selectedVariation.image.isNotEmpty) {
       ImagesController.instance.selectedProductImage.value =
-          selectedVariation.image;
+          selectedVariation.image.value;
     }
 
     // Show selected variation quantity already in the cart.
@@ -49,8 +52,10 @@ class VariationController extends GetxController {
   }
 
   /// Check if selected attributes matches any variation attributes
-  bool _isSameAttributeValues(Map<String, dynamic> variationAttributes,
-      Map<String, dynamic> selectedAttributes) {
+  bool _isSameAttributeValues(
+    Map<String, dynamic> variationAttributes,
+    Map<String, dynamic> selectedAttributes,
+  ) {
     // if selectedAttributes contains 3 attributes and current variation contains 2 then return.
     if (variationAttributes.length != selectedAttributes.length) return false;
 
@@ -65,15 +70,19 @@ class VariationController extends GetxController {
 
   /// Check Attribute availability / Stock in Variation
   Set<String?> getAttributesAvailabilityInVariation(
-      List<ProductVariationModel> variations, String attributeName) {
+    List<ProductVariationModel> variations,
+    String attributeName,
+  ) {
     // Pass the variations to check which attributes are available and stock is not 0
     final availableVariationAttributeValues = variations
-        .where((variation) =>
-            // Check Empty / Out of Atock attributes
-            variation.attributeValues[attributeName] != null &&
-            variation.attributeValues[attributeName]!.isNotEmpty &&
-            variation.stock > 0)
-        // Getch all non-empty attributes of variations
+        .where(
+          (variation) =>
+              // Check Empty / Out of Stock attributes
+              variation.attributeValues[attributeName] != null &&
+              variation.attributeValues[attributeName]!.isNotEmpty &&
+              variation.stock > 0,
+        )
+        // Fetch all non-empty attributes of variations
         .map((variation) => variation.attributeValues[attributeName])
         .toSet();
 

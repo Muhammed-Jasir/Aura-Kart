@@ -42,10 +42,7 @@ class ACartitem extends StatelessWidget {
 
               // Product Title
               Flexible(
-                child: AProductTitleText(
-                  title: cartItem.title,
-                  maxlines: 1,
-                ),
+                child: AProductTitleText(title: cartItem.title, maxlines: 1),
               ),
 
               /// Attributes
@@ -57,7 +54,7 @@ class ACartitem extends StatelessWidget {
                         (e) => TextSpan(
                           children: [
                             TextSpan(
-                                text: ' ${e.key}',
+                                text: ' ${e.key} ',
                                 style: Theme.of(context).textTheme.bodySmall),
                             TextSpan(
                                 text: '${e.value} ',

@@ -31,7 +31,9 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
-    final categories = CategoryController.instance.featureCategories;
+
+    final categories = CategoryController.instance.featuredCategories;
+
     final brandController = Get.put(BrandController());
 
     return DefaultTabController(
@@ -39,10 +41,8 @@ class StoreScreen extends StatelessWidget {
       child: Scaffold(
         /// Appbar
         appBar: AAppBar(
-          title: Text(
-            'Store',
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
+          title:
+              Text('Store', style: Theme.of(context).textTheme.headlineMedium),
           actions: [
             ACartCouterIcon(
               iconColor: darkMode ? AColors.white : AColors.black,
@@ -113,9 +113,10 @@ class StoreScreen extends StatelessWidget {
                               final brand =
                                   brandController.featuredBrands[index];
                               return ABrandCard(
-                                showBorder: false,
+                                showBorder: true,
                                 brand: brand,
-                                onTap: () => Get.to(() => BrandProducts(brand: brand)),
+                                onTap: () =>
+                                    Get.to(() => BrandProducts(brand: brand)),
                               );
                             },
                           );
@@ -138,12 +139,7 @@ class StoreScreen extends StatelessWidget {
           // Body
           body: TabBarView(
             children: categories
-                .map(
-                  (category) => ACategoryTab(
-                    category: category,
-                    products: ProductModel.empty(),
-                  ),
-                )
+                .map((category) => ACategoryTab(category: category))
                 .toList(),
           ),
         ),

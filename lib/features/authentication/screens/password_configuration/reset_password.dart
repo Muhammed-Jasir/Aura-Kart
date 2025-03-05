@@ -77,7 +77,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () => ForgetPasswordController.instance.resendPasswordResendEmail(email),
+                    onPressed: () => ForgetPasswordController.instance.resendPasswordResetEmail(email),
                     child: const Text(ATexts.resendEmail),
                   ),
                 ),

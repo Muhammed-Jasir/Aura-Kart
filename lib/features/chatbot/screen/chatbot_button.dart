@@ -20,7 +20,7 @@ class ChatButton extends StatelessWidget {
           child: Draggable(
             feedback: FloatingActionButton(
               onPressed: null,
-              backgroundColor: Colors.blue.withOpacity(0.5),
+              backgroundColor: Colors.blue.withValues(alpha: 0.5),
               child: const Icon(Icons.chat),
             ),
             childWhenDragging: const SizedBox(), // Placeholder when dragging

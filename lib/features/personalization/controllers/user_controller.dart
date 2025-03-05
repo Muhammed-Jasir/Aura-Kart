@@ -21,9 +21,10 @@ class UserController extends GetxController {
   Rx<UserModel> user = UserModel.empty().obs;
 
   final hidePassword = false.obs;
+  final imageUploading = false.obs;
+
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
-  final imageUploading = false.obs;
 
   final userRepository = Get.put(UserRepository());
 
@@ -94,7 +95,7 @@ class UserController extends GetxController {
       contentPadding: const EdgeInsets.all(ASizes.md),
       title: 'Delete Account',
       middleText:
-          'Are you sure you want to delete your account permanently? This action is not reversible and all of you daa will be removed permanently.',
+          'Are you sure you want to delete your account permanently? This action is not reversible and all of your data will be removed permanently.',
       confirm: ElevatedButton(
         onPressed: () async => deleteUserAccount(),
         style: ElevatedButton.styleFrom(
@@ -121,7 +122,7 @@ class UserController extends GetxController {
       /// First, Re-Authenticate User
       final auth = AuthenticationRepository.instance;
       final provider =
-          auth.authUser.providerData.map((e) => e.providerId).first;
+          auth.authUser!.providerData.map((e) => e.providerId).first;
       if (provider.isNotEmpty) {
         /// Re-Verify Auth Email
         if (provider == 'google.com') {
@@ -136,7 +137,7 @@ class UserController extends GetxController {
       }
     } catch (e) {
       AFullScreenLoader.stopLoading();
-      ALoaders.warningSnackBar(title: 'Oh Snap!!', message: e.toString());
+      ALoaders.warningSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 
@@ -166,7 +167,9 @@ class UserController extends GetxController {
       );
 
       await AuthenticationRepository.instance.deleteAccount();
+
       AFullScreenLoader.stopLoading();
+
       Get.offAll(() => const LoginScreen());
     } catch (e) {
       AFullScreenLoader.stopLoading();
@@ -183,6 +186,11 @@ class UserController extends GetxController {
         maxWidth: 512,
         maxHeight: 512,
       );
+
+      // Delete old image from cloudinary
+      if (user.value.profilePicture.isNotEmpty) {
+        await userRepository.deleteImageFromCloudinary(user.value.profilePicture);
+      }
 
       if (image != null) {
         imageUploading.value = true;
@@ -207,9 +215,7 @@ class UserController extends GetxController {
       }
     } catch (e) {
       ALoaders.errorSnackBar(
-        title: 'Oh Snap!',
-        message: 'Something went wrong: $e',
-      );
+          title: 'Oh Snap!', message: 'Something went wrong: $e');
     } finally {
       imageUploading.value = false;
     }

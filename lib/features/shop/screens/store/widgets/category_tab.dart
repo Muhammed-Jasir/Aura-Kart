@@ -18,11 +18,9 @@ class ACategoryTab extends StatelessWidget {
   const ACategoryTab({
     super.key,
     required this.category,
-    required this.products,
   });
 
   final CategoryModel category;
-  final ProductModel products;
 
   @override
   Widget build(BuildContext context) {
@@ -42,45 +40,44 @@ class ACategoryTab extends StatelessWidget {
 
               // Products
               FutureBuilder(
-                  future:
-                      controller.getCategoryProducts(categoryId: category.id),
-                  builder: (context, snapshot) {
-                    /// Helper Function :Handle Loder , No Record, OR ERROR Message
-                    final response =
-                        ACloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot,
-                      loader: const AVerticalProductShimmer(),
-                    );
+                future: controller.getCategoryProducts(categoryId: category.id),
+                builder: (context, snapshot) {
+                  /// Helper Function :Handle Loder , No Record, OR ERROR Message
+                  final response = ACloudHelperFunctions.checkMultiRecordState(
+                    snapshot: snapshot,
+                    loader: const AVerticalProductShimmer(),
+                  );
 
-                    if (response != null) return response;
+                  if (response != null) return response;
 
-                    /// Record Found!
-                    final products = snapshot.data!;
+                  /// Record Found!
+                  final products = snapshot.data!;
 
-                    return Column(
-                      children: [
-                        ASectionHeading(
-                          title: 'You might like',
-                          showActionbutton: true,
-                          onPressed: () => Get.to(
-                            () => AllProducts(
-                              title: category.name,
-                              futureMethod: controller.getCategoryProducts(
-                                categoryId: category.id,
-                                limit: -1,
-                              ),
+                  return Column(
+                    children: [
+                      ASectionHeading(
+                        title: 'You might like',
+                        showActionbutton: true,
+                        onPressed: () => Get.to(
+                          () => AllProducts(
+                            title: category.name,
+                            futureMethod: controller.getCategoryProducts(
+                              categoryId: category.id,
+                              limit: -1,
                             ),
                           ),
                         ),
-                        const SizedBox(height: ASizes.spaceBtwItems),
-                        AGridLayout(
-                          itemCount: products.length,
-                          itemBuilder: (_, index) =>
-                              AProductCardVertical(product: products[index]),
-                        ),
-                      ],
-                    );
-                  }),
+                      ),
+                      const SizedBox(height: ASizes.spaceBtwItems),
+                      AGridLayout(
+                        itemCount: products.length,
+                        itemBuilder: (_, index) =>
+                            AProductCardVertical(product: products[index]),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ],
           ),
         ),

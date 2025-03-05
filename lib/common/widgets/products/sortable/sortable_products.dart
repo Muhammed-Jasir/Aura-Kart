@@ -28,7 +28,7 @@ class ASortableProducts extends StatelessWidget {
           decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort)),
           value: controller.selectSortOption.value,
           onChanged: (value) {
-            controller.sortProducts('value!');
+            controller.sortProducts(value!);
           },
           items: [
             'Name',
@@ -36,7 +36,7 @@ class ASortableProducts extends StatelessWidget {
             'Lower Price',
             'Sale',
             'Newest',
-            'Popularity'
+            // 'Popularity'
           ]
               .map(
                 (option) => DropdownMenuItem(

@@ -11,10 +11,13 @@ import 'package:iconsax/iconsax.dart';
 
 class APaymentTile extends StatelessWidget {
   const APaymentTile({super.key, required this.paymentMethod});
+
   final PaymentMethodModel paymentMethod;
+
   @override
   Widget build(BuildContext context) {
     final controller = CheckoutController.instance;
+    
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       onTap: () {

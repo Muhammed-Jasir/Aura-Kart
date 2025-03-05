@@ -1,6 +1,5 @@
-import 'package:aurakart/utils/formatters/formatter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import '../../../utils/formatters/formatter.dart';
 
 class AddressModel {
   String id;
@@ -13,6 +12,7 @@ class AddressModel {
   final String country;
   final DateTime? dateTime;
   bool selectedAddress;
+
   AddressModel({
     required this.id,
     required this.name,
@@ -25,16 +25,20 @@ class AddressModel {
     this.dateTime,
     this.selectedAddress = true,
   });
+
   String get formattedPhoneNo => AFormatter.formatPhoneNumber(phoneNumber);
+
   static AddressModel empty() => AddressModel(
-      id: '',
-      name: '',
-      phoneNumber: '',
-      street: '',
-      city: '',
-      state: '',
-      postalCode: '',
-      country: '');
+        id: '',
+        name: '',
+        phoneNumber: '',
+        street: '',
+        city: '',
+        state: '',
+        postalCode: '',
+        country: '',
+      );
+
   Map<String, dynamic> toJson() {
     return {
       'Id': id,
@@ -64,8 +68,10 @@ class AddressModel {
       dateTime: (data['DateTime'] as Timestamp).toDate(),
     );
   }
+
   factory AddressModel.fromDocumentSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
+
     return AddressModel(
       id: snapshot.id,
       name: data['Name'] ?? '',
@@ -79,6 +85,7 @@ class AddressModel {
       dateTime: (data['DateTime'] as Timestamp).toDate(),
     );
   }
+
   @override
   String toString() {
     return '$street, $city, $state, $postalCode, $country';

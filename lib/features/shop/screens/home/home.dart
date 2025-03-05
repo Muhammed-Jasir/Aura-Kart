@@ -1,5 +1,3 @@
-import "package:aurakart/common/widgets/appbar/appbar.dart";
-import "package:aurakart/common/widgets/custom_shapes/container/circular_container.dart";
 import "package:aurakart/common/widgets/custom_shapes/container/primary_header_container.dart";
 import "package:aurakart/common/widgets/custom_shapes/container/search_container.dart";
 import "package:aurakart/common/widgets/layouts/grid_layout.dart";
@@ -131,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ), // Chatbot Button
+          ),
           const Positioned(
             bottom: 16,
             right: 16,

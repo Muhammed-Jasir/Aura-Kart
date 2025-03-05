@@ -38,6 +38,7 @@ class AProductQuantityWithAddRemoveButton extends StatelessWidget {
         // Cart Quantity
         Text(quantity.toString(),
             style: Theme.of(context).textTheme.titleSmall),
+            
         const SizedBox(width: ASizes.spaceBtwItems),
 
         // Plus Icon

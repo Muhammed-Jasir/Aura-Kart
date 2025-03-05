@@ -1,7 +1,7 @@
 import 'package:aurakart/common/widgets/products/cart/add_remove_button.dart';
 import 'package:aurakart/common/widgets/products/cart/cart_item.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,6 +27,7 @@ class ACartItems extends StatelessWidget {
         itemBuilder: (_, index) => Obx(
           () {
             final item = controller.cartItems[index];
+            
             return Column(
               children: [
                 /// Cart Item

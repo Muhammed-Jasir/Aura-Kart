@@ -1,4 +1,4 @@
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';

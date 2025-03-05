@@ -1,4 +1,4 @@
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class ABillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
-            Text('\$$subTotal', style: Theme.of(context).textTheme.bodyMedium),
+            Text('₹$subTotal', style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
 
@@ -30,8 +30,9 @@ class ABillingAmountSection extends StatelessWidget {
           children: [
             Text('Shipping Fee', style: Theme.of(context).textTheme.bodyMedium),
             Text(
-                '\$${APricingCalculator.calculateShippingCost(subTotal, 'US')}',
-                style: Theme.of(context).textTheme.labelLarge),
+              '₹${APricingCalculator.calculateShippingCost(subTotal, 'IN').toStringAsFixed(2)}',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ],
         ),
 
@@ -41,9 +42,11 @@ class ABillingAmountSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('\$${APricingCalculator.calculateTax(subTotal, 'US')}',
-                style: Theme.of(context).textTheme.bodyMedium),
-            Text('₹6.0', style: Theme.of(context).textTheme.labelLarge),
+            Text('Tax Fee', style: Theme.of(context).textTheme.bodyMedium),
+            Text(
+              '₹${APricingCalculator.calculateTax(subTotal, 'IN').toStringAsFixed(2)}',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ],
         ),
 
@@ -54,7 +57,8 @@ class ABillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Order Total', style: Theme.of(context).textTheme.bodyMedium),
-            Text('\$${APricingCalculator.calculateTotalPrice(subTotal, 'US')}',
+            Text(
+                '₹${APricingCalculator.calculateTotalPrice(subTotal, 'IN').toStringAsFixed(2)}',
                 style: Theme.of(context).textTheme.titleMedium),
           ],
         ),

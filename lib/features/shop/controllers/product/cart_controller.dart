@@ -129,7 +129,8 @@ class CartController extends GetxController {
       // Get selected Variation if any...
       final variationId = variationController.selectedVariation.value.id;
       if (variationId.isNotEmpty) {
-        productQuantityInCart.value = getVariationQuantityInCart(product.id,variationId);
+        productQuantityInCart.value =
+            getVariationQuantityInCart(product.id, variationId);
       } else {
         productQuantityInCart.value = 0;
       }
@@ -159,7 +160,7 @@ class CartController extends GetxController {
       price: price,
       quantity: quantity,
       variationId: variation.id,
-      image: isVariation ? variation.image : product.thumbnail,
+      image: isVariation ? variation.image.value : product.thumbnail,
       brandName: product.brand != null ? product.brand!.name : '',
       selectedVariation: isVariation ? variation.attributeValues : null,
     );
@@ -193,9 +194,12 @@ class CartController extends GetxController {
   void loadCartITems() {
     final cartItemStrings =
         ALocalStorage.instance().readData<List<dynamic>>('cartItems');
+
     if (cartItemStrings != null) {
-      cartItems.assignAll(cartItemStrings
-          .map((item) => CartItemModel.fromJson(item as Map<String, dynamic>)));
+      cartItems.assignAll(
+        cartItemStrings.map(
+            (item) => CartItemModel.fromJson(item as Map<String, dynamic>)),
+      );
       updateCartTotals();
     }
   }

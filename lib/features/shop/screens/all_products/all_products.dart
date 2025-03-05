@@ -43,6 +43,7 @@ class AllProducts extends StatelessWidget {
               builder: (context, snapshot) {
                 // Check the state of the FutureBuilder snapshot
                 const loader = AVerticalProductShimmer();
+
                 final widget = ACloudHelperFunctions.checkMultiRecordState(
                   snapshot: snapshot,
                   loader: loader,
@@ -51,7 +52,7 @@ class AllProducts extends StatelessWidget {
                 // Return appropriate widget based on snapshot state
                 if (widget != null) return widget;
 
-                //Products Found
+                // Products Found
                 final products = snapshot.data!;
 
                 return ASortableProducts(products: products);

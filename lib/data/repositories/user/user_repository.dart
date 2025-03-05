@@ -6,12 +6,16 @@ import 'package:aurakart/utils/constants/api_constants.dart';
 import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
 import 'package:aurakart/utils/exceptions/format_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
+import 'package:aurakart/utils/helpers/cloud_helper_functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../utils/exceptions/cloudinary_exceptions.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -29,7 +33,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -38,8 +42,9 @@ class UserRepository extends GetxController {
     try {
       final documentSnapshot = await _db
           .collection("Users")
-          .doc(AuthenticationRepository.instance.authUser.uid)
+          .doc(AuthenticationRepository.instance.authUser!.uid)
           .get();
+
       if (documentSnapshot.exists) {
         return UserModel.fromSnapshot(documentSnapshot);
       } else {
@@ -52,17 +57,17 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong .please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
   /// Functions to update user data in Firestore
-  Future<void> updateUserDetails(UserModel updateUser) async {
+  Future<void> updateUserDetails(UserModel updatedUser) async {
     try {
       await _db
           .collection("Users")
-          .doc(updateUser.id)
-          .update(updateUser.toJson());
+          .doc(updatedUser.id)
+          .update(updatedUser.toJson());
     } on FirebaseException catch (e) {
       throw AFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -70,7 +75,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -79,7 +84,7 @@ class UserRepository extends GetxController {
     try {
       await _db
           .collection("Users")
-          .doc(AuthenticationRepository.instance.authUser.uid)
+          .doc(AuthenticationRepository.instance.authUser!.uid)
           .update(json);
     } on FirebaseException catch (e) {
       throw AFirebaseException(e.code).message;
@@ -88,7 +93,7 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -103,21 +108,28 @@ class UserRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
-  /// upload any image using cloudinary
+  /// Upload any Image using Cloudinary
   Future<String> uploadImageToCloudinary(String folderPath, XFile image) async {
     try {
-      // Cloudinary API uri
-      final uri = Uri.parse(APIConstants.cloudinaryBaseUrl);
+      final cloudName = APIConstants.cloudinaryCloudName;
+
+      // Cloudinary API URL
+      final uri =
+          Uri.parse(APIConstants.getCloudinaryUploadUrl(cloudName, 'image'));
 
       // Multipart Request
       var request = http.MultipartRequest('POST', uri);
+
       request.fields['upload_preset'] = APIConstants.cloudinaryUploadPreset;
+
       request.fields['resource_type'] = 'image';
+
       request.fields['folder'] = folderPath;
+
       request.files.add(await http.MultipartFile.fromPath('file', image.path));
 
       // Send Request
@@ -126,20 +138,68 @@ class UserRepository extends GetxController {
       if (response.statusCode == 200) {
         // Get Response
         final responseString = await response.stream.bytesToString();
+
         // Decode the response
         final data = jsonDecode(responseString);
+
         // Get the image URL
         final String imageUrl = data['secure_url'];
         return imageUrl;
       } else {
-        throw 'Failed to upload image';
+        final error = await response.stream.bytesToString();
+        debugPrint('Failed to upload image: $error');
+        throw Exception('Failed to upload image');
       }
-    } on FormatException catch (_) {
-      throw const AFormatException();
-    } on PlatformException catch (e) {
-      throw APlatformException(e.code).message;
+    } on ACloudinaryException catch (e) {
+      throw ACloudinaryException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
+    }
+  }
+
+  // Delete Image from Cloudinary
+  Future<void> deleteImageFromCloudinary(String imageUrl) async {
+    try {
+      final cloudinaryCloudName = APIConstants.cloudinaryCloudName;
+
+      final deleteUrl =
+          APIConstants.getCloudinaryDeleteUrl(cloudinaryCloudName, 'image');
+
+      final uri = Uri.parse(deleteUrl);
+
+      final publicId = ACloudHelperFunctions.getPublicId(imageUrl);
+
+      final timestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
+      final signatureString =
+          'public_id=$publicId&timestamp=$timestamp${APIConstants.cloudinaryApiSecret}';
+
+      final bytes = utf8.encode(signatureString);
+      final signature = sha1.convert(bytes).toString();
+
+      final response = await http.post(
+        uri,
+        body: {
+          'public_id': publicId,
+          'timestamp': timestamp.toString(),
+          'api_key': APIConstants.cloudinaryApiKey,
+          'signature': signature,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        if (kDebugMode) {
+          print('Image deleted successfully from Cloudinary: $jsonResponse');
+        }
+      } else {
+        throw Exception(
+            'Failed to delete image from Cloudinary: ${response.body}');
+      }
+    } on ACloudinaryException catch (e) {
+      throw ACloudinaryException(e.code).message;
+    } catch (e) {
+      throw e.toString();
     }
   }
 }

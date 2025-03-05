@@ -11,12 +11,11 @@ class AddNewAddressscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = AddressController.instance;
+
     return Scaffold(
       // Appbar
-      appBar: const AAppBar(
-        showBackArrow: true,
-        title: Text('Add new Address'),
-      ),
+      appBar:
+          const AAppBar(showBackArrow: true, title: Text('Add new Address')),
 
       // Body
       body: SingleChildScrollView(
@@ -137,7 +136,7 @@ class AddNewAddressscreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => controller.addNewAddress(),
                     child: const Text('save'),
                   ),
                 ),

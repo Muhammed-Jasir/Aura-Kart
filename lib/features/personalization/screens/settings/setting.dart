@@ -7,7 +7,7 @@ import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/personalization/screens/profile/profile.dart';
 import 'package:aurakart/features/personalization/screens/address/address.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
-import 'package:aurakart/features/shop/screens/orders/order.dart';
+import 'package:aurakart/features/shop/screens/order/order.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';

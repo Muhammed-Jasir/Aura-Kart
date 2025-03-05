@@ -2,7 +2,7 @@ import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/products/cart/add_remove_button.dart';
 import 'package:aurakart/common/widgets/products/cart/cart_item.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:aurakart/features/shop/screens/checkout/checkout.dart';
 import 'package:aurakart/navigation_menu.dart';
@@ -59,7 +59,8 @@ class CartScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () => Get.to(() => const CheckoutScreen()),
                 child: Obx(
-                    () => Text('Checkout ₹${controller.totalCartPrice.value}')),
+                  () => Text('Checkout ₹${controller.totalCartPrice.value}'),
+                ),
               ),
             ),
     );

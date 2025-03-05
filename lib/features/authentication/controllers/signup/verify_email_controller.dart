@@ -29,12 +29,11 @@ class VerifyEmailController extends GetxController {
         message: 'Please Check your inbox and Verify Your Email.',
       );
     } catch (e) {
-      ALoaders.errorSnackBar(title: 'oh snap!', message: e.toString());
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 
   /// Timer to Automatically redirect on Email verification
-
   setTimerForAutoRedirect() {
     Timer.periodic(
       const Duration(seconds: 1),
@@ -57,8 +56,8 @@ class VerifyEmailController extends GetxController {
     );
   }
 
-  /// Manually check if Email verified
-  checkEmailVerificationStatus() async {
+  /// Manually check if Email is verified
+  void checkEmailVerificationStatus() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null && currentUser.emailVerified) {
       Get.off(
@@ -68,6 +67,11 @@ class VerifyEmailController extends GetxController {
           subTitle: ATexts.yourAccountCreatedSubTitle,
           onPressed: () => AuthenticationRepository.instance.screenRedirect(),
         ),
+      );
+    } else {
+      ALoaders.errorSnackBar(
+        title: 'Email Not Verified',
+        message: 'Please Verify Your Email to Continue.',
       );
     }
   }

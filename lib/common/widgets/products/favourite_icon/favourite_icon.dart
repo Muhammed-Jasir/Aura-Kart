@@ -18,7 +18,7 @@ class AFavouriteIcon extends StatelessWidget {
       () => ACircularIcon(
         icon:
             controller.isFavourite(productId) ? Iconsax.heart5 : Iconsax.heart,
-        color: controller.isFavourite(productId) ? AColors.error : null,
+        color: controller.isFavourite(productId) ? Colors.red : null,
         onPressed: () => controller.toggleFavoriteProduct(productId),
       ),
     );

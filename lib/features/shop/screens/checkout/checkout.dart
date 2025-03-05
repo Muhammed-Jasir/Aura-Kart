@@ -2,7 +2,7 @@ import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:aurakart/common/widgets/products/cart/coupon_widget.dart';
 import 'package:aurakart/common/widgets/success_screen/success_screen.dart';
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/order_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:aurakart/features/shop/screens/checkout/widgets/billing_address_section.dart';
@@ -25,18 +25,21 @@ class CheckoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
     final subTotal = cartController.totalCartPrice.value;
+
     final darkMode = AHelperFunctions.isDarkMode(context);
+
     final orderController = Get.put(OrderController());
-    final totalAmount = APricingCalculator.calculateTotalPrice(subTotal, 'US');
+
+    final totalAmount = APricingCalculator.calculateTotalPrice(subTotal, 'IN');
+    final shippingCost = APricingCalculator.calculateShippingCost(subTotal, 'IN');
+    final taxCost = APricingCalculator.calculateTax(subTotal, 'IN');
 
     return Scaffold(
       // Appbar
       appBar: AAppBar(
         showBackArrow: true,
-        title: Text(
-          'Order Review',
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
+        title: Text('Order Review',
+            style: Theme.of(context).textTheme.headlineSmall),
       ),
 
       // Body
@@ -88,11 +91,12 @@ class CheckoutScreen extends StatelessWidget {
         padding: const EdgeInsets.all(ASizes.defaultSpace),
         child: ElevatedButton(
           onPressed: subTotal > 0
-              ? () => orderController.processOrder(totalAmount)
+              ? () => orderController.processOrder(totalAmount, shippingCost, taxCost)
               : () => ALoaders.warningSnackBar(
-                  title: 'Empty Cart',
-                  message: 'Add items in the cart in order to proceed'),
-          child: Text('Checkout \$$totalAmount'),
+                    title: 'Empty Cart',
+                    message: 'Add items in the cart in order to proceed',
+                  ),
+          child: Text('Checkout ₹$totalAmount'),
         ),
       ),
     );

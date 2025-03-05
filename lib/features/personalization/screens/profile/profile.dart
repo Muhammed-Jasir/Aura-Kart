@@ -86,6 +86,7 @@ class ProfileScreen extends StatelessWidget {
                 value: controller.user.value.fullName,
                 onPressed: () => Get.to(() => const ChangeName()),
               ),
+
               AProfileMenu(
                 title: 'Username',
                 value: controller.user.value.username,

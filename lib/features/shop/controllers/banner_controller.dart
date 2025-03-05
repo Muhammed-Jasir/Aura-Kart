@@ -4,6 +4,8 @@ import 'package:aurakart/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
 class BannerController extends GetxController {
+  static BannerController get instance => Get.find();
+  
   /// Variables
   final isLoading = false.obs;
   final carouselCurrentIndex = 0.obs;
@@ -15,25 +17,26 @@ class BannerController extends GetxController {
     super.onInit();
   }
 
-  /// Update page Navigational Dats
+  /// Update Page Navigational Dots
   void updatePageIndicator(index) {
     carouselCurrentIndex.value = index;
   }
 
-  ///fetch Banners
+  /// Fetch Banners
   Future<void> fetchBanners() async {
     try {
-      // Show loader while categories
+      // Show loader while loading banners
       isLoading.value = true;
 
       // fetch Banners
-      final bannerRepo = Get.put(BannerRepository());
-      final banners = await bannerRepo.fetchBanners();
+      final bannerRepository = Get.put(BannerRepository());
+      final banners = await bannerRepository.fetchBanners();
 
       // Assign Banners
       this.banners.assignAll(banners);
+
     } catch (e) {
-      ALoaders.errorSnackBar(title: 'Uh Oh !!', message: e.toString());
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
       // Remove loader
       isLoading.value = false;

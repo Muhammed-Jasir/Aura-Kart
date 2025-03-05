@@ -67,7 +67,7 @@ class _ChatbotState extends State<ChatPage> {
                         message: message.message);
                   })),
           Padding(
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
             child: Row(
               children: [
                 Expanded(
@@ -117,12 +117,12 @@ Container userPrompt({
   return Container(
     width: double.infinity,
     padding: const EdgeInsets.all(15),
-    margin: EdgeInsets.symmetric(vertical: 15).copyWith(
+    margin: const EdgeInsets.symmetric(vertical: 15).copyWith(
       left: isPrompt ? 80 : 15,
       right: isPrompt ? 15 : 80,
     ),
     decoration: BoxDecoration(
-      color: isPrompt ? Color.fromARGB(255, 247, 130, 130) : Colors.grey,
+      color: isPrompt ? const Color.fromARGB(255, 247, 130, 130) : Colors.grey,
       borderRadius: BorderRadius.only(
         topLeft: const Radius.circular(20),
         topRight: const Radius.circular(20),

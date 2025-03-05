@@ -1,28 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProductCategoryModel {
+class BrandCategoryModel {
   String? id;
-  final String productId;
+  final String brandId;
   final String categoryId;
 
-  ProductCategoryModel({
+  BrandCategoryModel({
     this.id,
-    required this.productId,
+    required this.brandId,
     required this.categoryId,
   });
 
   Map<String, dynamic> toJson() {
     return {
-      'productId': productId,
+      'brandId': brandId,
       'categoryId': categoryId,
     };
   }
 
-  factory ProductCategoryModel.fromSnapshot(DocumentSnapshot snapshot) {
+  factory BrandCategoryModel.fromSnapshot(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
-    return ProductCategoryModel(
+    return BrandCategoryModel(
       id: snapshot.id,
-      productId: data['productId'] as String,
+      brandId: data['brandId'] as String,
       categoryId: data['categoryId'] as String,
     );
   }

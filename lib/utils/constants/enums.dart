@@ -4,16 +4,15 @@ enum ProductType { single, variable }
 
 enum TextSizes { small, medium, large }
 
-enum OrderStatus { processing, shipped, delivered, pending }
+enum OrderStatus { pending, processing, shipped, delivered, cancelled }
+
+enum AppRole { admin, user }
 
 enum PaymentMethods {
+  cashOnDelivery,
   paypal,
   googlePay,
-  applePay,
   visa,
-  masterCard,
+  paytm,
   creditCard,
-  paystack,
-  razorPay,
-  paytm
 }

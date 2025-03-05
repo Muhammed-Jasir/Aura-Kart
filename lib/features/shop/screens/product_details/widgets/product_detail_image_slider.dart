@@ -49,9 +49,8 @@ class AProductImageSlider extends StatelessWidget {
                           imageUrl: image,
                           progressIndicatorBuilder: (_, __, downloadProgress) =>
                               CircularProgressIndicator(
-                            value: downloadProgress.progress,
-                            color: AColors.primary,
-                          ),
+                                  value: downloadProgress.progress,
+                                  color: AColors.primary),
                         ),
                       );
                     },
@@ -62,8 +61,8 @@ class AProductImageSlider extends StatelessWidget {
 
             /// Image Slider
             Positioned(
-              right: ASizes.defaultSpace,
               bottom: 30,
+              right: ASizes.defaultSpace,
               left: ASizes.defaultSpace,
               child: SizedBox(
                 height: 80,
@@ -79,6 +78,7 @@ class AProductImageSlider extends StatelessWidget {
                       final imageSelected =
                           controller.selectedProductImage.value ==
                               images[index];
+
                       return ARoundedImage(
                         width: 80,
                         imageUrl: images[index],
@@ -88,7 +88,7 @@ class AProductImageSlider extends StatelessWidget {
                         border: Border.all(
                           color: imageSelected
                               ? AColors.primary
-                              : Colors.transparent,
+                              : Colors.transparent
                         ),
                         padding: const EdgeInsets.all(ASizes.sm),
                         onPressed: () => controller.selectedProductImage.value =

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class APricingCalculator {
   /// Calculate Price based on tax and shipping
   static double calculateTotalPrice(double productPrice, String location) {
@@ -9,16 +11,16 @@ class APricingCalculator {
   }
 
   /// Calculate shipping cost
-  static String calculateShippingCost(double productPrice, String location) {
+  static double calculateShippingCost(double productPrice, String location) {
     double shippingCost = getShippingCost(location);
-    return shippingCost.toStringAsFixed(2);
+    return shippingCost;
   }
 
   /// Calculate tax
-  static String calculateTax(double productPrice, String location) {
+  static double calculateTax(double productPrice, String location) {
     double taxRate = getTaxRateForLocation(location);
     double taxAmount = productPrice * taxRate;
-    return taxAmount.toStringAsFixed(2);
+    return taxAmount;
   }
 
   static double getTaxRateForLocation(String location) {

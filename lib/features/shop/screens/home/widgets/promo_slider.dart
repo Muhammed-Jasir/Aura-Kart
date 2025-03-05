@@ -20,7 +20,7 @@ class APromoSlider extends StatelessWidget {
 
     return Obx(
       () {
-        // Loder
+        // Loader
         if (controller.isLoading.value) {
           return const AShimmerEffect(width: double.infinity, height: 190);
         }
@@ -28,50 +28,52 @@ class APromoSlider extends StatelessWidget {
         // No Data Found
         if (controller.banners.isEmpty) {
           return const Center(child: Text('No Data Found'));
-        } else {
-          return Column(
-            children: [
-              /// Carousel
-              CarouselSlider(
-                options: CarouselOptions(
-                  viewportFraction: 1,
-                  onPageChanged: (index, _) =>
-                      controller.updatePageIndicator(index),
-                ),
-                items: controller.banners
-                    .map((banner) => ARoundedImage(
-                          imageUrl: banner.imageUrl,
-                          isNetworkImage: true,
-                          onPressed: () => Get.toNamed(banner.targetScreen),
-                        ))
-                    .toList(),
-              ),
-
-              const SizedBox(height: ASizes.spaceBtwItems),
-
-              /// Carousel Dots
-              Center(
-                child: Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (int i = 0; i < controller.banners.length; i++)
-                        ACircularContainer(
-                          width: 22,
-                          height: 4,
-                          margin: const EdgeInsets.only(right: 18),
-                          backgroundColor:
-                              controller.carouselCurrentIndex.value == i
-                                  ? AColors.primary
-                                  : AColors.grey,
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
         }
+
+        return Column(
+          children: [
+            /// Carousel
+            CarouselSlider(
+              options: CarouselOptions(
+                viewportFraction: 1,
+                onPageChanged: (index, _) =>
+                    controller.updatePageIndicator(index),
+              ),
+              items: controller.banners
+                  .map(
+                    (banner) => ARoundedImage(
+                      imageUrl: banner.imageUrl,
+                      isNetworkImage: true,
+                      onPressed: () => Get.toNamed(banner.targetScreen),
+                    ),
+                  )
+                  .toList(),
+            ),
+
+            const SizedBox(height: ASizes.spaceBtwItems),
+
+            /// Carousel Dots
+            Center(
+              child: Obx(
+                () => Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (int i = 0; i < controller.banners.length; i++)
+                      ACircularContainer(
+                        width: 20,
+                        height: 4,
+                        margin: const EdgeInsets.only(right: 10),
+                        backgroundColor:
+                            controller.carouselCurrentIndex.value == i
+                                ? AColors.primary
+                                : AColors.grey,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
       },
     );
   }

@@ -19,6 +19,7 @@ class ABrandShowcase extends StatelessWidget {
   });
 
   final BrandModel brand;
+  
   final List<String> images;
 
   @override

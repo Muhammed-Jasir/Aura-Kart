@@ -13,8 +13,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SubCatogoriesScreen extends StatelessWidget {
-  const SubCatogoriesScreen({
+class SubCategoriesScreen extends StatelessWidget {
+  const SubCategoriesScreen({
     super.key,
     required this.category,
   });
@@ -24,12 +24,10 @@ class SubCatogoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CategoryController.instance;
+
     return Scaffold(
       // Appbar
-      appBar: AAppBar(
-        title: Text(category.name),
-        showBackArrow: true,
-      ),
+      appBar: AAppBar(title: Text(category.name), showBackArrow: true),
       // Body
       body: SingleChildScrollView(
         child: Padding(
@@ -39,7 +37,6 @@ class SubCatogoriesScreen extends StatelessWidget {
               /// Banner
               const ARoundedImage(
                 width: double.infinity,
-                height: null,
                 imageUrl: AImages.promoBanner3,
                 applyImageRadius: true,
               ),
@@ -48,76 +45,81 @@ class SubCatogoriesScreen extends StatelessWidget {
 
               /// Sub-Categories
               FutureBuilder(
-                  future: controller.getSubCategories(category.id),
-                  builder: (context, snapshot) {
-                    /// Handle Loader ,No Record, OR Error Message
-                    const loader = AHorizontalProductShimmer();
-                    final widget = ACloudHelperFunctions.checkMultiRecordState(
-                        snapshot: snapshot, loader: loader);
-                    if (widget != null) return widget;
+                future: controller.getSubCategories(category.id),
+                builder: (context, snapshot) {
+                  /// Handle Loader ,No Record, OR Error Message
+                  const loader = AHorizontalProductShimmer();
 
-                    /// Record found
-                    final subCatogories = snapshot.data!;
+                  final widget = ACloudHelperFunctions.checkMultiRecordState(
+                    snapshot: snapshot,
+                    loader: loader,
+                  );
 
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: subCatogories.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (_, index) {
-                        final subCatogory = subCatogories[index];
-                        return FutureBuilder(
-                            future: controller.getCategoryProducts(
-                                categoryId: subCatogory.id),
-                            builder: (context, snapshot) {
-                              final widget =
-                              /// Handle Loader ,No Record, OR Error Message
+                  if (widget != null) return widget;
+
+                  /// Record found
+                  final subCategories = snapshot.data!;
+
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: subCategories.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, index) {
+                      final subCategory = subCategories[index];
+
+                      return FutureBuilder(
+                        future: controller.getCategoryProducts(
+                            categoryId: subCategory.id),
+                        builder: (context, snapshot) {
+                          final widget =
+                              ACloudHelperFunctions.checkMultiRecordState(
+                            snapshot: snapshot,
+                            loader: loader,
+                          );
+
+                          if (widget != null) return widget;
+
+                          final products = snapshot.data!;
+
+                          return Column(
+                            children: [
+                              ASectionHeading(
+                                title: subCategory.name,
+                                onPressed: () => Get.to(
+                                  () => AllProducts(
+                                    title: subCategory.name,
+                                    futureMethod:
+                                        controller.getCategoryProducts(
+                                      categoryId: subCategory.id,
+                                      limit: -1,
+                                    ),
+                                  ),
+                                ),
+                              ),
                               
-                                  ACloudHelperFunctions.checkMultiRecordState(
-                                      snapshot: snapshot, loader: loader);
-                              if (widget != null) return widget;
-
-                              /// Congratulations  Record found
-                              final products = snapshot.data!;
-
-                              return Column(
-                                children: [
-                                  ASectionHeading(
-                                    title: subCatogory.name,
-                                    onPressed: () => Get.to(
-                                      () => AllProducts(
-                                        title: subCatogory.name,
-                                        futureMethod:
-                                            controller.getCategoryProducts(
-                                                categoryId: subCatogory.id,
-                                                limit: -1),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: ASizes.spaceBtwItems / 2,
-                                  ),
-
-                                  /// Heading
-
-                                  SizedBox(
-                                    height: 120,
-                                    child: ListView.separated(
-                                      itemCount: products.length,
-                                      scrollDirection: Axis.horizontal,
-                                      separatorBuilder: (context, index) =>
-                                          const SizedBox(
-                                              width: ASizes.spaceBtwItems),
-                                      itemBuilder: (context, index) =>
-                                           AProductHorizontal(product: products[index]),
-                                    ),
-                                  ),
-                                 const SizedBox(height: ASizes.spaceBtwSections,)
-                                ],
-                              );
-                            });
-                      },
-                    );
-                  }),
+                              const SizedBox(height: ASizes.spaceBtwItems / 2),
+                              SizedBox(
+                                height: 120,
+                                child: ListView.separated(
+                                  itemCount: products.length,
+                                  scrollDirection: Axis.horizontal,
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(
+                                          width: ASizes.spaceBtwItems),
+                                  itemBuilder: (context, index) =>
+                                      AProductHorizontal(
+                                          product: products[index]),
+                                ),
+                              ),
+                              const SizedBox(height: ASizes.spaceBtwSections)
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),

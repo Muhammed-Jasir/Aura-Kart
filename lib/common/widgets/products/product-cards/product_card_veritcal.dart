@@ -7,7 +7,7 @@ import 'package:aurakart/common/widgets/products/product-cards/product_card_add_
 import 'package:aurakart/common/widgets/texts/brand_title_text_with_verified_icon.dart';
 import 'package:aurakart/common/widgets/texts/product_price_text.dart';
 import 'package:aurakart/common/widgets/texts/product_title_text.dart';
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/product_controller.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/models/product_variation_model.dart';
@@ -30,10 +30,8 @@ class AProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
 
-    final salePercentage = controller.calculateSalePercentage(
-      product.price,
-      product.salePrice,
-    );
+    final salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
 
     final darkMode = AHelperFunctions.isDarkMode(context);
 
@@ -106,6 +104,7 @@ class AProductCardVertical extends StatelessWidget {
             ///  Details
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: ASizes.sm),
+              // Only reason to use SizedBox is to make the width of the Column to be full
               child: SizedBox(
                 width: double.infinity,
                 child: Column(
@@ -123,6 +122,7 @@ class AProductCardVertical extends StatelessWidget {
               ),
             ),
 
+            /// Use spacer to utilize the space to set the price and cart button at bottom
             /// To keep the height of each Box same in case 1 or 2 lines of Headings
             const Spacer(),
 
@@ -140,7 +140,7 @@ class AProductCardVertical extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: ASizes.sm),
                           child: Text(
-                            product.price.toString(),
+                            '\u{20B9}${product.price.toString()}',
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
@@ -169,4 +169,3 @@ class AProductCardVertical extends StatelessWidget {
     );
   }
 }
-

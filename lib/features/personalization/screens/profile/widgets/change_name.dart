@@ -1,5 +1,5 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
-import 'package:aurakart/data/repositories/user/update_name_controller.dart';
+import 'package:aurakart/features/personalization/controllers/update_name_controller.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/constants/text_strings.dart';
 import 'package:aurakart/utils/validators/validation.dart';
@@ -13,7 +13,7 @@ class ChangeName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(UpdateNameController());
-    
+
     return Scaffold(
       /// Appbar
       appBar: AAppBar(
@@ -38,7 +38,7 @@ class ChangeName extends StatelessWidget {
 
             /// Text field and button
             Form(
-              key: controller.updateUserNameFormkey,
+              key: controller.updateUserNameFormKey,
               child: Column(
                 children: [
                   TextFormField(

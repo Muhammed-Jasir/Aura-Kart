@@ -26,7 +26,7 @@ class BrandRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong while fetching Banners.';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -63,7 +63,7 @@ class BrandRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong while fetching Banners.';
+      throw 'Something went wrong!. Please try again';
     }
   }
 }

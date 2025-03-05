@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class ProductAttributeModel {
   String? name;
   final List<String>? values;
@@ -8,7 +6,10 @@ class ProductAttributeModel {
 
   /// Json format
   toJson() {
-    return {'Name': name, 'Values': values};
+    return {
+      'Name': name,
+      'Values': values,
+    };
   }
 
   /// Map Json oriented document snapshot from FireBase to Model
@@ -16,7 +17,7 @@ class ProductAttributeModel {
     final data = document;
 
     if (data.isEmpty) return ProductAttributeModel();
-    
+
     return ProductAttributeModel(
       name: data.containsKey('Name') ? data['Name'] : '',
       values: List<String>.from(data['Values']),

@@ -19,7 +19,9 @@ import 'package:iconsax/iconsax.dart';
 
 class AProductHorizontal extends StatelessWidget {
   const AProductHorizontal({super.key, required this.product});
+
   final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
@@ -59,24 +61,23 @@ class AProductHorizontal extends StatelessWidget {
                 ),
 
                 /// Sale Tag
-                Positioned(
-                  top: 12,
-                  child: ARoundedContainer(
-                    radius: ASizes.sm,
-                    backgroundColor: AColors.secondary.withValues(alpha: 0.8),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: ASizes.sm,
-                      vertical: ASizes.xs,
-                    ),
-                    child: Text(
-                      '$salePercentage%',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .apply(color: AColors.black),
+                if (salePercentage != null)
+                  Positioned(
+                    top: 12,
+                    child: ARoundedContainer(
+                      radius: ASizes.sm,
+                      backgroundColor: AColors.secondary.withValues(alpha: 0.8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: ASizes.sm, vertical: ASizes.xs),
+                      child: Text(
+                        '$salePercentage%',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge!
+                            .apply(color: AColors.black),
+                      ),
                     ),
                   ),
-                ),
 
                 /// Favourite Icon Button
                 Positioned(
@@ -99,10 +100,7 @@ class AProductHorizontal extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AProductTitleText(
-                        title: product.title,
-                        smallSize: true,
-                      ),
+                      AProductTitleText(title: product.title, smallSize: true),
                       const SizedBox(height: ASizes.spaceBtwItems / 2),
                       ABrandTitleWithVerifiedIcon(title: product.brand!.name),
                     ],
@@ -124,7 +122,7 @@ class AProductHorizontal extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(left: ASizes.sm),
                                 child: Text(
-                                  product.price.toString(),
+                                  '\u{20B9}${product.price.toString()}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
@@ -146,23 +144,7 @@ class AProductHorizontal extends StatelessWidget {
                       ),
 
                       /// Add to Cart Button
-
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: AColors.dark,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(ASizes.cardRadiusMd),
-                            bottomRight:
-                                Radius.circular(ASizes.productImageRadius),
-                          ),
-                        ),
-                        child: const SizedBox(
-                          width: ASizes.iconLg * 1.2,
-                          height: ASizes.iconLg * 1.2,
-                          child: Center(
-                              child: Icon(Iconsax.add, color: AColors.white)),
-                        ),
-                      ),
+                      AProductCardAddToCartButton(product: product),
                     ],
                   ),
                 ],

@@ -34,6 +34,7 @@ class ACircularImage extends StatelessWidget {
       height: height,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
+        // If backgroundColor is null, then use dark or light color
         color: backgroundColor ?? (darkMode ? AColors.dark : AColors.light),
         borderRadius: BorderRadius.circular(100),
       ),

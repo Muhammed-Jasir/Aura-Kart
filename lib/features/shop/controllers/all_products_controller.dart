@@ -18,6 +18,7 @@ class AllProductsController extends GetxController {
       if (query == null) return [];
 
       final products = await repository.fetchProductsByQuery(query);
+
       return products;
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
@@ -27,6 +28,7 @@ class AllProductsController extends GetxController {
 
   void sortProducts(String sortOptions) {
     selectSortOption.value = sortOptions;
+
     switch (sortOptions) {
       case 'Name':
         products.sort((a, b) => a.title.compareTo(b.title));
@@ -50,7 +52,7 @@ class AllProductsController extends GetxController {
             return 1;
           }
         });
-        break;
+        break;      
       default:
         // Default sorting option: Name
         products.sort((a, b) => a.title.compareTo(b.title));

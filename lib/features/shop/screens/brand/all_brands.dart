@@ -32,6 +32,7 @@ class AllBrandsScreen extends StatelessWidget {
               const ASectionHeading(title: 'Brands', showActionbutton: false),
               const SizedBox(height: ASizes.spaceBtwItems),
 
+              // Brands
               Obx(
                 () {
                   if (brandController.isLoading.value) {
@@ -54,8 +55,9 @@ class AllBrandsScreen extends StatelessWidget {
                     mainAxisExtent: 80,
                     itemBuilder: (_, index) {
                       final brand = brandController.allBrands[index];
+                      
                       return ABrandCard(
-                        showBorder: false,
+                        showBorder: true,
                         brand: brand,
                         onTap: () => Get.to(() => BrandProducts(brand: brand)),
                       );

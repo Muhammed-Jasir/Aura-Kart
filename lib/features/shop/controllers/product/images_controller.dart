@@ -30,7 +30,7 @@ class ImagesController extends GetxController {
     if (product.productVariations != null ||
         product.productVariations!.isNotEmpty) {
       images.addAll(
-        product.productVariations!.map((variation) => variation.image),
+        product.productVariations!.map((variation) => variation.image.value),
       );
     }
 

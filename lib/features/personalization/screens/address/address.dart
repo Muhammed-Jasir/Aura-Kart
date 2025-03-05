@@ -16,6 +16,7 @@ class UserAddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AddressController());
+
     return Scaffold(
       // Add new Address Button
       floatingActionButton: FloatingActionButton(
@@ -39,23 +40,26 @@ class UserAddressScreen extends StatelessWidget {
           padding: const EdgeInsets.all(ASizes.defaultSpace),
           child: Obx(
             () => FutureBuilder(
-              // USe key to trigger refresh
+              // Use key to trigger refresh
               key: Key(controller.refreshData.value.toString()),
               future: controller.getAllUserAddress(),
               builder: (context, snapshot) {
                 /// Helper Function Loader, No Record, OR ERROR MESSAGE
                 final response = ACloudHelperFunctions.checkMultiRecordState(
                     snapshot: snapshot);
+
                 if (response != null) return response;
+
                 final addresses = snapshot.data!;
+                
                 return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: addresses.length,
-                    itemBuilder: (_, index) => ASingleAddress(
-                          address: addresses[index],
-                          onTap: () =>
-                              controller.selectAddress(addresses[index]),
-                        ));
+                  shrinkWrap: true,
+                  itemCount: addresses.length,
+                  itemBuilder: (_, index) => ASingleAddress(
+                    address: addresses[index],
+                    onTap: () => controller.selectAddress(addresses[index]),
+                  ),
+                );
               },
             ),
           ),

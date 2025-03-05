@@ -1,6 +1,5 @@
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/enums.dart';
-import 'package:aurakart/utils/dummy_data/dummy_helper_functions.dart';
 import 'package:aurakart/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 /// Repository for Managing product-related data and operation
-
 class ProductRepository extends GetxController {
   static ProductRepository get instance => Get.find();
 
@@ -23,7 +21,7 @@ class ProductRepository extends GetxController {
       final snapshot = await _db
           .collection('Products')
           .where('IsFeatured', isEqualTo: true)
-          .limit(4)
+          .limit(6)
           .get();
       return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
     } on FirebaseException catch (e) {
@@ -31,7 +29,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -48,7 +46,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -65,13 +63,14 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
   /// Get Product based on the query
   Future<List<ProductModel>> getFavouriteProducts(
-      List<String> productIds) async {
+    List<String> productIds,
+  ) async {
     try {
       final snapshot = await _db
           .collection('Products')
@@ -85,7 +84,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -116,7 +115,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 
@@ -128,12 +127,12 @@ class ProductRepository extends GetxController {
       /// Query to get all documents where productId matches the provided categoryId & Fetch limited or unlimited based on limit
       QuerySnapshot productCategoryQuery = limit == -1
           ? await _db
-              .collection('ProductsCategory')
-              .where('categoryid', isEqualTo: categoryId)
+              .collection('ProductCategory')
+              .where('categoryId', isEqualTo: categoryId)
               .get()
           : await _db
-              .collection('ProductsCategory')
-              .where('categoryid', isEqualTo: categoryId)
+              .collection('ProductCategory')
+              .where('categoryId', isEqualTo: categoryId)
               .limit(limit)
               .get();
 
@@ -159,7 +158,7 @@ class ProductRepository extends GetxController {
     } on PlatformException catch (e) {
       throw APlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong. Please try again';
+      throw 'Something went wrong!. Please try again';
     }
   }
 }

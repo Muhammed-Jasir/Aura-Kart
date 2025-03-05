@@ -25,7 +25,8 @@ class AProductMetaData extends StatelessWidget {
     final darkMode = AHelperFunctions.isDarkMode(context);
 
     final controller = ProductController.instance;
-    final salePercentage = controller.calculateSalePercentage(product.price, product.salePrice);
+    final salePercentage =
+        controller.calculateSalePercentage(product.price, product.salePrice);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,37 +35,44 @@ class AProductMetaData extends StatelessWidget {
         Row(
           children: [
             /// Sale Tag
-            ARoundedContainer(
-              radius: ASizes.sm,
-              backgroundColor: AColors.secondary.withValues(alpha: 0.8),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: ASizes.sm, vertical: ASizes.xs),
-              child: Text(
-                '$salePercentage%',
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .apply(color: AColors.black),
+            if (salePercentage != null)
+              ARoundedContainer(
+                radius: ASizes.sm,
+                backgroundColor: AColors.secondary.withValues(alpha: 0.8),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: ASizes.sm, vertical: ASizes.xs),
+                child: Text(
+                  '$salePercentage%',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge!
+                      .apply(color: AColors.black),
+                ),
               ),
-            ),
 
-            const SizedBox(width: ASizes.spaceBtwItems),
+            if (salePercentage != null)
+              const SizedBox(width: ASizes.spaceBtwItems),
 
             /// Old Price
-            if (product.productType == ProductType.single.toString() && product.salePrice > 0)
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice > 0)
               Text(
-                '₹${product.price}',
+                '\u{20B9}${product.price}',
                 style: Theme.of(context)
                     .textTheme
                     .titleSmall!
                     .apply(decoration: TextDecoration.lineThrough),
               ),
 
-            if (product.productType == ProductType.single.toString() && product.salePrice > 0)
+            if (product.productType == ProductType.single.toString() &&
+                product.salePrice > 0)
               const SizedBox(width: ASizes.spaceBtwItems),
 
             // New Price
-            AProductPriceText(price: controller.getProductPrice(product), isLarge: true),
+            AProductPriceText(
+              price: controller.getProductPrice(product),
+              isLarge: true,
+            ),
           ],
         ),
 
@@ -79,7 +87,10 @@ class AProductMetaData extends StatelessWidget {
           children: [
             const AProductTitleText(title: 'Status:'),
             const SizedBox(width: ASizes.spaceBtwItems),
-            Text(controller.getProductStockStatus(product.stock), style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              controller.getProductStockStatus(product.stock),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ],
         ),
 

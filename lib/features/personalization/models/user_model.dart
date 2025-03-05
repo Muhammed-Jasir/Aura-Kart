@@ -1,3 +1,4 @@
+import 'package:aurakart/utils/constants/enums.dart';
 import 'package:aurakart/utils/formatters/formatter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -9,6 +10,9 @@ class UserModel {
   final String email;
   String phoneNumber;
   String profilePicture;
+  AppRole role;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   UserModel({
     required this.id,
@@ -18,10 +22,17 @@ class UserModel {
     required this.profilePicture,
     required this.username,
     required this.email,
+    this.role = AppRole.user,
+    this.createdAt,
+    this.updatedAt,
   });
 
   // Helper function to get the full name.
   String get fullName => '$firstName $lastName';
+
+  String get formattedDate => AFormatter.formatDate(createdAt);
+  
+  String get formattedUpdatedAtDate => AFormatter.formatDate(updatedAt);
 
   // Helper function to get the phone no.
   String get formattedPhoneNo => AFormatter.formatPhoneNumber(phoneNumber);
@@ -36,7 +47,7 @@ class UserModel {
     String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
 
     String camelCaseUsername = "$firstName$lastName";
-    String usernameWithPrefix = "cwt_$camelCaseUsername";
+    String usernameWithPrefix = "aura_$camelCaseUsername";
     return usernameWithPrefix;
   }
 
@@ -49,6 +60,7 @@ class UserModel {
         profilePicture: '',
         username: '',
         email: '',
+        role: AppRole.user,
       );
 
   // Convert model to JSON structure for storing data in Firebase.
@@ -60,21 +72,39 @@ class UserModel {
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
+      'Role': role.name.toString(),
+      'CreatedAt': createdAt,
+      'UpdatedAt': updatedAt = DateTime.now(),
     };
   }
 
   // Factory method to create a UserModel form a Firebase document snapshot.
   factory UserModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
-    final data = document.data()!;
-    return UserModel(
-      id: document.id,
-      firstName: data['FirstName'] ?? '',
-      lastName: data['LastName'] ?? '',
-      phoneNumber: data['PhoneNumber'] ?? '',
-      profilePicture: data['ProfilePicture'] ?? '',
-      username: data['Username'] ?? '',
-      email: data['Email'] ?? '',
-    );
+    final data = document.data();
+    if (data != null) {
+      return UserModel(
+        id: document.id,
+        firstName: data['FirstName'] ?? '',
+        lastName: data['LastName'] ?? '',
+        phoneNumber: data['PhoneNumber'] ?? '',
+        profilePicture: data['ProfilePicture'] ?? '',
+        username: data['Username'] ?? '',
+        email: data['Email'] ?? '',
+        role: data.containsKey('Role')
+            ? (data['Role'] ?? AppRole.user) == AppRole.admin.name.toString()
+                ? AppRole.admin
+                : AppRole.user
+            : AppRole.user,
+        createdAt: data.containsKey('CreatedAt')
+            ? data['CreatedAt']?.toDate() ?? DateTime.now()
+            : DateTime.now(),
+        updatedAt: data.containsKey('UpdatedAt')
+            ? data['UpdatedAt']?.toDate() ?? DateTime.now()
+            : DateTime.now(),
+      );
+    } else {
+      return UserModel.empty();
+    }
   }
 }

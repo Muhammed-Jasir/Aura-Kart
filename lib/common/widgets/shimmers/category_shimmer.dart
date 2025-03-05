@@ -7,6 +7,7 @@ class ACategoryShimmer extends StatelessWidget {
     super.key,
     this.itemCount = 6,
   });
+
   final int itemCount;
 
   @override
@@ -23,7 +24,7 @@ class ACategoryShimmer extends StatelessWidget {
             return const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// image
+                /// Image
                 AShimmerEffect(width: 55, height: 55, radius: 55),
                 SizedBox(height: ASizes.spaceBtwItems / 2),
 

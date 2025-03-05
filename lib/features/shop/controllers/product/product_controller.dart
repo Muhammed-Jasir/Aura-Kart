@@ -1,7 +1,6 @@
 import 'package:aurakart/data/repositories/product/product_repository.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/enums.dart';
-import 'package:aurakart/utils/dummy_data/dummy_helper_functions.dart';
 import 'package:aurakart/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:aurakart/utils/exceptions/platform_exceptions.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
@@ -14,7 +13,9 @@ class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
   final isLoading = false.obs;
+
   final productRepository = Get.put(ProductRepository());
+
   RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
 
   @override
@@ -27,8 +28,10 @@ class ProductController extends GetxController {
     try {
       // Show loaders while loading products
       isLoading.value = true;
+
       // Fetch Products
       final products = await productRepository.getFeaturedProducts();
+
       // Assign Products
       featuredProducts.assignAll(products);
     } catch (e) {
@@ -78,7 +81,7 @@ class ProductController extends GetxController {
         return largestPrice.toString();
       } else {
         // Otherwise,return a price range
-        return '$smallestPrice - \$$largestPrice';
+        return '$smallestPrice - \u{20B9}$largestPrice';
       }
     }
   }

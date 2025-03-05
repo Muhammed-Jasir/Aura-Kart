@@ -10,85 +10,85 @@ import 'package:get/get.dart';
 class ForgetPasswordController extends GetxController {
   static ForgetPasswordController get instance => Get.find();
 
-  /// variables
+  /// Variables
   final email = TextEditingController();
+
   GlobalKey<FormState> forgetPasswordFormKey = GlobalKey<FormState>();
 
-  /// send Reset password email
-  sendPasswordResendEmail() async {
+  /// Send Reset Password Email
+  sendPasswordResetEmail() async {
     try {
-      ///start loading
+      /// Start Loader
       AFullScreenLoader.openLoadingDialog(
-          'Processing Your Request', AImages.docerAnimation);
+        'Processing Your Request',
+        AImages.docerAnimation,
+      );
 
-      /// check internet connectivity
+      /// Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         AFullScreenLoader.stopLoading();
         return;
       }
 
-      ///form validation
+      /// Form Validation
       if (!forgetPasswordFormKey.currentState!.validate()) {
         AFullScreenLoader.stopLoading();
         return;
       }
 
-      /// send email & reset password
+      /// Send Reset Password Email
       await AuthenticationRepository.instance
           .sendPasswordResetEmail(email.text.trim());
 
-      ///remove loader
+      /// Remove Loader
       AFullScreenLoader.stopLoading();
 
-      ///show success screen
+      /// Show Success Screen
       ALoaders.successSnackBar(
-          title: 'Email Sent',
-          message: 'Email List sent to Reset your password'.tr);
+        title: 'Email Sent',
+        message: 'Email Link has been sent to Reset your password.',
+      );
 
-      ///redirect
+      /// Redirect
       Get.to(() => ResetPasswordScreen(email: email.text.trim()));
     } catch (e) {
-      ///remove loader
+      /// Remove Loader
       AFullScreenLoader.stopLoading();
-      ALoaders.errorSnackBar
-      (title: 'Uh OH', message: e.toString());
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 
-
-
-
-  resendPasswordResendEmail(String email) async {
+  resendPasswordResetEmail(String email) async {
     try {
-      ///start loading
+      /// Start Loader
       AFullScreenLoader.openLoadingDialog(
-          'Processing Your Request', AImages.docerAnimation);
+        'Processing Your Request',
+        AImages.docerAnimation,
+      );
 
-      /// check internet connectivity
+      /// Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
       if (!isConnected) {
         AFullScreenLoader.stopLoading();
         return;
       }
 
-      /// send email & reset password
-      await AuthenticationRepository.instance
-          .sendPasswordResetEmail(email);
+      /// Send Reset Password Email
+      await AuthenticationRepository.instance.sendPasswordResetEmail(email);
 
-      ///remove loader
+      /// Remove Loader
       AFullScreenLoader.stopLoading();
 
-      ///show success screen
+      /// Show Success Message
       ALoaders.successSnackBar(
-          title: 'Email Sent',
-          message: 'Email List sent to Reset your password'.tr);
-          
+        title: 'Email Sent',
+        message: 'Email Link has been sent to Reset your password',
+      );
     } catch (e) {
-      ///remove loader
+      /// Remove Loader
       AFullScreenLoader.stopLoading();
-      ALoaders.errorSnackBar
-      (title: 'Uh OH', message: e.toString());
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 }

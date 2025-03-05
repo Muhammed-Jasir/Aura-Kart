@@ -16,9 +16,10 @@ class UpdateNameController extends GetxController {
   final lastName = TextEditingController();
 
   final userController = UserController.instance;
+
   final userRepository = Get.put(UserRepository());
 
-  GlobalKey<FormState> updateUserNameFormkey = GlobalKey<FormState>();
+  GlobalKey<FormState> updateUserNameFormKey = GlobalKey<FormState>();
 
   /// Init user data when Home Screen appears
   @override
@@ -49,7 +50,7 @@ class UpdateNameController extends GetxController {
       }
 
       // Form Validation
-      if (!updateUserNameFormkey.currentState!.validate()) {
+      if (!updateUserNameFormKey.currentState!.validate()) {
         AFullScreenLoader.stopLoading();
         return;
       }

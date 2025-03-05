@@ -16,6 +16,7 @@ class AUserProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
+
     return ListTile(
       // User Image
       leading: const ACircularImage(

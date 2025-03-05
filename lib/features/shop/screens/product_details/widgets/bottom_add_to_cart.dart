@@ -1,5 +1,5 @@
 import 'package:aurakart/common/widgets/icons/circular_icon.dart';
-import 'package:aurakart/features/shop/controllers/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/utils/constants/colors.dart';
@@ -18,6 +18,7 @@ class ABottomAddToCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
+
     final controller = CartController.instance;
     controller.updateAlreadyAddedProductCount(product);
 
@@ -77,7 +78,7 @@ class ABottomAddToCart extends StatelessWidget {
             ElevatedButton(
               onPressed: controller.productQuantityInCart.value < 1
                   ? null
-                  : () => Get.to(() => const CartScreen()),
+                  : () => controller.addToCart(product),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(ASizes.md),
                 backgroundColor: AColors.black,

@@ -27,6 +27,7 @@ class ABrandCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
+
       /// Container Design
       child: ARoundedContainer(
         padding: const EdgeInsets.all(ASizes.sm),
@@ -56,9 +57,7 @@ class ABrandCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ABrandTitleWithVerifiedIcon(
-                    title: brand.name,
-                    brandTextSize: TextSizes.large,
-                  ),
+                      title: brand.name, brandTextSize: TextSizes.large),
                   Text(
                     '${brand.productsCount ?? 0} products',
                     overflow: TextOverflow.ellipsis,
