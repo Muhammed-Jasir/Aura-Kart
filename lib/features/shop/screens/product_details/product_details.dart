@@ -2,6 +2,7 @@ import 'package:aurakart/common/widgets/custom_shapes/curved_edges/curved_edges_
 import 'package:aurakart/common/widgets/images/rounded_image.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
+import 'package:aurakart/features/shop/screens/ar_product/ar_product.dart';
 import 'package:aurakart/features/shop/screens/checkout/checkout.dart';
 import 'package:aurakart/features/shop/screens/product_details/widgets/bottom_add_to_cart.dart';
 import 'package:aurakart/features/shop/screens/product_details/widgets/product_attributes.dart';
@@ -55,6 +56,18 @@ class ProductDetailScreen extends StatelessWidget {
                     AProductAttributes(product: product),
                   if (product.productType == ProductType.variable.toString())
                     const SizedBox(height: ASizes.spaceBtwSections),
+
+                  /// 3D Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => Get.to(() => ArProductScreen(product: product)),
+                      label: const Text('View in 3D'),
+                      icon: const Icon(Icons.threed_rotation_rounded),
+                    ),
+                  ),
+
+                  const SizedBox(height: ASizes.spaceBtwSections),
 
                   /// Checkout Button
                   SizedBox(

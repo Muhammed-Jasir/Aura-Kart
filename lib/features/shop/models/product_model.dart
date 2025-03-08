@@ -15,6 +15,7 @@ class ProductModel {
   DateTime? date;
   double salePrice;
   String thumbnail;
+  String armodel;
   bool? isFeatured;
   BrandModel? brand;
   String? description;
@@ -33,6 +34,7 @@ class ProductModel {
     required this.thumbnail,
     required this.productType,
     this.soldQuantity = 0,
+    this.armodel = "",
     this.sku,
     this.brand,
     this.date,
@@ -66,6 +68,7 @@ class ProductModel {
       'Price': price,
       'Images': images ?? [],
       'Thumbnail': thumbnail,
+      'ArModel': armodel,
       'SalePrice': salePrice,
       'IsFeatured': isFeatured,
       'CategoryId': categoryId,
@@ -94,6 +97,7 @@ class ProductModel {
       sku: data['SKU'],
       title: data['Title'],
       stock: data['Stock'] ?? 0,
+      armodel: data['ArModel'] ?? '',
       soldQuantity:
           data.containsKey('SoldQuantity') ? data['SoldQuantity'] ?? 0 : 0,
       isFeatured: data['IsFeatured'] ?? false,
@@ -118,12 +122,13 @@ class ProductModel {
   factory ProductModel.fromQuerySnapshot(
       QueryDocumentSnapshot<Object?> document) {
     final data = document.data() as Map<String, dynamic>;
-    
+
     return ProductModel(
       id: document.id,
       sku: data['SKU'] ?? '',
       title: data['Title'] ?? '',
       stock: data['Stock'] ?? 0,
+      armodel: data['ArModel'] ?? '',
       soldQuantity:
           data.containsKey('SoldQuantity') ? data['SoldQuantity'] ?? 0 : 0,
       isFeatured: data['IsFeatured'] ?? false,

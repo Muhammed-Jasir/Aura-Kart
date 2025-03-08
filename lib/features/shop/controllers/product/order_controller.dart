@@ -82,8 +82,6 @@ class OrderController extends GetxController {
       );
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-    } finally {
-        AFullScreenLoader.stopLoading();
-    }
+    } 
   }
 }
