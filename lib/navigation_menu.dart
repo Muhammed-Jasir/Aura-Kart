@@ -1,3 +1,5 @@
+import 'package:aurakart/features/chatbot/controller/chatbot_button_controller.dart';
+import 'package:aurakart/features/chatbot/screen/chatbot_button.dart';
 import 'package:aurakart/features/personalization/screens/settings/setting.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/home/home.dart';
@@ -17,6 +19,7 @@ class NavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
     final darkMode = AHelperFunctions.isDarkMode(context);
+    final chatbotButtonController = Get.put(ChatbotButtonController());
 
     return Scaffold(
       bottomNavigationBar: Obx(
@@ -40,7 +43,23 @@ class NavigationMenu extends StatelessWidget {
           ],
         ),
       ),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
+      body: Stack(
+        children: [
+          Obx(() => controller.screens[controller.selectedIndex.value]),
+          const ChatbotButton(),
+        ],
+      ),
+      floatingActionButton: Obx(
+        () {
+          return chatbotButtonController.isButtonVisible.value
+              ? const SizedBox()
+              : FloatingActionButton(
+                  onPressed: () =>
+                      chatbotButtonController.showButton(),
+                  child: const Icon(Icons.restore),
+                );
+        },
+      ),
     );
   }
 }

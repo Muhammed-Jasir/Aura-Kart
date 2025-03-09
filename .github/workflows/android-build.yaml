@@ -60,3 +60,9 @@ jobs:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
           overwrite: true
+
+      - name: Delete old artifacts
+        uses: c-hive/gha-remove-artifacts@v1
+        with:
+          age: '1 day' 
+          skip-recent: 1 

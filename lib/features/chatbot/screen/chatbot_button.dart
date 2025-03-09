@@ -1,52 +1,83 @@
-import 'package:aurakart/features/chatbot/chatbot_screen.dart';
-import 'package:aurakart/features/chatbot/controller/button_position_controller.dart';
+import 'package:aurakart/features/chatbot/screen/chatbot_screen.dart';
+import 'package:aurakart/features/chatbot/controller/chatbot_button_controller.dart';
 import 'package:aurakart/features/shop/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChatButton extends StatelessWidget {
-  const ChatButton({super.key});
+class ChatbotButton extends StatelessWidget {
+  const ChatbotButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final positionController = Get.put(ButtonPositionController());
+    final controller = Get.put(ChatbotButtonController());
     final screenSize = MediaQuery.of(context).size;
-    return // Draggable Chat Button
-        Obx(
+
+    const bottomNavHeight = 80.0;
+
+    return Obx(
       () {
-        return Positioned(
-          left: positionController.buttonPosition.value.dx,
-          top: positionController.buttonPosition.value.dy,
-          child: Draggable(
-            feedback: FloatingActionButton(
-              onPressed: null,
-              backgroundColor: Colors.blue.withValues(alpha: 0.5),
-              child: const Icon(Icons.chat),
-            ),
-            childWhenDragging: const SizedBox(), // Placeholder when dragging
-            child: FloatingActionButton(
-              onPressed: () {
-                // Navigate to ChatScreen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChatPage(),
-                  ),
-                );
-              },
-              child: const Icon(Icons.chat),
-            ),
-            onDragEnd: (details) {
-              // Update button position on drag end
-              positionController.updatePosition(
-                Offset(
-                  details.offset.dx.clamp(0, screenSize.width - 56),
-                  details.offset.dy.clamp(0, screenSize.height - 56),
+        if (!controller.isButtonVisible.value) {
+          return const SizedBox();
+        }
+        return Stack(
+          children: [
+            Positioned(
+              left: controller.buttonPosition.value.dx,
+              top: controller.buttonPosition.value.dy,
+              child: Draggable(
+                feedback: FloatingActionButton(
+                  onPressed: null,
+                  backgroundColor: Colors.blue.withValues(alpha: 0.5),
+                  child: const Icon(Icons.chat),
                 ),
-                screenSize.width,
-              );
-            },
-          ),
+                childWhenDragging: const SizedBox(),
+                child: FloatingActionButton(
+                  backgroundColor: Colors.blue,
+                  onPressed: () => Get.to(() => const ChatbotScreen()),
+                  child: const Icon(Icons.chat),
+                ),
+                onDragStarted: () {
+                  controller.isDragging.value = true;
+                },
+                onDragEnd: (details) {
+                  controller.isDragging.value = false;
+
+                  // Get new position
+                  final newDx =
+                      details.offset.dx.clamp(0, screenSize.width - 56);
+                  final newDy = details.offset.dy
+                      .clamp(0, screenSize.height - bottomNavHeight - 56);
+
+                  // Check if dropped in discard area
+                  if (controller.isDragging.value &&
+                      newDy > screenSize.height - bottomNavHeight - 100) {
+                    controller.hideButton();
+                  } else {
+                    controller.updatePosition(
+                      Offset(newDx.toDouble(), newDy.toDouble()),
+                      screenSize.width,
+                    );
+                  }
+                },
+              ),
+            ),
+            if (controller.isDragging.value)
+              Positioned(
+                bottom: bottomNavHeight + 20,
+                left: screenSize.width / 2 - 50,
+                child: Container(
+                  width: 100,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.red.withValues(alpha: 0.8),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: const Center(
+                    child: Icon(Icons.delete, color: Colors.white, size: 30),
+                  ),
+                ),
+              ),
+          ],
         );
       },
     );

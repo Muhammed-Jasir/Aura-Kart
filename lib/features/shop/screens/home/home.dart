@@ -5,7 +5,6 @@ import "package:aurakart/common/widgets/products/cart/cart_menu_icon.dart";
 import "package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart";
 import "package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart";
 import "package:aurakart/common/widgets/texts/section_heading.dart";
-import "package:aurakart/features/chatbot/screen/chatbot_button.dart";
 import "package:aurakart/features/shop/controllers/product/product_controller.dart";
 import "package:aurakart/features/shop/models/product_model.dart";
 import "package:aurakart/features/shop/screens/all_products/all_products.dart";
@@ -129,11 +128,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          const Positioned(
-            bottom: 16,
-            right: 16,
-            child: ChatButton(),
           ),
         ],
       ),

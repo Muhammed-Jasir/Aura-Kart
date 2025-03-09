@@ -1,18 +1,17 @@
-import 'package:aurakart/features/chatbot/models/model.dart';
+import 'package:aurakart/features/chatbot/models/chat_model.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:intl/intl.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+class ChatbotScreen extends StatefulWidget {
+  const ChatbotScreen({super.key});
 
   @override
-  State<ChatPage> createState() => _ChatbotState();
+  State<ChatbotScreen> createState() => _ChatbotScreenState();
 }
 
-class _ChatbotState extends State<ChatPage> {
+class _ChatbotScreenState extends State<ChatbotScreen> {
   TextEditingController promptController = TextEditingController();
   final model = GenerativeModel(model: "gemini-pro", apiKey: apiKey);
   final List<ModelMessage> prompt = [];

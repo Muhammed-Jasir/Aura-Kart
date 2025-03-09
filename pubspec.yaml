@@ -18,7 +18,7 @@ dependencies:
 
   # Utility Packages
   http: ^1.2.2
-  intl: ^0.20.0
+  intl: ^0.18.0
   logger: ^2.4.0
   url_launcher: ^6.3.1
   connectivity_plus: ^6.1.0
@@ -28,6 +28,9 @@ dependencies:
   lottie: ^3.1.3
   flutter_dotenv: ^5.2.1
   image_picker: ^1.1.2
+  crypto: ^3.0.6
+  cached_network_image: ^3.3.1
+  model_viewer_plus: ^1.9.1
 
   # Product Specific
   carousel_slider: ^5.0.0
@@ -47,16 +50,11 @@ dependencies:
   firebase_auth: ^5.3.4
   cloud_firestore: ^5.6.0
   google_sign_in: ^6.2.2
-  crypto: ^3.0.6
 
   # Chatbot
-  flutter_chat_types: ^3.6.2
   google_generative_ai: ^0.4.6
-  provider: ^6.1.2
-  uuid: ^3.0.7
-  flutter_chat_ui: ^1.6.15
-  cached_network_image: ^3.3.1
-  model_viewer_plus: ^1.9.1
+  uuid: ^4.5.1
+  dash_chat_2: ^0.0.20
 
 #--------------- ./ PACKAGES END ------------------#
 
@@ -65,7 +63,7 @@ dev_dependencies:
     sdk: flutter
 
 
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 
 # The following section is specific to Flutter packages.
