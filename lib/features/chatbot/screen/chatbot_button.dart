@@ -25,12 +25,14 @@ class ChatbotButton extends StatelessWidget {
               left: controller.buttonPosition.value.dx,
               top: controller.buttonPosition.value.dy,
               child: Draggable(
+                // Button when dragging
                 feedback: FloatingActionButton(
                   onPressed: null,
                   backgroundColor: Colors.blue.withValues(alpha: 0.5),
                   child: const Icon(Icons.chat),
                 ),
                 childWhenDragging: const SizedBox(),
+                // Chat Button
                 child: FloatingActionButton(
                   backgroundColor: Colors.blue,
                   onPressed: () => Get.to(() => const ChatbotScreen()),
@@ -44,18 +46,19 @@ class ChatbotButton extends StatelessWidget {
 
                   // Get new position
                   final newDx =
-                      details.offset.dx.clamp(0, screenSize.width - 56);
+                      details.offset.dx.clamp(16, screenSize.width - 56 - 16);
                   final newDy = details.offset.dy
-                      .clamp(0, screenSize.height - bottomNavHeight - 56);
+                      .clamp(16, screenSize.height - bottomNavHeight - 56 - 16);
 
-                  // Check if dropped in discard area
-                  if (controller.isDragging.value &&
-                      newDy > screenSize.height - bottomNavHeight - 100) {
+                  // Check if the button is dropped near the bottom discard area
+                  if (newDy > screenSize.height - bottomNavHeight - 80) {
                     controller.hideButton();
                   } else {
                     controller.updatePosition(
                       Offset(newDx.toDouble(), newDy.toDouble()),
                       screenSize.width,
+                      screenSize.height,
+                      bottomNavHeight,
                     );
                   }
                 },
@@ -66,14 +69,21 @@ class ChatbotButton extends StatelessWidget {
                 bottom: bottomNavHeight + 20,
                 left: screenSize.width / 2 - 50,
                 child: Container(
-                  width: 100,
+                  width: 50,
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.red.withValues(alpha: 0.8),
                     borderRadius: BorderRadius.circular(25),
                   ),
                   child: const Center(
-                    child: Icon(Icons.delete, color: Colors.white, size: 30),
+                    child: Text(
+                      'x',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
               ),

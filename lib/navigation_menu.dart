@@ -54,8 +54,7 @@ class NavigationMenu extends StatelessWidget {
           return chatbotButtonController.isButtonVisible.value
               ? const SizedBox()
               : FloatingActionButton(
-                  onPressed: () =>
-                      chatbotButtonController.showButton(),
+                  onPressed: () => chatbotButtonController.showButton(),
                   child: const Icon(Icons.restore),
                 );
         },

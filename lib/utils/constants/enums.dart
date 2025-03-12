@@ -12,7 +12,5 @@ enum PaymentMethods {
   cashOnDelivery,
   paypal,
   googlePay,
-  visa,
-  paytm,
-  creditCard,
+  stripe,
 }

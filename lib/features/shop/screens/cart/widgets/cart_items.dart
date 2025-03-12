@@ -27,7 +27,7 @@ class ACartItems extends StatelessWidget {
         itemBuilder: (_, index) => Obx(
           () {
             final item = controller.cartItems[index];
-            
+
             return Column(
               children: [
                 /// Cart Item
@@ -37,10 +37,12 @@ class ACartItems extends StatelessWidget {
                   const SizedBox(height: ASizes.spaceBtwItems),
 
                 /// Add & Remove Button Row with Total Price
-                if (showAddRemoveButtons)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (showAddRemoveButtons) const SizedBox(width: 70),
+
+                    if (showAddRemoveButtons)
                       Row(
                         children: [
                           /// Extra Space
@@ -55,12 +57,12 @@ class ACartItems extends StatelessWidget {
                         ],
                       ),
 
-                      /// Product Total Price
-                      AProductPriceText(
-                        price: (item.price * item.quantity).toStringAsFixed(1),
-                      ),
-                    ],
-                  ),
+                    /// Product Total Price
+                    AProductPriceText(
+                      price: (item.price * item.quantity).toStringAsFixed(1),
+                    ),
+                  ],
+                ),
               ],
             );
           },

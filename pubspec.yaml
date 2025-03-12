@@ -18,7 +18,7 @@ dependencies:
 
   # Utility Packages
   http: ^1.2.2
-  intl: ^0.18.0
+  intl: ^0.19.0
   logger: ^2.4.0
   url_launcher: ^6.3.1
   connectivity_plus: ^6.1.0
@@ -54,7 +54,8 @@ dependencies:
   # Chatbot
   google_generative_ai: ^0.4.6
   uuid: ^4.5.1
-  dash_chat_2: ^0.0.20
+  dash_chat_2: ^0.0.21
+  flutter_stripe: ^11.4.0
 
 #--------------- ./ PACKAGES END ------------------#
 

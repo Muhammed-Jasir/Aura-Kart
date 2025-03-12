@@ -18,4 +18,10 @@ class APIConstants {
   static getCloudinaryDeleteUrl(String cloudName, String resourceType) {
     return 'https://api.cloudinary.com/v1_1/$cloudName/$resourceType/destroy';
   }
+
+  static String stripePublishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
+
+  static String stripeSecretKey = dotenv.env['STRIPE_SECRET_KEY'] ?? '';
+
+  static String stripeApiUrl = "https://api.stripe.com/v1/payment_intents";
 }

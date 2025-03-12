@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:aurakart/app.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'firebase_options.dart';
@@ -23,6 +24,9 @@ Future<void> main() async {
 
   // Await Splash until other items Load
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  Stripe.publishableKey = APIConstants.stripePublishableKey;
+  await Stripe.instance.applySettings();
 
   // Initialize Firebase & Authentication Repository
   await Firebase.initializeApp(

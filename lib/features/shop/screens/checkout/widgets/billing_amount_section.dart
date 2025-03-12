@@ -52,6 +52,9 @@ class ABillingAmountSection extends StatelessWidget {
 
         const SizedBox(height: ASizes.spaceBtwItems / 2),
 
+        const Divider(),
+        const SizedBox(height: ASizes.spaceBtwItems / 2),
+
         /// Order Total
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

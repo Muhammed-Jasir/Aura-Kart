@@ -2,7 +2,9 @@ import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:aurakart/common/widgets/products/cart/coupon_widget.dart';
 import 'package:aurakart/common/widgets/success_screen/success_screen.dart';
+import 'package:aurakart/features/shop/controllers/payment_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/checkout_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/order_controller.dart';
 import 'package:aurakart/features/shop/screens/cart/widgets/cart_items.dart';
 import 'package:aurakart/features/shop/screens/checkout/widgets/billing_address_section.dart';
@@ -28,10 +30,12 @@ class CheckoutScreen extends StatelessWidget {
 
     final darkMode = AHelperFunctions.isDarkMode(context);
 
-    final orderController = Get.put(OrderController());
+    final paymentController = Get.put(PaymentController());
+    final checkoutController = Get.put(CheckoutController());
 
     final totalAmount = APricingCalculator.calculateTotalPrice(subTotal, 'IN');
-    final shippingCost = APricingCalculator.calculateShippingCost(subTotal, 'IN');
+    final shippingCost =
+        APricingCalculator.calculateShippingCost(subTotal, 'IN');
     final taxCost = APricingCalculator.calculateTax(subTotal, 'IN');
 
     return Scaffold(
@@ -69,7 +73,7 @@ class CheckoutScreen extends StatelessWidget {
 
                     /// Divider
                     Divider(),
-                    SizedBox(height: ASizes.spaceBtwItems),
+                    SizedBox(height: ASizes.spaceBtwItems / 2),
 
                     /// Payment Methods
                     ABillingPaymentSection(),
@@ -89,15 +93,23 @@ class CheckoutScreen extends StatelessWidget {
       /// Checkout Button
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(ASizes.defaultSpace),
-        child: ElevatedButton(
-          onPressed: subTotal > 0
-              ? () => orderController.processOrder(totalAmount, shippingCost, taxCost)
-              : () => ALoaders.warningSnackBar(
-                    title: 'Empty Cart',
-                    message: 'Add items in the cart in order to proceed',
-                  ),
-          child: Text('Checkout ₹$totalAmount'),
-        ),
+        child: Obx(() {
+          if (subTotal > 0) {
+            return ElevatedButton(
+              onPressed: () {
+                // Get selected payment method
+                final selectedMethod =
+                    checkoutController.selectedPaymentMethod.value.name;
+
+                paymentController.processPayment(
+                    selectedMethod, totalAmount, shippingCost, taxCost);
+              },
+              child: Text('Checkout ₹$totalAmount'),
+            );
+          } else {
+            return SizedBox.shrink();
+          }
+        }),
       ),
     );
   }

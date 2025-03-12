@@ -49,6 +49,14 @@ class OrderController extends GetxController {
 
       if (userId.isEmpty) return;
 
+      if (cartController.cartItems.isEmpty) {
+        ALoaders.warningSnackBar(
+          title: 'Empty Cart',
+          message: 'Add items in the cart in order to proceed',
+        );
+        return;
+      }
+
       // Add details
       final order = OrderModel(
         id: UniqueKey().toString(),
@@ -72,16 +80,16 @@ class OrderController extends GetxController {
       cartController.clearCart();
 
       // Show Success screen
-      Get.off(
+      Get.offAll(
         () => SuccessScreen(
           image: AImages.orderCompletedAnimation,
-          title: 'Payment Success',
+          title: 'Order Successfully Placed!',
           subTitle: 'Your item will be shipped soon!',
           onPressed: () => Get.offAll(() => const NavigationMenu()),
         ),
       );
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-    } 
+    }
   }
 }
