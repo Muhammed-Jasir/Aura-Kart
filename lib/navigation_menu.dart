@@ -1,6 +1,6 @@
 import 'package:aurakart/features/chatbot/controller/chatbot_button_controller.dart';
 import 'package:aurakart/features/chatbot/screen/chatbot_button.dart';
-import 'package:aurakart/features/personalization/screens/settings/setting.dart';
+import 'package:aurakart/features/personalization/screens/settings/settings.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/home/home.dart';
 import 'package:aurakart/features/shop/screens/store/store.dart';

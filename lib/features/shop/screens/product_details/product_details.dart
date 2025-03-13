@@ -60,8 +60,9 @@ class ProductDetailScreen extends StatelessWidget {
                   /// 3D Button
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () => Get.to(() => ArProductScreen(product: product)),
+                    child: OutlinedButton.icon(
+                      onPressed: () =>
+                          Get.to(() => ArProductScreen(product: product)),
                       label: const Text('View in 3D'),
                       icon: const Icon(Icons.threed_rotation_rounded),
                     ),

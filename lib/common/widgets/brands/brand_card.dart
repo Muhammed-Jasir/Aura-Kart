@@ -23,7 +23,7 @@ class ABrandCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darkMode = AHelperFunctions.isDarkMode(context);
+    // final darkMode = AHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -42,11 +42,12 @@ class ABrandCard extends StatelessWidget {
                 isNetworkImage: true,
                 image: brand.image,
                 backgroundColor: Colors.transparent,
-                overLayColor: darkMode ? AColors.white : AColors.black,
+                fit: BoxFit.fill,
+                // overLayColor: darkMode ? AColors.white : AColors.black,
               ),
             ),
 
-            const SizedBox(width: ASizes.spaceBtwItems / 2),
+            const SizedBox(width: ASizes.md),
 
             /// Text
             // Expanded and Column [minAxisSize] is required to keep the elements in vertical center and

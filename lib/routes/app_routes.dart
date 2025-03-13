@@ -7,7 +7,7 @@ import 'package:aurakart/features/authentication/screens/signup/signup.dart';
 import 'package:aurakart/features/authentication/screens/signup/verify_email.dart';
 import 'package:aurakart/features/personalization/screens/address/address.dart';
 import 'package:aurakart/features/personalization/screens/profile/profile.dart';
-import 'package:aurakart/features/personalization/screens/settings/setting.dart';
+import 'package:aurakart/features/personalization/screens/settings/settings.dart';
 import 'package:aurakart/features/shop/models/category_model.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/all_products/all_products.dart';

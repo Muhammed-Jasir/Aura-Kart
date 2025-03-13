@@ -22,12 +22,6 @@ class MyApp extends StatelessWidget {
       darkTheme: AAppTheme.darkTheme,
       initialBinding: GeneralBindings(),
       getPages: AppRoutes.pages,
-      home: const Scaffold(
-        backgroundColor: AColors.primary,
-        body: Center(
-          child: CircularProgressIndicator(color: AColors.white),
-        ),
-      ),
     );
   }
 }

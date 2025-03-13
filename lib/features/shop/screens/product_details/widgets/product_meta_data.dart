@@ -22,7 +22,7 @@ class AProductMetaData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darkMode = AHelperFunctions.isDarkMode(context);
+    // final darkMode = AHelperFunctions.isDarkMode(context);
 
     final controller = ProductController.instance;
     final salePercentage =
@@ -79,7 +79,7 @@ class AProductMetaData extends StatelessWidget {
         const SizedBox(height: ASizes.spaceBtwItems / 1.5),
 
         /// Product Title
-        AProductTitleText(title: product.title),
+        AProductTitleText(title: product.title, maxlines: 2),
         const SizedBox(height: ASizes.spaceBtwItems / 1.5),
 
         /// Stock Status
@@ -104,7 +104,7 @@ class AProductMetaData extends StatelessWidget {
               image: product.brand != null ? product.brand!.image : '',
               width: 32,
               height: 32,
-              overLayColor: darkMode ? AColors.white : AColors.black,
+              isNetworkImage: product.brand != null ? true : false,
             ),
 
             const SizedBox(width: ASizes.spaceBtwItems / 4),

@@ -154,6 +154,7 @@ class AddressController extends GetxController {
           children: [
             const ASectionHeading(
                 title: 'Select Address', showActionbutton: false),
+            const SizedBox(height: ASizes.sm),
             FutureBuilder(
               future: getAllUserAddress(),
               builder: (_, snapshot) {
@@ -176,7 +177,7 @@ class AddressController extends GetxController {
                 );
               },
             ),
-            const SizedBox(height: ASizes.defaultSpace * 2),
+            const SizedBox(height: ASizes.spaceBtwItems),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(

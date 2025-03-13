@@ -25,18 +25,11 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartController = CartController.instance;
-    final subTotal = cartController.totalCartPrice.value;
-
     final darkMode = AHelperFunctions.isDarkMode(context);
 
+    final cartController = CartController.instance;
     final paymentController = Get.put(PaymentController());
     final checkoutController = Get.put(CheckoutController());
-
-    final totalAmount = APricingCalculator.calculateTotalPrice(subTotal, 'IN');
-    final shippingCost =
-        APricingCalculator.calculateShippingCost(subTotal, 'IN');
-    final taxCost = APricingCalculator.calculateTax(subTotal, 'IN');
 
     return Scaffold(
       // Appbar
@@ -69,7 +62,7 @@ class CheckoutScreen extends StatelessWidget {
                   children: [
                     /// Pricing
                     ABillingAmountSection(),
-                    SizedBox(height: ASizes.spaceBtwItems),
+                    SizedBox(height: ASizes.spaceBtwItems / 2),
 
                     /// Divider
                     Divider(),
@@ -78,6 +71,9 @@ class CheckoutScreen extends StatelessWidget {
                     /// Payment Methods
                     ABillingPaymentSection(),
                     SizedBox(height: ASizes.spaceBtwItems),
+
+                    Divider(),
+                    SizedBox(height: ASizes.spaceBtwItems / 2),
 
                     /// Address
                     ABillingAddressSection(),
@@ -94,6 +90,14 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(ASizes.defaultSpace),
         child: Obx(() {
+          final subTotal = cartController.totalCartPrice.value;
+
+          final totalAmount =
+              APricingCalculator.calculateTotalPrice(subTotal, 'IN');
+          final shippingCost =
+              APricingCalculator.calculateShippingCost(subTotal, 'IN');
+          final taxCost = APricingCalculator.calculateTax(subTotal, 'IN');
+
           if (subTotal > 0) {
             return ElevatedButton(
               onPressed: () {
@@ -104,7 +108,7 @@ class CheckoutScreen extends StatelessWidget {
                 paymentController.processPayment(
                     selectedMethod, totalAmount, shippingCost, taxCost);
               },
-              child: Text('Checkout ₹$totalAmount'),
+              child: Text('Checkout  ₹$totalAmount'),
             );
           } else {
             return SizedBox.shrink();

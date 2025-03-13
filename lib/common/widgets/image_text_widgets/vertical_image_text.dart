@@ -24,7 +24,7 @@ class AVerticalImageText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final darkMode = AHelperFunctions.isDarkMode(context);
+    // final darkMode = AHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -36,10 +36,10 @@ class AVerticalImageText extends StatelessWidget {
             ACircularImage(
               image: image,
               fit: BoxFit.fitWidth,
-              padding: ASizes.sm * 1.4,
+              padding: ASizes.sm,
               isNetworkImage: isNetworkImage,
               backgroundColor: backgroundColor,
-              overLayColor: darkMode ? AColors.light : AColors.dark,
+              // overLayColor: darkMode ? AColors.light : AColors.dark,
             ),
 
             const SizedBox(height: ASizes.spaceBtwItems / 2),

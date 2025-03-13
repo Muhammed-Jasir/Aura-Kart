@@ -38,55 +38,21 @@ class ChatbotButton extends StatelessWidget {
                   onPressed: () => Get.to(() => const ChatbotScreen()),
                   child: const Icon(Icons.chat),
                 ),
-                onDragStarted: () {
-                  controller.isDragging.value = true;
-                },
                 onDragEnd: (details) {
-                  controller.isDragging.value = false;
-
                   // Get new position
                   final newDx =
                       details.offset.dx.clamp(16, screenSize.width - 56 - 16);
                   final newDy = details.offset.dy
                       .clamp(16, screenSize.height - bottomNavHeight - 56 - 16);
 
-                  // Check if the button is dropped near the bottom discard area
-                  if (newDy > screenSize.height - bottomNavHeight - 80) {
-                    controller.hideButton();
-                  } else {
-                    controller.updatePosition(
-                      Offset(newDx.toDouble(), newDy.toDouble()),
-                      screenSize.width,
-                      screenSize.height,
-                      bottomNavHeight,
-                    );
-                  }
+                  controller.updatePosition(
+                    Offset(newDx.toDouble(), newDy.toDouble()),
+                    screenSize.width,
+                    screenSize.height
+                  );
                 },
               ),
             ),
-            if (controller.isDragging.value)
-              Positioned(
-                bottom: bottomNavHeight + 20,
-                left: screenSize.width / 2 - 50,
-                child: Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.red.withValues(alpha: 0.8),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'x',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
           ],
         );
       },

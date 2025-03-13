@@ -25,9 +25,6 @@ Future<void> main() async {
   // Await Splash until other items Load
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  Stripe.publishableKey = APIConstants.stripePublishableKey;
-  await Stripe.instance.applySettings();
-
   // Initialize Firebase & Authentication Repository
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

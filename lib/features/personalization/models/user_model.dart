@@ -30,18 +30,18 @@ class UserModel {
   // Helper function to get the full name.
   String get fullName => '$firstName $lastName';
 
-  String get formattedDate => AFormatter.formatDate(createdAt);
+  String get formattedDate => createdAt != null ? AFormatter.formatDate(createdAt!) : 'N/A';
   
-  String get formattedUpdatedAtDate => AFormatter.formatDate(updatedAt);
+  String get formattedUpdatedAtDate => updatedAt != null ? AFormatter.formatDate(updatedAt!) : 'N/A';
 
   // Helper function to get the phone no.
   String get formattedPhoneNo => AFormatter.formatPhoneNumber(phoneNumber);
 
   // Static function to split full name into first and last name.
-  static List<String> nameParts(fullName) => fullName.split(" ");
+  static List<String> nameParts(String fullName) => fullName.split(" ");
 
   // Static function to generate username from fullname.
-  static String generateUsername(fullName) {
+  static String generateUsername(String fullName) {
     List<String> nameParts = fullName.split(" ");
     String firstName = nameParts[0].toLowerCase();
     String lastName = nameParts.length > 1 ? nameParts[1].toLowerCase() : "";
@@ -72,7 +72,7 @@ class UserModel {
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
-      'Role': role.name.toString(),
+      'Role': role.name,
       'CreatedAt': createdAt,
       'UpdatedAt': updatedAt = DateTime.now(),
     };

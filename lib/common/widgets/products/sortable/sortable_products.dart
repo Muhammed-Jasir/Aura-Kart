@@ -36,7 +36,6 @@ class ASortableProducts extends StatelessWidget {
             'Lower Price',
             'Sale',
             'Newest',
-            // 'Popularity'
           ]
               .map(
                 (option) => DropdownMenuItem(

@@ -117,9 +117,7 @@ class SettingsScreen extends StatelessWidget {
 
                   /// App Settings
                   const ASectionHeading(
-                    title: "App Settings",
-                    showActionbutton: false,
-                  ),
+                      title: "App Settings", showActionbutton: false),
 
                   const SizedBox(height: ASizes.spaceBtwItems),
 

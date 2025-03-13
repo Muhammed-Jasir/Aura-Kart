@@ -42,6 +42,7 @@ class ASingleAddress extends StatelessWidget {
                     ? AColors.darkerGrey
                     : AColors.grey,
             margin: const EdgeInsets.only(bottom: ASizes.spaceBtwItems),
+            padding: const EdgeInsets.all(ASizes.sm),
             child: Stack(
               children: [
                 // Select Icon

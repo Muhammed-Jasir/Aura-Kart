@@ -56,7 +56,7 @@ class ACategoryTab extends StatelessWidget {
                   return Column(
                     children: [
                       ASectionHeading(
-                        title: 'You might like',
+                        title: 'Recommended for you',
                         showActionbutton: true,
                         onPressed: () => Get.to(
                           () => AllProducts(

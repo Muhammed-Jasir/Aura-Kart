@@ -24,49 +24,47 @@ class ACartItems extends StatelessWidget {
         shrinkWrap: true,
         separatorBuilder: (_, __) =>
             const SizedBox(height: ASizes.spaceBtwSections),
-        itemBuilder: (_, index) => Obx(
-          () {
-            final item = controller.cartItems[index];
+        itemBuilder: (_, index) {
+          final item = controller.cartItems[index];
 
-            return Column(
-              children: [
-                /// Cart Item
-                ACartitem(cartItem: item),
+          return Column(
+            children: [
+              /// Cart Item
+              ACartitem(cartItem: item),
 
-                if (showAddRemoveButtons)
-                  const SizedBox(height: ASizes.spaceBtwItems),
+              if (showAddRemoveButtons)
+                const SizedBox(height: ASizes.spaceBtwItems),
 
-                /// Add & Remove Button Row with Total Price
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (showAddRemoveButtons) const SizedBox(width: 70),
+              /// Add & Remove Button Row with Total Price
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (!showAddRemoveButtons) const SizedBox(width: 70),
 
-                    if (showAddRemoveButtons)
-                      Row(
-                        children: [
-                          /// Extra Space
-                          const SizedBox(width: 70),
+                  if (showAddRemoveButtons)
+                    Row(
+                      children: [
+                        /// Extra Space
+                        const SizedBox(width: 70),
 
-                          /// Add & Remove buttons
-                          AProductQuantityWithAddRemoveButton(
-                            quantity: item.quantity,
-                            add: () => controller.addOneToCart(item),
-                            remove: () => controller.removeOneFromCart(item),
-                          ),
-                        ],
-                      ),
-
-                    /// Product Total Price
-                    AProductPriceText(
-                      price: (item.price * item.quantity).toStringAsFixed(1),
+                        /// Add & Remove buttons
+                        AProductQuantityWithAddRemoveButton(
+                          quantity: item.quantity,
+                          add: () => controller.addOneToCart(item),
+                          remove: () => controller.removeOneFromCart(item),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
-            );
-          },
-        ),
+
+                  /// Product Total Price
+                  AProductPriceText(
+                    price: (item.price * item.quantity).toStringAsFixed(2),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }

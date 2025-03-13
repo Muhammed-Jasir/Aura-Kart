@@ -1,4 +1,5 @@
 import 'package:aurakart/utils/constants/colors.dart';
+import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class ASettingsMenuTile extends StatelessWidget {
@@ -19,6 +20,7 @@ class ASettingsMenuTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: ASizes.sm),
       // Icon
       leading: Icon(
         icon,

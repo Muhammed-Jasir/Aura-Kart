@@ -24,28 +24,25 @@ class PaymentController extends GetxController {
 
   Future<void> showPaymentSheet() async {
     try {
-      await Stripe.instance.presentPaymentSheet().then((val) {
-        // Show Success Message
-        ALoaders.successSnackBar(
-          title: 'Congratulations',
-          message: 'Payment successful! Your order is being processed.',
-        );
-        paymentIntentData.value = null;
-      }).onError((error, stackTrace) {
-        throw Exception(error);
-      });
-    } on StripeException catch (_) {
-      ALoaders.errorSnackBar(
-        title: 'Payment Failed',
-        message: 'There was an issue with your payment. Please try again.',
+      await Stripe.instance.presentPaymentSheet();
+
+      // Show Success Message
+      ALoaders.successSnackBar(
+        title: 'Congratulations',
+        message: 'Payment successful! Your order is being processed.',
       );
+
+      paymentIntentData.value = null;
+    } on StripeException catch (e) {
+      ALoaders.errorSnackBar(title: 'Payment Failed', message: e.toString());
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 
   // Create Payment Intent
-  Future<Map<String, dynamic>?> createPaymentIntent(String amount, String currency) async {
+  Future<Map<String, dynamic>?> createPaymentIntent(
+      String amount, String currency) async {
     try {
       // Request body
       Map<String, dynamic> paymentInfo = {
@@ -69,10 +66,10 @@ class PaymentController extends GetxController {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        throw Exception('Failed to create payment intent');
+        throw 'Failed to create payment intent';
       }
     } catch (e) {
-      throw Exception(e.toString());
+      throw e.toString();
     }
   }
 
@@ -87,7 +84,8 @@ class PaymentController extends GetxController {
     required String currency,
   }) async {
     try {
-      AFullScreenLoader.openLoadingDialog('Loading....', AImages.docerAnimation);
+      AFullScreenLoader.openLoadingDialog(
+          'Loading....', AImages.docerAnimation);
 
       // Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
@@ -138,17 +136,19 @@ class PaymentController extends GetxController {
     double taxCost,
   ) async {
     try {
-      final orderController = OrderController.instance;
+      final orderController = Get.put(OrderController());
 
       if (method == 'Stripe') {
-        await makeStripePayment(amount: totalAmount.toString(), currency: 'inr');
+        await makeStripePayment(
+            amount: totalAmount.toString(), currency: 'inr');
         orderController.processOrder(totalAmount, shippingCost, taxCost);
       } else if (method == 'Cash On Delivery') {
         orderController.processOrder(totalAmount, shippingCost, taxCost);
       } else {
         ALoaders.warningSnackBar(
           title: 'Payment Method',
-          message: 'Payment method $method is not available yet. Please try again later.',
+          message:
+              'Payment method $method is not available yet. Please try again later.',
         );
       }
     } catch (e) {

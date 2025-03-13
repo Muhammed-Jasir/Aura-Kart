@@ -19,9 +19,11 @@ class ABillingAddressSection extends StatelessWidget {
           buttontitle: 'Change',
           onPressed: () => addressController.selectNewAddressPopup(context),
         ),
-        addressController.selectedAddress.value.id.isNotEmpty
-            ? Obx(
-                () => Column(
+
+        Obx(
+          () {
+            return addressController.selectedAddress.value.id.isNotEmpty
+                ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(addressController.selectedAddress.value.name,
@@ -29,7 +31,8 @@ class ABillingAddressSection extends StatelessWidget {
                     const SizedBox(height: ASizes.spaceBtwItems / 2),
                     Row(
                       children: [
-                        const Icon(Icons.phone, color: Colors.grey, size: 16),
+                        const Icon(Icons.phone,
+                            color: Colors.grey, size: 16),
                         const SizedBox(width: ASizes.spaceBtwItems),
                         Text(
                           addressController
@@ -49,7 +52,8 @@ class ABillingAddressSection extends StatelessWidget {
                         const SizedBox(width: ASizes.spaceBtwItems),
                         Expanded(
                           child: Text(
-                            addressController.selectedAddress.value.toString(),
+                            addressController.selectedAddress.value
+                                .toString(),
                             style: Theme.of(context).textTheme.bodyMedium,
                             softWrap: true,
                           ),
@@ -57,10 +61,11 @@ class ABillingAddressSection extends StatelessWidget {
                       ],
                     ),
                   ],
-                ),
-              )
-            : Text('Select Address',
-                style: Theme.of(context).textTheme.bodyMedium),
+                )
+                : Text('Select Address',
+                    style: Theme.of(context).textTheme.bodyMedium);
+          },
+        ),
       ],
     );
   }
