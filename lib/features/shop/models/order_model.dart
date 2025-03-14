@@ -109,7 +109,7 @@ class OrderModel {
           : null,
       billingAddress: data.containsKey('billingAddress')
           ? AddressModel.fromMap(data['billingAddress'] as Map<String, dynamic>)
-          : null,
+          : (data.containsKey('billingAddressSameAsShipping') && data['billingAddressSameAsShipping'] == true ? AddressModel.fromMap(data['shippingAddress'] as Map<String, dynamic>) : null),
       billingAddressSameAsShipping:
           data.containsKey('billingAddressSameAsShipping')
               ? data['billingAddressSameAsShipping'] as bool
