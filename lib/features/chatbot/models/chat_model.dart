@@ -10,5 +10,4 @@ class ModelMessage {
   });
 }
 
-const apiKey = "AIzaSyDaG7BURBvRuvMkuezmszkWQ2me3LLlVlg";
-
+const apiKey = "AIzaSyA4Fgd5lxGO8cxwLx_kuTY6Gd1b8_9XaTg";

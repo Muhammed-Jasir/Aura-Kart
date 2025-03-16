@@ -8,7 +8,8 @@ class AImages {
   // Social Logos
   static const String google = "assets/logos/google.png";
   static const String facebook = "assets/logos/facebook.png";
-
+  //chatBot Backgroundimage
+  static const String chatImage = "assets/images/banners/20250316_233354.png";
   // OnBoarding Animations
   static const String onBoardingImage1 =
       "assets/images/on_boarding_animations/shopping.json";
