@@ -7,7 +7,7 @@ class ATexts {
   static const String submit = 'Submit';
   static const String done = 'Done';
   static const String skip = 'Skip';
-  static const String appName = 'Aura-Kart';
+  static const String appName = 'Dekozy';
   static const String tContinue = "Continue";
 
   // OnBoarding Texts

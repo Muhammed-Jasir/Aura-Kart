@@ -2,8 +2,8 @@ class AImages {
   AImages._();
 
   // App Logos
-  static const String darkAppLogo = "assets/logos/splash-black-logo.png";
-  static const String lightAppLogo = "assets/logos/splash-white-logo.png";
+  static const String darkAppLogo = "assets/logos/splash-black-logo.jpg";
+  static const String lightAppLogo = "assets/logos/splash-white-logo.jpg";
 
   // Social Logos
   static const String google = "assets/logos/google.png";

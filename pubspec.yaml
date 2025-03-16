@@ -65,7 +65,7 @@ dev_dependencies:
 
 
   flutter_lints: ^5.0.0
-
+  flutter_launcher_icons: ^0.14.3
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -107,3 +107,11 @@ flutter:
           weight: 600
         - asset: assets/fonts/poppins/Poppins-Bold.ttf
           weight: 800
+
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: "AppIcon"
+  image_path: "assets/logos/splash-black-logo.jpg"
+  min_sdk_android: 21
+  remove_alpha_ios: true

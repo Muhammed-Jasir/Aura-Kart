@@ -15,9 +15,7 @@ class CheckoutController extends GetxController {
 
   final List<PaymentMethodModel> paymentMethods = [
     PaymentMethodModel(name: 'Cash On Delivery', image: AImages.applePay),
-    PaymentMethodModel(name: 'PayPal', image: AImages.paypal),
-    PaymentMethodModel(name: 'Stripe', image: AImages.paystack),
-    PaymentMethodModel(name: 'GPay', image: AImages.googlePay),
+    PaymentMethodModel(name: 'Stripe', image: AImages.paystack),   
   ];
 
   @override

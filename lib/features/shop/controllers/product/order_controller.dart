@@ -70,6 +70,7 @@ class OrderController extends GetxController {
         items: cartController.cartItems.toList(),
         paymentMethod: checkoutController.selectedPaymentMethod.value.name,
         shippingAddress: addressController.selectedAddress.value,
+        billingAddress:  addressController.selectedAddress.value,
         deliveryDate: DateTime.now().add(const Duration(days: 3)),
       );
 

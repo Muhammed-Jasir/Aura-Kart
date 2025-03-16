@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Aurakart</string>
+		<string>Dekozy</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -48,6 +48,6 @@
 		<key>UIStatusBarHidden</key>
 		<false/>
 		<key>io.flutter.embedded_views_preview</key>
-  		<true/>
+		<true/>
 	</dict>
 </plist>
