@@ -17,7 +17,7 @@ class APaymentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CheckoutController.instance;
-    
+
     return ListTile(
       contentPadding: const EdgeInsets.all(0),
       onTap: () {
@@ -31,8 +31,10 @@ class APaymentTile extends StatelessWidget {
             ? AColors.light
             : AColors.white,
         padding: const EdgeInsets.all(ASizes.sm),
-        child:
-            Image(image: AssetImage(paymentMethod.image), fit: BoxFit.contain),
+        child: Image(
+          image: AssetImage(paymentMethod.image),
+          fit: BoxFit.cover,
+        ),
       ),
       title: Text(paymentMethod.name),
       trailing: const Icon(Iconsax.arrow_right_34),
