@@ -19,7 +19,6 @@ class NavigationMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
     final darkMode = AHelperFunctions.isDarkMode(context);
-    final chatbotButtonController = Get.put(ChatbotButtonController());
 
     return Scaffold(
       bottomNavigationBar: Obx(
@@ -46,18 +45,8 @@ class NavigationMenu extends StatelessWidget {
       body: Stack(
         children: [
           Obx(() => controller.screens[controller.selectedIndex.value]),
-          const ChatbotButton(),
+          Positioned(bottom: 16, right: 16, child: const ChatbotButton()),
         ],
-      ),
-      floatingActionButton: Obx(
-        () {
-          return chatbotButtonController.isButtonVisible.value
-              ? const SizedBox()
-              : FloatingActionButton(
-                  onPressed: () => chatbotButtonController.showButton(),
-                  child: const Icon(Icons.restore),
-                );
-        },
       ),
     );
   }

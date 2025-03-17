@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aurakart/features/shop/controllers/product/order_controller.dart';
 import 'package:aurakart/utils/constants/api_constants.dart';
+import 'package:aurakart/utils/constants/text_strings.dart';
 import 'package:aurakart/utils/helpers/network_manager.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +13,17 @@ import 'package:http/http.dart' as http;
 import '../../../utils/constants/image_strings.dart';
 import '../../../utils/popups/full_screen_loader.dart';
 
-class PaymentController extends GetxController {
-  static PaymentController get instance => Get.find();
+class StripePaymentController extends GetxController {
+  static StripePaymentController get instance => Get.find();
 
   var paymentIntentData = Rx<Map<String, dynamic>?>(null);
+  RxBool paymentStatus = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    initStripe();
+  }
 
   Future<void> initStripe() async {
     Stripe.publishableKey = APIConstants.stripePublishableKey;
@@ -26,6 +34,8 @@ class PaymentController extends GetxController {
     try {
       await Stripe.instance.presentPaymentSheet();
 
+      paymentStatus.value = true;
+
       // Show Success Message
       ALoaders.successSnackBar(
         title: 'Congratulations',
@@ -34,15 +44,19 @@ class PaymentController extends GetxController {
 
       paymentIntentData.value = null;
     } on StripeException catch (e) {
+      paymentStatus.value = false;
       ALoaders.errorSnackBar(title: 'Payment Failed', message: e.toString());
     } catch (e) {
+      paymentStatus.value = false;
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     }
   }
 
   // Create Payment Intent
   Future<Map<String, dynamic>?> createPaymentIntent(
-      String amount, String currency) async {
+    String amount,
+    String currency,
+  ) async {
     try {
       // Request body
       Map<String, dynamic> paymentInfo = {
@@ -95,6 +109,7 @@ class PaymentController extends GetxController {
           title: 'No Internet',
           message: 'Please check your internet connection and try again.',
         );
+        paymentStatus.value = false;
         return;
       }
 
@@ -106,6 +121,7 @@ class PaymentController extends GetxController {
           title: 'Payment Failed',
           message: 'Failed to create payment intent. Please try again.',
         );
+        paymentStatus.value = false;
         return;
       }
 
@@ -114,45 +130,18 @@ class PaymentController extends GetxController {
         paymentSheetParameters: SetupPaymentSheetParameters(
           allowsDelayedPaymentMethods: true,
           paymentIntentClientSecret: paymentIntentData.value!['client_secret'],
-          customerId: paymentIntentData.value!['customer'],
           style: ThemeMode.system,
-          merchantDisplayName: 'Aurakart',
+          merchantDisplayName: ATexts.appName,
         ),
       );
 
       // Display Payment Sheet
       await showPaymentSheet();
     } catch (e) {
+      paymentStatus.value = false;
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
       AFullScreenLoader.stopLoading();
-    }
-  }
-
-  Future<void> processPayment(
-    String method,
-    double totalAmount,
-    double shippingCost,
-    double taxCost,
-  ) async {
-    try {
-      final orderController = Get.put(OrderController());
-
-      if (method == 'Stripe') {
-        await makeStripePayment(
-            amount: totalAmount.toString(), currency: 'inr');
-        orderController.processOrder(totalAmount, shippingCost, taxCost);
-      } else if (method == 'Cash On Delivery') {
-        orderController.processOrder(totalAmount, shippingCost, taxCost);
-      } else {
-        ALoaders.warningSnackBar(
-          title: 'Payment Method',
-          message:
-              'Payment method $method is not available yet. Please try again later.',
-        );
-      }
-    } catch (e) {
-      ALoaders.errorSnackBar(title: 'Payment Failed', message: e.toString());
     }
   }
 }

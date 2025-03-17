@@ -2,7 +2,7 @@ import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:aurakart/common/widgets/products/cart/coupon_widget.dart';
 import 'package:aurakart/common/widgets/success_screen/success_screen.dart';
-import 'package:aurakart/features/shop/controllers/payment_controller.dart';
+import 'package:aurakart/features/shop/controllers/stripe_payment_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/checkout_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/order_controller.dart';
@@ -28,7 +28,7 @@ class CheckoutScreen extends StatelessWidget {
     final darkMode = AHelperFunctions.isDarkMode(context);
 
     final cartController = CartController.instance;
-    final paymentController = Get.put(PaymentController());
+    final orderController = Get.put(OrderController());
     final checkoutController = Get.put(CheckoutController());
 
     return Scaffold(
@@ -102,11 +102,11 @@ class CheckoutScreen extends StatelessWidget {
             return ElevatedButton(
               onPressed: () {
                 // Get selected payment method
-                final selectedMethod =
+                final selectedPaymentMethod =
                     checkoutController.selectedPaymentMethod.value.name;
 
-                paymentController.processPayment(
-                    selectedMethod, totalAmount, shippingCost, taxCost);
+                orderController.processOrder(
+                    selectedPaymentMethod, totalAmount, shippingCost, taxCost);
               },
               child: Text('Checkout  ₹$totalAmount'),
             );

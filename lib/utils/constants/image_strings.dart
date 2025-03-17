@@ -8,8 +8,10 @@ class AImages {
   // Social Logos
   static const String google = "assets/logos/google.png";
   static const String facebook = "assets/logos/facebook.png";
-  //chatBot Backgroundimage
+
+  // ChatBot Background Image
   static const String chatImage = "assets/images/banners/20250316_233354.png";
+
   // OnBoarding Animations
   static const String onBoardingImage1 =
       "assets/images/on_boarding_animations/shopping.json";
@@ -40,16 +42,9 @@ class AImages {
   static const String user = "assets/images/profile/user.png";
 
   // Payment Methods
-  static const String applePay = "assets/icons/payment_methods/apple-pay.png";
-  static const String googlePay = "assets/icons/payment_methods/google-pay.png";
-  static const String creditCard =
-      "assets/icons/payment_methods/credit-card.png";
-  static const String masterCard =
-      "assets/icons/payment_methods/master-card.png";
-  static const String paypal = "assets/icons/payment_methods/paypal.png";
-  static const String visa = "assets/icons/payment_methods/visa.png";
-  static const String paystack = "assets/icons/payment_methods/paystack.png";
-  static const String paytm = "assets/icons/payment_methods/paytm.png";
+  static const String cashOnDelivery = "assets/icons/payment_methods/cash-on-delivery.png";
+  static const String stripe = "assets/icons/payment_methods/stripe.png";
+
   static const String successfulPaymentIcon =
       "assets/icons/payment_methods/successful_payment_icon.png";
 
