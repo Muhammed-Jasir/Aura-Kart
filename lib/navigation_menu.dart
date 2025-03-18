@@ -1,5 +1,6 @@
 import 'package:aurakart/features/chatbot/controller/chatbot_button_controller.dart';
 import 'package:aurakart/features/chatbot/screen/chatbot_button.dart';
+import 'package:aurakart/features/chatbot/screen/chatbot_screen.dart';
 import 'package:aurakart/features/personalization/screens/settings/settings.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/home/home.dart';
@@ -42,11 +43,13 @@ class NavigationMenu extends StatelessWidget {
           ],
         ),
       ),
-      body: Stack(
-        children: [
-          Obx(() => controller.screens[controller.selectedIndex.value]),
-          Positioned(bottom: 16, right: 16, child: const ChatbotButton()),
-        ],
+      body: Obx(() => controller.screens[controller.selectedIndex.value]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(() => const ChatbotScreen());
+        },
+        backgroundColor: AColors.primary,
+        child: const Icon(Iconsax.message, color: Colors.white),
       ),
     );
   }

@@ -11,6 +11,7 @@ import "package:aurakart/features/shop/screens/all_products/all_products.dart";
 import "package:aurakart/features/shop/screens/home/widgets/home_appbar.dart";
 import "package:aurakart/features/shop/screens/home/widgets/home_categories.dart";
 import "package:aurakart/features/shop/screens/home/widgets/promo_slider.dart";
+import "package:aurakart/features/shop/screens/search/search.dart";
 import "package:aurakart/utils/constants/colors.dart";
 import "package:aurakart/utils/constants/image_strings.dart";
 import "package:aurakart/utils/constants/sizes.dart";
@@ -37,19 +38,22 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 /// Header
-                const APrimaryHeaderContainer(
+                APrimaryHeaderContainer(
                   child: Column(
                     children: [
                       // Appbar
-                      AHomeAppbar(),
-                      SizedBox(height: ASizes.spaceBtwSections),
+                      const AHomeAppbar(),
+                      const SizedBox(height: ASizes.spaceBtwSections),
 
                       // Searchbar
-                      ASearchContainer(text: 'Search in Store'),
-                      SizedBox(height: ASizes.spaceBtwSections),
+                      ASearchContainer(
+                        text: 'Search in Store',
+                        onTap: () => Get.to(() => SearchScreen()),
+                      ),
+                      const SizedBox(height: ASizes.spaceBtwSections),
 
                       // Category Section
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(
                           left: ASizes.defaultSpace,
                           right: ASizes.defaultSpace,
@@ -71,7 +75,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(height: ASizes.spaceBtwSections),
+                      const SizedBox(height: ASizes.spaceBtwSections),
                     ],
                   ),
                 ),

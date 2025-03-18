@@ -16,6 +16,7 @@ import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/features/shop/screens/brand/all_brands.dart';
 import 'package:aurakart/features/shop/screens/brand/brand_products.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
+import 'package:aurakart/features/shop/screens/search/search.dart';
 import 'package:aurakart/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/enums.dart';
@@ -70,11 +71,12 @@ class StoreScreen extends StatelessWidget {
                       const SizedBox(height: ASizes.spaceBtwItems),
 
                       /// Search Bar
-                      const ASearchContainer(
+                      ASearchContainer(
                         text: 'Search in Store',
                         showBorder: true,
                         showBackground: false,
                         padding: EdgeInsets.zero,
+                        onTap: () => Get.to(() => const SearchScreen()),
                       ),
 
                       const SizedBox(height: ASizes.spaceBtwSections),
