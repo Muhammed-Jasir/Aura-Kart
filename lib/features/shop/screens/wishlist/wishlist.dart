@@ -1,7 +1,7 @@
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/common/widgets/icons/circular_icon.dart';
 import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
-import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
+import 'package:aurakart/common/widgets/products/product-cards/product_card_vertical.dart';
 import 'package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:aurakart/features/shop/controllers/product/favourites_controller.dart';
 import 'package:aurakart/features/shop/models/product_model.dart';

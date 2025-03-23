@@ -1,6 +1,6 @@
 import 'package:aurakart/common/widgets/brands/brand_show_case.dart';
 import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
-import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
+import 'package:aurakart/common/widgets/products/product-cards/product_card_vertical.dart';
 import 'package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart';
 import 'package:aurakart/common/widgets/texts/section_heading.dart';
 import 'package:aurakart/features/shop/controllers/category_controller.dart';

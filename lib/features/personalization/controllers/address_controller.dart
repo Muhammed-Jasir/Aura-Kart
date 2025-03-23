@@ -32,6 +32,12 @@ class AddressController extends GetxController {
 
   final addressRepository = Get.put(AddressRepository());
 
+  @override
+  void onInit() {
+    super.onInit();
+    getAllUserAddress();
+  }
+
   /// Fetch all user specific addresses
   Future<List<AddressModel>> getAllUserAddress() async {
     try {
@@ -163,7 +169,7 @@ class AddressController extends GetxController {
                     snapshot: snapshot);
 
                 if (response != null) return response;
-                
+
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,

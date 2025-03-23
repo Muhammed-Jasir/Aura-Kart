@@ -3,7 +3,7 @@ import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:aurakart/common/widgets/layouts/grid_layout.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
-import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
+import 'package:aurakart/common/widgets/products/product-cards/product_card_vertical.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 

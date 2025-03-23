@@ -43,13 +43,11 @@ class NavigationMenu extends StatelessWidget {
           ],
         ),
       ),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(() => const ChatbotScreen());
-        },
-        backgroundColor: AColors.primary,
-        child: const Icon(Iconsax.message, color: Colors.white),
+      body: Stack(
+        children: [
+          Obx(() => controller.screens[controller.selectedIndex.value]),
+          const ChatbotButton(),
+        ],
       ),
     );
   }

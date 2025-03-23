@@ -1,4 +1,3 @@
-import 'package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 

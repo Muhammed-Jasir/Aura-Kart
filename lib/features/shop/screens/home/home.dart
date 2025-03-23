@@ -2,7 +2,7 @@ import "package:aurakart/common/widgets/custom_shapes/container/primary_header_c
 import "package:aurakart/common/widgets/custom_shapes/container/search_container.dart";
 import "package:aurakart/common/widgets/layouts/grid_layout.dart";
 import "package:aurakart/common/widgets/products/cart/cart_menu_icon.dart";
-import "package:aurakart/common/widgets/products/product-cards/product_card_veritcal.dart";
+import 'package:aurakart/common/widgets/products/product-cards/product_card_vertical.dart';
 import "package:aurakart/common/widgets/shimmers/vertical_product_shimmer.dart";
 import "package:aurakart/common/widgets/texts/section_heading.dart";
 import "package:aurakart/features/shop/controllers/product/product_controller.dart";

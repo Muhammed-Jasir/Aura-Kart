@@ -10,6 +10,7 @@ class SearchProductController extends GetxController {
 
   final repository = ProductRepository.instance;
 
+  RxBool isFetching = false.obs;
   RxBool isLoading = false.obs;
 
   final searchTextController = TextEditingController();
@@ -20,14 +21,12 @@ class SearchProductController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (allProducts.isEmpty) {
-      fetchProducts();
-    }
+    fetchProducts();
   }
 
   Future<void> fetchProducts() async {
     try {
-      isLoading.value = true;
+      isFetching.value = true;
 
       final products = await repository.getAllFeaturedProducts();
       allProducts.assignAll(products);
@@ -36,7 +35,7 @@ class SearchProductController extends GetxController {
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
-      isLoading.value = false;
+      isFetching.value = false;
     }
   }
 
@@ -47,6 +46,8 @@ class SearchProductController extends GetxController {
         return;
       }
 
+      isLoading.value = true;
+
       filteredProducts.assignAll(
         allProducts
             .where((product) =>
@@ -55,6 +56,8 @@ class SearchProductController extends GetxController {
       );
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 }

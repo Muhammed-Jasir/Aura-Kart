@@ -34,14 +34,14 @@ class SubCategoriesScreen extends StatelessWidget {
           padding: const EdgeInsets.all(ASizes.defaultSpace),
           child: Column(
             children: [
-              /// Banner
-              const ARoundedImage(
-                width: double.infinity,
-                imageUrl: AImages.promoBanner3,
-                applyImageRadius: true,
-              ),
+              // /// Banner
+              // const ARoundedImage(
+              //   width: double.infinity,
+              //   imageUrl: AImages.promoBanner3,
+              //   applyImageRadius: true,
+              // ),
 
-              const SizedBox(height: ASizes.spaceBtwSections),
+              // const SizedBox(height: ASizes.spaceBtwSections),
 
               /// Sub-Categories
               FutureBuilder(
