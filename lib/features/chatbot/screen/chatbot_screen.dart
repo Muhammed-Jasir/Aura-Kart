@@ -1,181 +1,109 @@
-import 'package:aurakart/features/chatbot/models/chat_model.dart';
-import 'package:aurakart/utils/constants/colors.dart';
+import 'package:aurakart/common/widgets/appbar/appbar.dart';
+import 'package:aurakart/features/chatbot/controller/chat_controller.dart';
+import 'package:aurakart/features/chatbot/screen/chat/widgets/chat_bubble.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
+import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
 
-class ChatbotScreen extends StatefulWidget {
-  const ChatbotScreen({super.key});
+class ChatbotScreen extends StatelessWidget {
+  ChatbotScreen({super.key});
 
-  @override
-  State<ChatbotScreen> createState() => _ChatbotScreenState();
-}
-
-class _ChatbotScreenState extends State<ChatbotScreen> {
-  TextEditingController promptController = TextEditingController();
-  final model = GenerativeModel(model: "gemini-pro", apiKey: apiKey);
-  final List<ModelMessage> prompt = [];
-
-  Future<void> sendMessage() async {
-    final message = promptController.text;
-    setState(() {
-      promptController.clear();
-      prompt.add(ModelMessage(
-        isPrompt: true,
-        message: message,
-        time: DateTime.now(),
-      ));
-    });
-
-    final content = [Content.text(message)];
-    final response = await model.generateContent(content);
-
-    setState(() {
-      prompt.add(ModelMessage(
-        isPrompt: false,
-        message: response.text ?? "",
-        time: DateTime.now(),
-      ));
-    });
-  }
+  final controller = Get.put(ChatController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 3,
-        backgroundColor: AColors.primary,
-        title: const Text("Aurabot"),
-      ),
-      body: Stack(
-        children: [
-          // Background Image
-          Positioned.fill(
-            child: Image.asset(
-              AImages.chatImage,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          // Chat UI
-          Positioned.fill(
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: prompt.length,
-                    itemBuilder: (context, index) {
-                      final message = prompt[index];
-                      return userPrompt(
-                        isPrompt: message.isPrompt,
-                        date: DateFormat('hh:mm a').format(message.time),
-                        message: message.message,
-                      );
-                    },
-                  ),
+      appBar: AAppBar(
+        title: const Text("Dekozy Chatbot"),
+        showBackArrow: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              // Show info about chatbot
+              Get.dialog(
+                AlertDialog(
+                  title: const Text("About"),
+                  content: const Text(
+                      "I'm here to help you with product information and shopping assistance."),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Get.back(),
+                      child: const Text("OK"),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 20,
-                        child: TextField(
-                          controller: promptController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                          ),
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            hintText: "Type here...",
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          sendMessage();
-                        },
-                        child: const CircleAvatar(
-                          radius: 29,
-                          backgroundColor: Color.fromARGB(255, 247, 130, 130),
-                          child: Icon(
-                            Icons.send,
-                            color: Colors.white,
-                            size: 32,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ],
       ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AImages.chatImage),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          children: [
+            // Chat Messages
+            Expanded(
+              child: Obx(
+                () => ListView.builder(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ASizes.sm, vertical: ASizes.md),
+                  itemCount: controller.messages.length,
+                  itemBuilder: (context, index) {
+                    final message = controller.messages[index];
+                    return ChatBubble(
+                      isPrompt: message.isPrompt,
+                      message: message.message,
+                      time: DateFormat('hh:mm a').format(message.time),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            // Input Field
+            Padding(
+              padding: EdgeInsets.all(ASizes.md),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 20,
+                    child: TextField(
+                      controller: controller.promptController,
+                      style:
+                          const TextStyle(fontSize: 18, color: Colors.black),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        hintText: "Type here...",
+                        filled: true,
+                        fillColor: Colors.white70,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: ASizes.sm),
+                  GestureDetector(
+                    onTap: () => controller.sendMessage(),
+                    child: const CircleAvatar(
+                      radius: 28,
+                      backgroundColor: Color(0xFFF78282),
+                      child: Icon(Icons.send, color: Colors.white, size: 30),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
-}
-
-// Chat Bubble Widget
-Container userPrompt({
-  required final bool isPrompt,
-  required String date,
-  required String message,
-}) {
-  return Container(
-    width: double.infinity,
-    padding: const EdgeInsets.all(15),
-    margin: const EdgeInsets.symmetric(vertical: 15).copyWith(
-      left: isPrompt ? 80 : 15,
-      right: isPrompt ? 15 : 80,
-    ),
-    decoration: BoxDecoration(
-      color: isPrompt ? const Color.fromARGB(255, 247, 130, 130) : Colors.grey,
-      borderRadius: BorderRadius.only(
-        topLeft: const Radius.circular(20),
-        topRight: const Radius.circular(20),
-        bottomLeft: isPrompt ? const Radius.circular(20) : Radius.zero,
-        bottomRight: isPrompt ? Radius.zero : const Radius.circular(20),
-      ),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          message,
-          style: TextStyle(
-            fontWeight: isPrompt ? FontWeight.bold : FontWeight.normal,
-            fontSize: 18,
-            color: isPrompt ? Colors.white : Colors.black,
-          ),
-        ),
-        Text(
-          date,
-          style: TextStyle(
-            fontSize: 14,
-            color: isPrompt ? Colors.white : Colors.black,
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-// ModelMessage Class
-class ModelMessage {
-  final bool isPrompt;
-  final String message;
-  final DateTime time;
-
-  ModelMessage({
-    required this.isPrompt,
-    required this.message,
-    required this.time,
-  });
 }

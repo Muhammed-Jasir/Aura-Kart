@@ -65,7 +65,7 @@ class StripePaymentController extends GetxController {
         'payment_method_types[]': 'card',
       };
 
-      final stripeUrl = "https://api.stripe.com/v1/payment_intents";
+      final stripeUrl = APIConstants.stripeApiUrl;
 
       // Make post request to Stripe
       final response = await http.post(

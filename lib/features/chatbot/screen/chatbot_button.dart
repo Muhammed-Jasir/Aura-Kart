@@ -1,8 +1,11 @@
 import 'package:aurakart/features/chatbot/screen/chatbot_screen.dart';
 import 'package:aurakart/features/chatbot/controller/chatbot_button_controller.dart';
 import 'package:aurakart/features/shop/screens/home/home.dart';
+import 'package:aurakart/utils/device/device_utility.dart';
+import 'package:aurakart/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ChatbotButton extends StatelessWidget {
   const ChatbotButton({super.key});
@@ -10,15 +13,14 @@ class ChatbotButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ChatbotButtonController());
-    final screenSize = MediaQuery.of(context).size;
+    final screenSize = AHelperFunctions.screenSize();
 
-    const bottomNavHeight = 80.0;
+    final bottomNavHeight = ADeviceUtils.getBottomNavigationBarHeight();
 
     return Obx(
       () {
-        if (!controller.isButtonVisible.value) {
-          return const SizedBox();
-        }
+        if (!controller.isButtonVisible.value) return const SizedBox();
+
         return Stack(
           children: [
             Positioned(
@@ -29,14 +31,14 @@ class ChatbotButton extends StatelessWidget {
                 feedback: FloatingActionButton(
                   onPressed: null,
                   backgroundColor: Colors.blue.withValues(alpha: 0.5),
-                  child: const Icon(Icons.chat),
+                  child: Icon(Iconsax.message),
                 ),
                 childWhenDragging: const SizedBox(),
                 // Chat Button
                 child: FloatingActionButton(
                   backgroundColor: Colors.blue,
-                  onPressed: () => Get.to(() => const ChatbotScreen()),
-                  child: const Icon(Icons.chat),
+                  onPressed: () => Get.to(() => ChatbotScreen()),
+                  child: Icon(Iconsax.message),
                 ),
                 onDragEnd: (details) {
                   // Get new position
@@ -48,7 +50,7 @@ class ChatbotButton extends StatelessWidget {
                   controller.updatePosition(
                     Offset(newDx.toDouble(), newDy.toDouble()),
                     screenSize.width,
-                    screenSize.height
+                    screenSize.height,
                   );
                 },
               ),

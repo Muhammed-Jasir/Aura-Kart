@@ -10,6 +10,7 @@ class APIConstants {
   static String cloudinaryCloudName = dotenv.env['CLOUDINARY_CLOUD_NAME'] ?? '';
 
   static String openAIApiKey = dotenv.env['OPENAI_API_KEY'] ?? '';
+  static String geminiAIApiKey = dotenv.env['GEMINI_API_KEY'] ?? '';
 
   static getCloudinaryUploadUrl(String cloudName, String resourceType) {
     return 'https://api.cloudinary.com/v1_1/$cloudName/$resourceType/upload';
@@ -19,9 +20,14 @@ class APIConstants {
     return 'https://api.cloudinary.com/v1_1/$cloudName/$resourceType/destroy';
   }
 
-  static String stripePublishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
+  static String stripePublishableKey =
+      dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
 
   static String stripeSecretKey = dotenv.env['STRIPE_SECRET_KEY'] ?? '';
 
   static String stripeApiUrl = "https://api.stripe.com/v1/payment_intents";
+
+  static String rasaNgorkBaseUrl = dotenv.env['RASA_NGROK_URL'] ?? '';
+
+  static String rasaUrl = '$rasaNgorkBaseUrl/webhooks/rest/webhook';
 }

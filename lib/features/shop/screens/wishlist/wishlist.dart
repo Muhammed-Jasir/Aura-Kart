@@ -30,7 +30,10 @@ class FavouriteScreen extends StatelessWidget {
         actions: [
           ACircularIcon(
             icon: Iconsax.add,
-            onPressed: () => Get.to(const HomeScreen()),
+            onPressed: () {
+              final controller = NavigationController.instance;
+              controller.selectedIndex.value = 0;
+            },
           ),
         ],
       ),
