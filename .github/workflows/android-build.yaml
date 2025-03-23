@@ -39,6 +39,7 @@ jobs:
           echo "CLOUDINARY_UPLOAD_PRESET=${{ secrets.CLOUDINARY_UPLOAD_PRESET }}" >> .env
           echo "STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}" >> .env
           echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
+          echo "RASA_NGROK_URL=${{ secrets.RASA_NGROK_URL }}" >> .env
 
       - name: Install Dependencies
         run: flutter pub get
