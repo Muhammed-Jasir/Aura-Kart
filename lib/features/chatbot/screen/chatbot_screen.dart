@@ -32,10 +32,9 @@ class ChatbotScreen extends StatelessWidget {
         ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AAppBar(
-            title: const Text("Dekozy Chatbot",
-                style: TextStyle(fontWeight: FontWeight.bold)),
-            showBackArrow: true,
+          appBar: AppBar(
+            title: const Text("Dekozy Chatbot"),
+            automaticallyImplyLeading: false,
             actions: [
               IconButton(
                 icon: const Icon(Icons.delete_outline),

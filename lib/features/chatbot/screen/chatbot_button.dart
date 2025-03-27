@@ -32,14 +32,14 @@ class ChatbotButton extends StatelessWidget {
                 feedback: FloatingActionButton(
                   onPressed: null,
                   backgroundColor: AColors.primary.withValues(alpha: 0.5),
-                  child: Icon(Iconsax.message),
+                  child: Icon(Iconsax.message, color: Colors.white),
                 ),
                 childWhenDragging: const SizedBox(),
                 // Chat Button
                 child: FloatingActionButton(
                   backgroundColor: AColors.primary,
                   onPressed: () => Get.to(() => ChatbotScreen()),
-                  child: Icon(Iconsax.message),
+                  child: Icon(Iconsax.message, color: Colors.white),
                 ),
                 onDragEnd: (details) {
                   // Get new position
