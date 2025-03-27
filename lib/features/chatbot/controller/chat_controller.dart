@@ -13,6 +13,8 @@ class ChatController extends GetxController {
   static ChatController get instance => Get.find();
 
   final promptController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
+
   final RxList<ChatModel> messages = <ChatModel>[].obs;
   final RxBool isLoading = false.obs;
 
@@ -29,6 +31,24 @@ class ChatController extends GetxController {
         time: DateTime.now(),
       ),
     );
+
+    ever(messages, (_) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (scrollController.hasClients) {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    });
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
   }
 
   Future<void> sendMessage() async {

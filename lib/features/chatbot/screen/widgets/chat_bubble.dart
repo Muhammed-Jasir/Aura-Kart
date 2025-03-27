@@ -1,3 +1,4 @@
+import 'package:aurakart/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class ChatBubble extends StatelessWidget {
@@ -23,7 +24,7 @@ class ChatBubble extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         decoration: BoxDecoration(
-          color: isPrompt ? const Color(0xFFF78282) : Colors.grey[300],
+          color: isPrompt ? AColors.primary : Colors.grey[400],
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(20),
             topRight: const Radius.circular(20),

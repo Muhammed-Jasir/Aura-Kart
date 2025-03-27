@@ -1,6 +1,7 @@
 import 'package:aurakart/features/chatbot/screen/chatbot_screen.dart';
 import 'package:aurakart/features/chatbot/controller/chatbot_button_controller.dart';
 import 'package:aurakart/features/shop/screens/home/home.dart';
+import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/device/device_utility.dart';
 import 'package:aurakart/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +31,13 @@ class ChatbotButton extends StatelessWidget {
                 // Button when dragging
                 feedback: FloatingActionButton(
                   onPressed: null,
-                  backgroundColor: Colors.blue.withValues(alpha: 0.5),
+                  backgroundColor: AColors.primary.withValues(alpha: 0.5),
                   child: Icon(Iconsax.message),
                 ),
                 childWhenDragging: const SizedBox(),
                 // Chat Button
                 child: FloatingActionButton(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: AColors.primary,
                   onPressed: () => Get.to(() => ChatbotScreen()),
                   child: Icon(Iconsax.message),
                 ),

@@ -24,13 +24,13 @@ class UserReviewCard extends StatelessWidget {
               children: [
                 // User Avatar
                 const CircleAvatar(
-                  backgroundImage: AssetImage(AImages.userProfileImage1),
+                  backgroundImage: AssetImage(AImages.userProfileImage2),
                 ),
 
                 const SizedBox(width: ASizes.spaceBtwItems),
 
                 // Name
-                Text('Nigga', style: Theme.of(context).textTheme.titleLarge),
+                Text('Nihal', style: Theme.of(context).textTheme.titleLarge),
               ],
             ),
 
