@@ -58,4 +58,4 @@ cd dekozy
 - [Firebase Documentation](https://firebase.google.com/docs)
 - [Cloudinary Documentation](https://cloudinary.com/documentation)
 
-For further assistance, feel free to reach out or check the official documentation links above.
+For further assistance, feel free to reach out or check the official documentation links above-mentioned.
