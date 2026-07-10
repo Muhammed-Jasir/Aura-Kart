@@ -9,7 +9,9 @@ import 'package:aurakart/features/shop/screens/product_details/widgets/product_a
 import 'package:aurakart/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
 import 'package:aurakart/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:aurakart/features/shop/screens/product_details/widgets/rating_share_widget.dart';
+import 'package:aurakart/features/shop/controllers/review/review_controller.dart';
 import 'package:aurakart/features/shop/screens/product_reviews/product_reviews.dart';
+import 'package:aurakart/utils/formatters/formatter.dart';
 import 'package:aurakart/utils/constants/colors.dart';
 import 'package:aurakart/utils/constants/enums.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
@@ -27,6 +29,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final reviewController = ReviewController.getOrPut(product);
+
     return Scaffold(
       bottomNavigationBar: ABottomAddToCart(product: product),
       body: SingleChildScrollView(
@@ -45,7 +49,7 @@ class ProductDetailScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Rating & Share Button
-                  const ARatingAndShare(),
+                  ARatingAndShare(product: product),
 
                   /// Price, Title, Stack, & Brand
                   AProductMetaData(product: product),
@@ -104,20 +108,28 @@ class ProductDetailScreen extends StatelessWidget {
                   const SizedBox(height: ASizes.spaceBtwItems),
 
                   /// Reviews
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Title
-                      const ASectionHeading(
-                          title: 'Reviews (99)', showActionbutton: false),
+                  Obx(
+                    () {
+                      final reviewCount =
+                          reviewController.stats.value.totalReviews;
 
-                      // Arrow Button
-                      IconButton(
-                        icon: const Icon(Iconsax.arrow_right_3, size: 18),
-                        onPressed: () =>
-                            Get.to(() => const ProductReviewsScreens()),
-                      ),
-                    ],
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ASectionHeading(
+                            title:
+                                'Reviews (${AFormatter.formatCount(reviewCount)})',
+                            showActionbutton: false,
+                          ),
+                          IconButton(
+                            icon: const Icon(Iconsax.arrow_right_3, size: 18),
+                            onPressed: () => Get.to(
+                              () => ProductReviewsScreens(product: product),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
 
                   const SizedBox(height: ASizes.spaceBtwItems),

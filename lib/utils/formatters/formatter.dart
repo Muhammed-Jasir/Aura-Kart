@@ -14,6 +14,10 @@ class AFormatter {
     ).format(amount);
   }
 
+  static String formatCount(int count) {
+    return NumberFormat.decimalPattern().format(count);
+  }
+
   static String formatPhoneNumber(String phoneNumber) {
     // Format 10-digit Indian phone numbers as: 12345 67890
     if (phoneNumber.length == 10) {

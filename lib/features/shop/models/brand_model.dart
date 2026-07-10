@@ -32,6 +32,13 @@ class BrandModel {
   /// Empty Helper Function
   static BrandModel empty() => BrandModel(id: '', name: '', image: '');
 
+  static int? _parseProductsCount(dynamic value) {
+    if (value == null) return null;
+    if (value is int) return value;
+    if (value is num) return value.toInt();
+    return int.tryParse(value.toString());
+  }
+
   /// Convert model to Json structure so that you can store data in FireBase
   toJson() {
     return {
@@ -40,8 +47,8 @@ class BrandModel {
       'Image': image,
       'CreatedAt': createdAt,
       'IsFeatured': isFeatured,
-      'ProductsCount': productsCount = 0,
-      'UpdatedAt': updatedAt = DateTime.now(),
+      'ProductsCount': productsCount ?? 0,
+      'UpdatedAt': updatedAt ?? DateTime.now(),
     };
   }
 
@@ -57,7 +64,7 @@ class BrandModel {
         name: data['Name'] ?? '',
         image: data['Image'] ?? '',
         isFeatured: data['IsFeatured'] ?? false,
-        productsCount: data['ProductsCount'] ?? '',
+        productsCount: _parseProductsCount(data['ProductsCount']),
         createdAt:
             data.containsKey('CreatedAt') ? data['CreatedAt']?.toDate() : null,
         updatedAt:
@@ -78,7 +85,7 @@ class BrandModel {
         name: data['Name'] ?? '',
         image: data['Image'] ?? '',
         isFeatured: data['IsFeatured'] ?? false,
-        productsCount: int.parse((data['ProductsCount'] ?? 0).toString()),
+        productsCount: _parseProductsCount(data['ProductsCount']),
         createdAt:
             data.containsKey('CreatedAt') ? data['CreatedAt']?.toDate() : null,
         updatedAt:

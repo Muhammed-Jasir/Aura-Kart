@@ -16,7 +16,6 @@ import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/features/shop/screens/checkout/checkout.dart';
 import 'package:aurakart/features/shop/screens/order/order.dart';
 import 'package:aurakart/features/shop/screens/product_details/product_details.dart';
-import 'package:aurakart/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:aurakart/features/shop/screens/store/store.dart';
 import 'package:aurakart/features/shop/screens/sub_category/sub_catogories.dart';
 import 'package:aurakart/features/shop/screens/wishlist/wishlist.dart';
@@ -30,10 +29,6 @@ class AppRoutes {
     GetPage(name: ARoutes.store, page: () => const StoreScreen()),
     GetPage(name: ARoutes.favourites, page: () => const FavouriteScreen()),
     GetPage(name: ARoutes.settings, page: () => const SettingsScreen()),
-    GetPage(
-      name: ARoutes.productReviews,
-      page: () => const ProductReviewsScreens(),
-    ),
     GetPage(name: ARoutes.order, page: () => const OrderScreen()),
     GetPage(name: ARoutes.checkout, page: () => const CheckoutScreen()),
     GetPage(name: ARoutes.cart, page: () => const CartScreen()),

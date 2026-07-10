@@ -84,6 +84,7 @@ class StoreScreen extends StatelessWidget {
                       /// Featured Brands
                       ASectionHeading(
                         title: 'Featured Brands',
+                        textColor: darkMode ? AColors.white : AColors.dark,
                         onPressed: () => Get.to(() => const AllBrandsScreen()),
                       ),
 

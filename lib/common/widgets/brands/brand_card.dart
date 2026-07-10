@@ -15,15 +15,18 @@ class ABrandCard extends StatelessWidget {
     required this.showBorder,
     this.onTap,
     required this.brand,
+    this.productCount,
   });
 
   final BrandModel brand;
   final bool showBorder;
   final void Function()? onTap;
+  final int? productCount;
 
   @override
   Widget build(BuildContext context) {
-    // final darkMode = AHelperFunctions.isDarkMode(context);
+    final darkMode = AHelperFunctions.isDarkMode(context);
+    final count = productCount ?? brand.productsCount ?? 0;
 
     return GestureDetector(
       onTap: onTap,
@@ -58,11 +61,18 @@ class ABrandCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ABrandTitleWithVerifiedIcon(
-                      title: brand.name, brandTextSize: TextSizes.large),
+                    title: brand.name,
+                    brandTextSize: TextSizes.large,
+                    textColor: darkMode ? AColors.white : AColors.dark,
+                  ),
                   Text(
-                    '${brand.productsCount ?? 0} products',
+                    '$count products',
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelMedium,
+                    style: Theme.of(context).textTheme.labelMedium!.apply(
+                          color: darkMode
+                              ? AColors.white.withValues(alpha: 0.7)
+                              : null,
+                        ),
                   ),
                 ],
               ),

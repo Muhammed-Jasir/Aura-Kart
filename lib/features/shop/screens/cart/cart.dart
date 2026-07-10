@@ -38,31 +38,36 @@ class CartScreen extends StatelessWidget {
             onActionPressed: () => Get.off(() => const NavigationMenu()),
           );
 
-          return controller.cartItems.isEmpty
-              ? emptyWidget
-              : const SingleChildScrollView(
-                  child: Padding(
-                    padding: EdgeInsets.all(ASizes.defaultSpace),
+          if (controller.cartItems.isEmpty) {
+            return emptyWidget;
+          }
 
-                    /// Items in Cart
-                    child: ACartItems(),
-                  ),
-                );
+          return ListView(
+            padding: const EdgeInsets.fromLTRB(
+              ASizes.defaultSpace,
+              ASizes.defaultSpace,
+              ASizes.defaultSpace,
+              100,
+            ),
+            children: const [
+              ACartItems(),
+            ],
+          );
         },
       ),
 
       /// Checkout Button
-      bottomNavigationBar: controller.cartItems.isEmpty
-          ? const SizedBox()
-          : Padding(
-              padding: const EdgeInsets.all(ASizes.defaultSpace),
-              child: ElevatedButton(
-                onPressed: () => Get.to(() => const CheckoutScreen()),
-                child: Obx(
-                  () => Text('Checkout ₹${controller.totalCartPrice.value}'),
+      bottomNavigationBar: Obx(
+        () => controller.cartItems.isEmpty
+            ? const SizedBox()
+            : Padding(
+                padding: const EdgeInsets.all(ASizes.defaultSpace),
+                child: ElevatedButton(
+                  onPressed: () => Get.to(() => const CheckoutScreen()),
+                  child: Text('Checkout ₹${controller.totalCartPrice.value}'),
                 ),
               ),
-            ),
+      ),
     );
   }
 }

@@ -16,11 +16,12 @@ class ABrandShowcase extends StatelessWidget {
     super.key,
     required this.images,
     required this.brand,
+    this.productCount,
   });
 
   final BrandModel brand;
-  
   final List<String> images;
+  final int? productCount;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,11 @@ class ABrandShowcase extends StatelessWidget {
         child: Column(
           children: [
             // Brands with Product Count
-            ABrandCard(showBorder: false, brand: brand),
+            ABrandCard(
+              showBorder: false,
+              brand: brand,
+              productCount: productCount,
+            ),
             const SizedBox(height: ASizes.spaceBtwItems),
 
             // Brand Top 3 Product Images

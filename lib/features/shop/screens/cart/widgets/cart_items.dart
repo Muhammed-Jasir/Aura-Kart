@@ -22,6 +22,7 @@ class ACartItems extends StatelessWidget {
       () => ListView.separated(
         itemCount: controller.cartItems.length,
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         separatorBuilder: (_, __) =>
             const SizedBox(height: ASizes.spaceBtwSections),
         itemBuilder: (_, index) {

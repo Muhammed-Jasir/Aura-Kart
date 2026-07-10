@@ -119,6 +119,25 @@ class ProductRepository extends GetxController {
     }
   }
 
+  /// Get product count for a brand (live from Products collection).
+  Future<int> getProductCountForBrand({required String brandId}) async {
+    try {
+      final snapshot = await _db
+          .collection('Products')
+          .where('Brand.Id', isEqualTo: brandId)
+          .count()
+          .get();
+
+      return snapshot.count ?? 0;
+    } on FirebaseException catch (e) {
+      throw AFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw APlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong!. Please try again';
+    }
+  }
+
   Future<List<ProductModel>> getProductsForCategory({
     required String categoryId,
     int limit = 4,

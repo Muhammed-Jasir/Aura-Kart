@@ -31,8 +31,18 @@ class BrandController extends GetxController {
 
       allBrands.assignAll(brands);
 
-      featuredBrands
-          .assignAll(allBrands.where((brand) => brand.isFeatured).take(4));
+      final featured =
+          allBrands.where((brand) => brand.isFeatured).take(4).toList();
+
+      await Future.wait(
+        featured.map((brand) async {
+          brand.productsCount = await productRepository.getProductCountForBrand(
+            brandId: brand.id,
+          );
+        }),
+      );
+
+      featuredBrands.assignAll(featured);
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
@@ -65,6 +75,15 @@ class BrandController extends GetxController {
     } catch (e) {
       ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
       return [];
+    }
+  }
+
+  Future<int> getBrandProductCount({required String brandId}) async {
+    try {
+      return await productRepository.getProductCountForBrand(brandId: brandId);
+    } catch (e) {
+      ALoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return 0;
     }
   }
 }

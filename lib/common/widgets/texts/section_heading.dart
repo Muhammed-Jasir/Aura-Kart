@@ -26,10 +26,9 @@ class ASectionHeading extends StatelessWidget {
         // Heading Text
         Text(
           title,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall!
-              .apply(color: textColor),
+          style: Theme.of(context).textTheme.headlineSmall!.apply(
+                color: textColor ?? (darkMode ? AColors.white : AColors.dark),
+              ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),

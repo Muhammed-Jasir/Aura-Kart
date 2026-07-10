@@ -2,7 +2,14 @@ import 'package:aurakart/features/shop/screens/product_reviews/widgets/progress_
 import 'package:flutter/material.dart';
 
 class AOverallProductRating extends StatelessWidget {
-  const AOverallProductRating({super.key});
+  const AOverallProductRating({
+    super.key,
+    required this.averageRating,
+    required this.distribution,
+  });
+
+  final double averageRating;
+  final Map<int, double> distribution;
 
   @override
   Widget build(BuildContext context) {
@@ -10,17 +17,20 @@ class AOverallProductRating extends StatelessWidget {
       children: [
         Expanded(
           flex: 3,
-          child: Text('4.8', style: Theme.of(context).textTheme.displayLarge),
+          child: Text(
+            averageRating.toStringAsFixed(1),
+            style: Theme.of(context).textTheme.displayLarge,
+          ),
         ),
-        const Expanded(
+        Expanded(
           flex: 7,
           child: Column(
             children: [
-              ARatingProgressIndicator(text: '5', value: 1.0),
-              ARatingProgressIndicator(text: '4', value: 0.8),
-              ARatingProgressIndicator(text: '3', value: 0.6),
-              ARatingProgressIndicator(text: '2', value: 0.4),
-              ARatingProgressIndicator(text: '1', value: 0.2),
+              for (final star in [5, 4, 3, 2, 1])
+                ARatingProgressIndicator(
+                  text: '$star',
+                  value: distribution[star] ?? 0,
+                ),
             ],
           ),
         ),

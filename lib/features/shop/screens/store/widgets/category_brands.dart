@@ -5,6 +5,7 @@ import 'package:aurakart/common/widgets/shimmers/boxes_shimmer.dart';
 import 'package:aurakart/common/widgets/shimmers/list_tile_shimmer.dart';
 import 'package:aurakart/features/shop/controllers/brand_controller.dart';
 import 'package:aurakart/features/shop/models/category_model.dart';
+import 'package:aurakart/features/shop/models/product_model.dart';
 import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
 import 'package:aurakart/utils/helpers/cloud_helper_functions.dart';
@@ -53,7 +54,10 @@ class CategoryBrands extends StatelessWidget {
             final brand = brands[index];
 
             return FutureBuilder(
-              future: controller.getBrandProducts(brandId: brand.id, limit: 3),
+              future: Future.wait([
+                controller.getBrandProducts(brandId: brand.id, limit: 3),
+                controller.getBrandProductCount(brandId: brand.id),
+              ]),
               builder: (context, snapshot) {
                 /// Handle Loader ,No Record, Or Error Message
                 final widget = ACloudHelperFunctions.checkMultiRecordState(
@@ -63,10 +67,12 @@ class CategoryBrands extends StatelessWidget {
                 if (widget != null) return widget;
 
                 /// Record Found!
-                final products = snapshot.data!;
+                final products = snapshot.data![0] as List<ProductModel>;
+                final productCount = snapshot.data![1] as int;
 
                 return ABrandShowcase(
                   brand: brand,
+                  productCount: productCount,
                   images: products.map((e) => e.thumbnail).toList(),
                 );
               },
