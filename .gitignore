@@ -44,12 +44,15 @@ app.*.map.json
 
 # environment config file
 .env
+.env.*
+!.env.example
+
+# Firebase / platform config
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+lib/firebase_options.dart
 
 # generated files
 **/generated_plugin_registrant.*
 **/generated_plugins.*
 **/GeneratedPluginRegistrant.*
-
-# Firebase config files
-# android/app/google-services.json
-# ios/Runner/GoogleService-Info.plist

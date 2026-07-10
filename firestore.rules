@@ -1,0 +1,82 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/Users/$(request.auth.uid))
+        && get(/databases/$(database)/documents/Users/$(request.auth.uid)).data.Role == 'admin';
+    }
+
+    function isUserRole() {
+      return request.resource.data.Role == 'user';
+    }
+
+    // Shop catalog: public read, admin write
+    match /Products/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /Categories/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /Brands/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /BrandCategory/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /ProductCategory/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /Banners/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /Settings/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /Images/{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    // Users: own profile access; admins manage all users
+    match /Users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) && isUserRole();
+      allow update: if (isOwner(userId) && resource.data.Role == 'user' && isUserRole()) || isAdmin();
+      allow delete: if isAdmin();
+
+      match /Addresses/{addressId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Orders: users manage their own orders; admins manage all
+    match /Orders/{orderId} {
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow update, delete: if isAdmin();
+    }
+  }
+}
