@@ -15,12 +15,19 @@ class ALoginHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Logo
-        Image(
-          height: 150,
-          image: AssetImage(
-            darkMode ? AImages.lightAppLogo : AImages.darkAppLogo,
+        Center(
+          child: ClipOval(
+            child: Image(
+              height: 120,
+              width: 120,
+              fit: BoxFit.cover,
+              image: AssetImage(
+                darkMode ? AImages.darkAppLogo : AImages.lightAppLogo,
+              ),
+            ),
           ),
         ),
+        const SizedBox(height: ASizes.spaceBtwSections),
 
         // Title
         Text(
