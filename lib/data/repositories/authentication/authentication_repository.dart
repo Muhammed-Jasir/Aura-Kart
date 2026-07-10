@@ -2,6 +2,8 @@ import 'package:aurakart/data/repositories/user/user_repository.dart';
 import 'package:aurakart/features/authentication/screens/login/login.dart';
 import 'package:aurakart/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:aurakart/features/authentication/screens/signup/verify_email.dart';
+import 'package:aurakart/features/shop/controllers/product/cart_controller.dart';
+import 'package:aurakart/features/shop/controllers/product/favourites_controller.dart';
 import 'package:aurakart/navigation_menu.dart';
 import 'package:aurakart/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:aurakart/utils/exceptions/firebase_exceptions.dart';
@@ -34,8 +36,22 @@ class AuthenticationRepository extends GetxController {
     // Remove the splash screen
     FlutterNativeSplash.remove();
 
-    // Redirect to next Screen
-    screenRedirect();
+    // Redirect after the app shell is mounted.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      screenRedirect();
+    });
+    super.onReady();
+  }
+
+  Future<void> _loadUserLocalData() async {
+    if (!ALocalStorage.isInitialized) return;
+
+    if (Get.isRegistered<CartController>()) {
+      CartController.instance.loadCartITems();
+    }
+    if (Get.isRegistered<FavouritesController>()) {
+      await FavouritesController.instance.initFavourites();
+    }
   }
 
   // Function to Show Relevant Screen
@@ -47,6 +63,7 @@ class AuthenticationRepository extends GetxController {
       if (user.emailVerified) {
         /// Initialize user specific storage
         await ALocalStorage.init(user.uid);
+        await _loadUserLocalData();
 
         // If user email is verified move to navigation menu
         Get.offAll(() => const NavigationMenu());
@@ -184,14 +201,17 @@ class AuthenticationRepository extends GetxController {
       // Trigger the Authentication flow
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
 
+      // User cancelled the sign-in flow
+      if (userAccount == null) return null;
+
       // Obtain the auth details from request
-      final GoogleSignInAuthentication? googleAuth =
-          await userAccount?.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await userAccount.authentication;
 
       // Create a new credential
       final credentials = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
 
       return await _auth.signInWithCredential(credentials);

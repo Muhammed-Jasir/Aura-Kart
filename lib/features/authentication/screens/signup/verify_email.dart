@@ -31,8 +31,7 @@ class VerifyEmailScreen extends StatelessWidget {
         actions: [
           // To go back to Login Screen
           IconButton(
-            onPressed: () =>
-                Get.offAll(() => AuthenticationRepository.instance.logout()),
+            onPressed: () => AuthenticationRepository.instance.logout(),
             icon: const Icon(CupertinoIcons.clear),
           ),
         ],

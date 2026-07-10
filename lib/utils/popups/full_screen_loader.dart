@@ -40,8 +40,13 @@ class AFullScreenLoader {
 
   /// Stop the currently open loading dialog.
   /// This method doesn't return anything.
-  static stopLoading() {
-    Navigator.of(Get.overlayContext!)
-        .pop(); // Close the dialog using the Navigator
+  static void stopLoading() {
+    final overlayContext = Get.overlayContext;
+    if (overlayContext == null) return;
+
+    final navigator = Navigator.of(overlayContext);
+    if (navigator.canPop()) {
+      navigator.pop();
+    }
   }
 }

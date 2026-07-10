@@ -21,7 +21,7 @@ class ACartCouterIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final darkMode = AHelperFunctions.isDarkMode(context);
-    final controller = Get.put(CartController());
+    final controller = Get.find<CartController>();
 
     return Stack(
       children: [

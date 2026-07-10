@@ -4,11 +4,9 @@ import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/helpers/network_manager.dart';
 import 'package:aurakart/utils/popups/full_screen_loader.dart';
 import 'package:aurakart/utils/popups/loaders.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
   /// Variables
@@ -95,6 +93,11 @@ class LoginController extends GetxController {
       // Google authentication
       final userCredentials =
           await AuthenticationRepository.instance.signInWithGoogle();
+
+      if (userCredentials == null) {
+        AFullScreenLoader.stopLoading();
+        return;
+      }
 
       // Save User Record
       await userController.saveUserRecord(userCredentials);

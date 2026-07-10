@@ -5,11 +5,16 @@ class ALocalStorage {
 
   // Singleton instance
   static ALocalStorage? _instance;
+  static bool _isInitialized = false;
 
   ALocalStorage._internal();
 
+  static bool get isInitialized => _isInitialized;
+
   factory ALocalStorage.instance() {
-    _instance ??= ALocalStorage._internal();
+    if (!_isInitialized || _instance == null) {
+      throw StateError('ALocalStorage is not initialized. Call init() first.');
+    }
     return _instance!;
   }
 
@@ -17,6 +22,7 @@ class ALocalStorage {
     await GetStorage.init(bucketName);
     _instance = ALocalStorage._internal();
     _instance!._storage = GetStorage(bucketName);
+    _isInitialized = true;
   }
 
   // Generic method to save data

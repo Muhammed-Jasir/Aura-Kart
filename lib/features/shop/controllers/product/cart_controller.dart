@@ -17,8 +17,9 @@ class CartController extends GetxController {
 
   final variationController = VariationController.instance;
 
-  // Constructor
-  CartController() {
+  @override
+  void onInit() {
+    super.onInit();
     loadCartITems();
   }
 
@@ -187,11 +188,15 @@ class CartController extends GetxController {
   }
 
   void saveCartItems() {
+    if (!ALocalStorage.isInitialized) return;
+
     final cartItemStrings = cartItems.map((item) => item.toJson()).toList();
     ALocalStorage.instance().writeData('cartItems', cartItemStrings);
   }
 
   void loadCartITems() {
+    if (!ALocalStorage.isInitialized) return;
+
     final cartItemStrings =
         ALocalStorage.instance().readData<List<dynamic>>('cartItems');
 

@@ -36,21 +36,25 @@ class VerifyEmailController extends GetxController {
   /// Timer to Automatically redirect on Email verification
   setTimerForAutoRedirect() {
     Timer.periodic(
-      const Duration(seconds: 1),
+      const Duration(seconds: 3),
       (timer) async {
-        await FirebaseAuth.instance.currentUser?.reload();
-        final user = FirebaseAuth.instance.currentUser;
-        if (user?.emailVerified ?? false) {
-          timer.cancel();
-          Get.off(
-            () => SuccessScreen(
-              image: AImages.successfullyRegisterAnimation,
-              title: ATexts.yourAccountCreatedTitle,
-              subTitle: ATexts.yourAccountCreatedSubTitle,
-              onPressed: () =>
-                  AuthenticationRepository.instance.screenRedirect(),
-            ),
-          );
+        try {
+          await FirebaseAuth.instance.currentUser?.reload();
+          final user = FirebaseAuth.instance.currentUser;
+          if (user?.emailVerified ?? false) {
+            timer.cancel();
+            Get.off(
+              () => SuccessScreen(
+                image: AImages.successfullyRegisterAnimation,
+                title: ATexts.yourAccountCreatedTitle,
+                subTitle: ATexts.yourAccountCreatedSubTitle,
+                onPressed: () =>
+                    AuthenticationRepository.instance.screenRedirect(),
+              ),
+            );
+          }
+        } catch (_) {
+          // Ignore transient network/auth errors while polling verification.
         }
       },
     );

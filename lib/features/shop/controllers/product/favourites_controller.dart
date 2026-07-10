@@ -21,6 +21,8 @@ class FavouritesController extends GetxController {
 
   // Method to initialize favopurite by reading from storgae
   Future<void> initFavourites() async {
+    if (!ALocalStorage.isInitialized) return;
+
     final json = ALocalStorage.instance().readData('favourites');
     if (json != null) {
       final storedFavourites = jsonDecode(json) as Map<String, dynamic>;
@@ -49,6 +51,8 @@ class FavouritesController extends GetxController {
   }
 
   void saveFavoritesToStorage() {
+    if (!ALocalStorage.isInitialized) return;
+
     final encodedFavorites = json.encode(favorites);
     ALocalStorage.instance().writeData('favorites', encodedFavorites);
   }
