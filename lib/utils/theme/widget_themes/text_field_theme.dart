@@ -40,8 +40,7 @@ class ATextFieldTheme {
       borderSide: const BorderSide(width: 2, color: AColors.warning),
     ),
 
-    isDense: true,
-    contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
   );
 
   // Dark Theme For Text Field
@@ -78,7 +77,6 @@ class ATextFieldTheme {
       borderRadius: BorderRadius.circular(ASizes.inputFieldRadius),
       borderSide: const BorderSide(width: 2, color: AColors.warning),
     ),
-    isDense: true,
-    contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
   );
 }

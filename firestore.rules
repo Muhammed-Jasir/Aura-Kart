@@ -74,9 +74,8 @@ service cloud.firestore {
 
     // Orders: users manage their own orders; admins manage all
     match /Orders/{orderId} {
-      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
       allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
-      allow update, delete: if isAdmin();
+      allow create, update, delete: if isAdmin();
     }
 
     // Reviews: public read; users write own review; admins can reply

@@ -187,30 +187,29 @@ class UserController extends GetxController {
         maxHeight: 512,
       );
 
-      // Delete old image from cloudinary
-      if (user.value.profilePicture.isNotEmpty) {
-        await userRepository.deleteImageFromCloudinary(user.value.profilePicture);
-      }
-
       if (image != null) {
         imageUploading.value = true;
+
+        // Delete old image only after we know a new one was picked
+        if (user.value.profilePicture.isNotEmpty) {
+          await userRepository
+              .deleteImageFromCloudinary(user.value.profilePicture);
+        }
+
         final imageUrl = await userRepository.uploadImageToCloudinary(
           'aurakart/customer',
           image,
         );
 
-        Map<String, dynamic> json = {
-          'ProfilePicture': imageUrl,
-        };
-
+        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
         await userRepository.updateSingleField(json);
 
         user.value.profilePicture = imageUrl;
         user.refresh();
 
         ALoaders.successSnackBar(
-          title: 'Congratulations!',
-          message: 'Profile Picture Updated Successfully',
+          title: 'Updated!',
+          message: 'Profile picture updated successfully',
         );
       }
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:aurakart/common/widgets/appbar/appbar.dart';
 import 'package:aurakart/data/repositories/authentication/authentication_repository.dart';
 import 'package:aurakart/common/widgets/custom_shapes/container/primary_header_container.dart';
@@ -9,11 +10,12 @@ import 'package:aurakart/features/personalization/screens/address/address.dart';
 import 'package:aurakart/features/shop/screens/cart/cart.dart';
 import 'package:aurakart/features/shop/screens/order/order.dart';
 import 'package:aurakart/utils/constants/colors.dart';
-import 'package:aurakart/utils/constants/image_strings.dart';
 import 'package:aurakart/utils/constants/sizes.dart';
+import 'package:aurakart/utils/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -28,7 +30,6 @@ class SettingsScreen extends StatelessWidget {
             APrimaryHeaderContainer(
               child: Column(
                 children: [
-                  /// Appbar
                   AAppBar(
                     title: Text(
                       "Account",
@@ -38,108 +39,98 @@ class SettingsScreen extends StatelessWidget {
                           .apply(color: AColors.white),
                     ),
                   ),
-
                   const SizedBox(height: ASizes.spaceBtwSections),
-
-                  /// User Profile Card
                   AUserProfileTile(
                     onPressed: () => Get.to(() => const ProfileScreen()),
                   ),
-
                   const SizedBox(height: ASizes.spaceBtwSections),
                 ],
               ),
             ),
 
-            /// Body
             Padding(
               padding: const EdgeInsets.all(ASizes.defaultSpace),
               child: Column(
                 children: [
-                  /// Account Settings
+                  /// Account Settings — only functional items
                   const ASectionHeading(
                     title: 'Account Settings',
                     showActionbutton: false,
                   ),
-
                   const SizedBox(height: ASizes.spaceBtwItems),
 
                   ASettingsMenuTile(
                     icon: Iconsax.safe_home,
                     title: 'My Addresses',
-                    subtitle: "Set shopping delivery address",
+                    subtitle: 'Manage delivery addresses',
                     onTap: () => Get.to(() => const UserAddressScreen()),
                   ),
 
                   ASettingsMenuTile(
                     icon: Iconsax.shopping_cart,
                     title: 'My Cart',
-                    subtitle: "Add, remove products and move to checkout",
+                    subtitle: 'View and edit your cart',
                     onTap: () => Get.to(() => const CartScreen()),
                   ),
 
                   ASettingsMenuTile(
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',
-                    subtitle: "In-progress and Completed Orders",
+                    subtitle: 'Track orders and view history',
                     onTap: () => Get.to(() => const OrderScreen()),
-                  ),
-
-                  ASettingsMenuTile(
-                    icon: Iconsax.bank,
-                    title: 'Bank Account',
-                    subtitle: "Withdraw balance to registered bank account",
-                    onTap: () {},
-                  ),
-
-                  ASettingsMenuTile(
-                    icon: Iconsax.discount_shape,
-                    title: 'My Coupons',
-                    subtitle: "List of all the discounted coupons",
-                    onTap: () {},
-                  ),
-
-                  ASettingsMenuTile(
-                    icon: Iconsax.notification,
-                    title: 'Notifications',
-                    subtitle: "Set any kind of notification message",
-                    onTap: () {},
-                  ),
-
-                  ASettingsMenuTile(
-                    icon: Iconsax.security_card,
-                    title: 'Account Privacy',
-                    subtitle: "Mange data usage and Connected accounts",
-                    onTap: () {},
                   ),
 
                   const SizedBox(height: ASizes.spaceBtwSections),
 
                   /// App Settings
                   const ASectionHeading(
-                      title: "App Settings", showActionbutton: false),
+                    title: 'App Settings',
+                    showActionbutton: false,
+                  ),
+                  const SizedBox(height: ASizes.spaceBtwItems),
 
+                  // Dark / Light mode toggle
+                  Obx(() {
+                    final tc = ThemeController.instance;
+                    return ASettingsMenuTile(
+                      icon: tc.isDarkMode.value
+                          ? Iconsax.moon
+                          : Iconsax.sun_1,
+                      title: 'Appearance',
+                      subtitle: tc.isDarkMode.value
+                          ? 'Dark mode is on'
+                          : 'Light mode is on',
+                      trailing: Switch(
+                        value: tc.isDarkMode.value,
+                        onChanged: (_) => tc.toggleTheme(),
+                        activeThumbColor: AColors.primary,
+                      ),
+                    );
+                  }),
+                  const ASectionHeading(
+                    title: 'Legal',
+                    showActionbutton: false,
+                  ),
                   const SizedBox(height: ASizes.spaceBtwItems),
 
                   ASettingsMenuTile(
-                    icon: Iconsax.location,
-                    title: "Geolocation",
-                    subtitle: "Set recommendation based on location",
-                    trailing: Switch(value: true, onChanged: (value) {}),
+                    icon: Iconsax.shield_tick,
+                    title: 'Privacy Policy',
+                    subtitle: 'How we handle your data',
+                    onTap: () => launchUrl(
+                      Uri.parse('https://dekozy.example.com/privacy'),
+                      mode: LaunchMode.externalApplication,
+                    ),
                   ),
 
                   ASettingsMenuTile(
-                    icon: Iconsax.security_user,
-                    title: "Safe Mode",
-                    subtitle: "Search result is safe for all ages",
-                    trailing: Switch(value: false, onChanged: (value) {}),
-                  ),
-
-                  ASettingsMenuTile(
-                    icon: Iconsax.image,
-                    title: "HD Image Quality",
-                    subtitle: "Set image quality to be seen",
-                    trailing: Switch(value: false, onChanged: (value) {}),
+                    icon: Iconsax.document_text,
+                    title: 'Terms of Service',
+                    subtitle: 'Usage terms and conditions',
+                    onTap: () => launchUrl(
+                      Uri.parse('https://dekozy.example.com/terms'),
+                      mode: LaunchMode.externalApplication,
+                    ),
                   ),
 
                   const SizedBox(height: ASizes.spaceBtwSections),
@@ -148,8 +139,54 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () =>
-                          AuthenticationRepository.instance.logout(),
+                      onPressed: () => Get.dialog(
+                        BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: AlertDialog(
+                            backgroundColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AColors.darkerGrey
+                                    : AColors.white,
+                            title: const Text('Logout',
+                                textAlign: TextAlign.center),
+                            content: const Text(
+                                'Are you sure you want to logout?',
+                                textAlign: TextAlign.center),
+                            actionsAlignment: MainAxisAlignment.center,
+                            actionsPadding: const EdgeInsets.only(
+                                bottom: ASizes.md, left: ASizes.md, right: ASizes.md),
+                            actions: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: OutlinedButton(
+                                      onPressed: () => Get.back(),
+                                      child: const Text('Cancel'),
+                                    ),
+                                  ),
+                                  const SizedBox(width: ASizes.spaceBtwItems),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () =>
+                                          AuthenticationRepository.instance
+                                              .logout(),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red,
+                                        side: const BorderSide(
+                                            color: Colors.red),
+                                      ),
+                                      child: const Text('Logout',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        barrierColor: Colors.black.withValues(alpha: 0.3),
+                      ),
                       child: const Text('Logout'),
                     ),
                   ),
@@ -162,3 +199,4 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
+

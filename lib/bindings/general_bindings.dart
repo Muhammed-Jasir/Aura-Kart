@@ -5,11 +5,13 @@ import 'package:aurakart/features/shop/controllers/product/checkout_controller.d
 import 'package:aurakart/features/shop/controllers/product/favourites_controller.dart';
 import 'package:aurakart/features/shop/controllers/product/variation_controller.dart';
 import 'package:aurakart/utils/helpers/network_manager.dart';
+import 'package:aurakart/utils/theme/theme_controller.dart';
 import 'package:get/get.dart';
 
 class GeneralBindings extends Bindings {
   @override
   void dependencies() {
+    Get.put(ThemeController());
     Get.put(NetworkManager());
     Get.put(ReviewRepository());
     Get.put(VariationController());
@@ -19,3 +21,4 @@ class GeneralBindings extends Bindings {
     Get.put(FavouritesController());
   }
 }
+

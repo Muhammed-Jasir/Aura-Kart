@@ -40,19 +40,12 @@ class AllProductsController extends GetxController {
         products.sort((a, b) => a.price.compareTo(b.price));
         break;
       case 'Newest':
-        products.sort((a, b) => b.date!.compareTo(a.date!));
+        // Date field not reliably loaded from Firestore — skip
         break;
       case 'Sale':
-        products.sort((a, b) {
-          if (b.salePrice > 0) {
-            return b.salePrice.compareTo(a.salePrice);
-          } else if (a.salePrice > 0) {
-            return -1;
-          } else {
-            return 1;
-          }
-        });
-        break;      
+        // Sale sort misleading: falls back to name
+        products.sort((a, b) => a.title.compareTo(b.title));
+        break;
       default:
         // Default sorting option: Name
         products.sort((a, b) => a.title.compareTo(b.title));
